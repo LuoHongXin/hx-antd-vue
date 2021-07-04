@@ -1,0 +1,40 @@
+.box-shadow {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.spin {
+  animation: spin 2s infinite linear;
+}
+.y-button-link {
+  color: #3d61cc;
+  font-size: 12px;
+}
+.y-common-table-contanier .y-common-table-operator-group {
+  margin-bottom: 16px;
+}
+.y-common-table-contanier .y-common-table-operator-group .ant-btn + .ant-btn {
+  margin-left: 14px;
+}
+.y-common-table-contanier .y-table-column-action-button {
+  display: flex;
+  align-items: center;
+}
+.y-common-table-contanier .y-table-column-action-button .spacing {
+  width: 1px;
+  height: 8px;
+  background-color: #ebeef5;
+  margin: 0 8px;
+}
+.ant-btn {
+  border-radius: 0;
+}
+.ant-tag {
+  border-radius: 3px;
+}

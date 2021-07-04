@@ -1,0 +1,49 @@
+.y-link-tag {
+  .y-link-tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    li {
+      list-style-type: none;
+      height: 32px;
+      line-height: 32px;
+      opacity: 1;
+      background: #ffffff;
+      padding: 0 16px;
+      border: 1px solid #dcdfe6;
+      border-radius: 3px;
+      margin-right: 16px;
+      margin-bottom: 5px;
+      cursor: pointer;
+      position: relative;
+      .y-link-tag-mark {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
+    }
+    .activeClass {
+      border-color: #d93934;
+    }
+    .y-tag-is-disabled {
+      color: #ccc !important;
+      &:hover {
+        color: #c0c4cc;
+        cursor: not-allowed;
+        background-image: none;
+      }
+    }
+  }
+
+  .y-ul-is-disabled {
+    color: #ccc !important;
+    li {
+      &:hover {
+        color: #c0c4cc;
+        cursor: not-allowed;
+        background-image: none;
+      }
+    }
+  }
+}

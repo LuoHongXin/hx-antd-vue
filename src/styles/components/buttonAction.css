@@ -1,0 +1,33 @@
+.y-button-action {
+  color: #3d61cc;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-block;
+}
+.y-button-action i {
+  font-size: 12px;
+}
+.y-button-action .icon-right {
+  padding-left: 3px;
+}
+.y-button-action .icon-left {
+  padding-right: 3px;
+}
+.y-button-action .y-button-action-small {
+  font-size: 12px;
+}
+.y-button-action .y-button-action-large {
+  font-size: 16px;
+}
+.y-button-action .y-button-action-default {
+  font-size: 14px;
+}
+.y-button-action-is-disabled {
+  color: #ccc !important;
+}
+.y-button-action-is-disabled:hover {
+  color: #c0c4cc;
+  cursor: not-allowed;
+  background-image: none;
+}

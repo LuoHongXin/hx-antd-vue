@@ -1,0 +1,10 @@
+.y-button-link {
+  color: #3d61cc;
+  font-size: 12px;
+}
+.ant-btn {
+  border-radius: 0;
+}
+.ant-tag {
+  border-radius: 3px;
+}
