@@ -72,6 +72,6 @@ yarn add gulp gulp-autoprefixer gulp-clean-css gulp-less gulp-rename --dev 测�
 
 ## 更新日志
 
-### 1.0.1
+### 1.0.0
 
 -- 发布第一版 hx-antd-vue
