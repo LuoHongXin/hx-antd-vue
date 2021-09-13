@@ -1,5 +1,8 @@
 # hx-antd-vue
 
+API 文档：<a href="https://luohongxin.github.io/hx-antd-vue/dist/#/introduce">hx-antd-vue API 文档</a>
+代码地址：<a href="https://github.com/LuoHongXin/hx-antd-vue">hx-antd-vue 仓库</a>
+
 ## 基于 ant-design-vue 封装的UI组件库
 
 ```
