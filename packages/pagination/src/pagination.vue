@@ -9,7 +9,7 @@
       :total="total"
       show-quick-jumper
       show-size-changer
-      :show-total="(total) => `共${allPage}页 ${total} 项`"
+      :show-total="total => `共${allPage}页 ${total} 项`"
       @change="handleCurrentChange"
       @showSizeChange="handleSizeChange"
     />

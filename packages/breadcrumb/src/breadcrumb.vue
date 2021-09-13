@@ -1,7 +1,7 @@
 <template>
   <a-breadcrumb class="y-breadcrumb" separator="/">
     <a-breadcrumb-item v-for="(item, index) in levelList" :key="item.path">
-      <span v-if="item.redirect === 'noRedirect' || index == levelList.length - 1" class="no-redirect">{{ item.meta.title }}</span>
+      <span v-if="item.meta.redirect === 'noRedirect' || index == levelList.length - 1" class="no-redirect">{{ item.meta.title }}</span>
       <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
     </a-breadcrumb-item>
   </a-breadcrumb>
@@ -26,14 +26,14 @@ export default {
   methods: {
     getBreadcrumb() {
       // only show routes with meta.title
-      let matched = this.$route.matched.filter((item) => item.meta && item.meta.title);
+      let matched = this.$route.matched.filter(item => item.meta && item.meta.title);
 
       // const first = matched[0];
       // if (!this.isDashboard(first)) {
       //   matched = [{ path: '/dashboard', meta: { title: 'Dashboard' } }].concat(matched);
       // }
 
-      this.levelList = matched.filter((item) => item.meta && item.meta.title && item.meta.breadcrumb !== false);
+      this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false);
     },
     isDashboard(route) {
       const name = route && route.name;
@@ -49,12 +49,12 @@ export default {
       return toPath(params);
     },
     handleLink(item) {
-      const { redirect, path , meta } = item;
+      const { redirect, path, meta } = item;
       if (meta.redirect) {
         this.$router.push(meta.redirect);
         return;
       }
-      if (redirect && redirect.slice(0, 1) === "/") {
+      if (redirect && redirect.slice(0, 1) === '/') {
         this.$router.push(redirect);
         return;
       }

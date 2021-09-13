@@ -6,6 +6,6 @@ export default {
   name: 'YCommon',
 };
 </script>
-<style lang="less">
+<style lang="less" scoped>
 @import '~/src/styles/common/index.less';
 </style>

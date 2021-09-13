@@ -1,0 +1,194 @@
+<script>
+// 基于 a-table 的基础上再封装
+import { Table } from 'ant-design-vue';
+export default {
+  name: 'YTable',
+  extends: Table,
+  model: {
+    prop: 'selectedData',
+    event: 'update-selectedData',
+  },
+  props: {
+    // 选中的数据
+    selectedData: {
+      type: Array,
+      default: function() {
+        return [];
+      },
+    },
+    // 选中的key，可用于操控组件选中数据
+    modelKeys: {
+      type: Array,
+      default: function() {
+        return [];
+      },
+    },
+    // 是否支持点击row选中，默认支持
+    rowClick: {
+      type: Boolean,
+      default: function() {
+        return true;
+      },
+    },
+  },
+  created() {
+    // 继承传入的事件函数，在调用时一并执行
+    if (this.rowSelection) {
+      this.oldOnSelect = this.rowSelection.onSelect || function() {};
+      this.oldOnSelectAll = this.rowSelection.onSelectAll || function() {};
+      this.oldOnChange = this.rowSelection.onChange || function() {};
+      this.set();
+    }
+  },
+  mounted() {
+    // 判断是否支持行点击
+    if (this.rowClick && this.rowSelection && (this.selectedData || this.modelKeys)) {
+      this.setRowClick();
+    }
+  },
+  watch: {
+    modelKeys() {
+      this.set();
+    },
+    dataSource: function(val) {
+      const rowKeyArr = val.map(item => {
+        return this.getRowKey(this.rowKey, item);
+      });
+      // 每次表格数据发生改变时（增删），确保选中 modelKeys 还保留在 dataSource 中
+      const modelKeys = this.modelKeys.filter(item => {
+        return rowKeyArr.includes(item);
+      });
+      // 每次表格数据发生改变时（增删），确保受控 modelKeys 和 selectedData 保持一致
+      const selectedData = this.selectedData.filter(item => {
+        return modelKeys.includes(this.getRowKey(this.rowKey, item));
+      });
+      this.$emit('update:modelKeys', modelKeys);
+      this.$emit('update-selectedData', selectedData);
+    },
+  },
+  methods: {
+    oldOnSelect: function() {},
+    oldOnSelectAll: function() {},
+    oldOnChange: function() {},
+    set() {
+      const { oldOnSelect, oldOnSelectAll, oldOnChange } = this;
+      const rowKey = this.rowKey;
+      const getRowKey = this.getRowKey;
+      this.rowSelection.onChange = (selectedRowKeys, selectedRows) => {
+        this.$emit('update:modelKeys', selectedRowKeys);
+        oldOnChange(selectedRowKeys, selectedRows);
+      };
+      this.rowSelection.onSelect = (record, selected, selectedRows, nativeEvent) => {
+        oldOnSelect(record, selected, selectedRows, nativeEvent);
+        if (!this.selectedData) return;
+        let selectedData = [...this.selectedData];
+        if (selected) {
+          selectedData.push(record);
+        } else {
+          selectedData = selectedData.filter(item => {
+            if (getRowKey(rowKey, item) != getRowKey(rowKey, record)) {
+              return item;
+            }
+          });
+        }
+        this.$emit('update-selectedData', selectedData);
+      };
+      this.rowSelection.onSelectAll = (selected, selectedRows, changeRows) => {
+        oldOnSelectAll(selected, selectedRows, changeRows);
+        if (!this.selectedData) return;
+        let selectedData = [...this.selectedData];
+        if (selected) {
+          // 全选
+          selectedData = selectedData.concat(changeRows);
+        } else {
+          // 取消全选
+          const changeRowsId = changeRows.map(item => {
+            return getRowKey(rowKey, item);
+          });
+          selectedData = selectedData.filter(item => {
+            if (!changeRowsId.includes(getRowKey(rowKey, item))) {
+              return item;
+            }
+          });
+        }
+        this.$emit('update-selectedData', selectedData);
+      };
+    },
+    setRowClick() {
+      const _this = this;
+      this.$el.onclick = function(ev) {
+        const targetKey = ev.target.parentNode.getAttribute('data-row-key');
+        if (targetKey) {
+          let selectedRowKeys = [];
+          let selectedData = _this.selectedData;
+          const rowKey = _this.rowKey;
+          const getRowKey = _this.getRowKey;
+          let isExit = false;
+          if (selectedData) {
+            selectedData = selectedData.filter(item => {
+              const itemKey = getRowKey(rowKey, item);
+              if (itemKey !== targetKey) {
+                selectedRowKeys.push(itemKey);
+                return item;
+              } else {
+                isExit = true;
+              }
+            });
+          } else {
+            selectedRowKeys = _this.modelKeys.filter(item => {
+              if (item !== targetKey) {
+                return item;
+              } else {
+                isExit = true;
+              }
+            });
+          }
+
+          // 选中状态
+          if (!isExit) {
+            // 若为单选，则清空，只赋值一个值
+            if (_this.rowSelection.type === 'radio') {
+              selectedRowKeys = [];
+              selectedData = [];
+            }
+            selectedRowKeys.push(targetKey);
+            // 有绑定 v-model
+            if (selectedData) {
+              _this.dataSource.forEach(item => {
+                if (getRowKey(rowKey, item) === targetKey) {
+                  selectedData.push(item);
+                }
+              });
+            }
+          }
+          _this.$emit('update-selectedData', selectedData);
+          _this.$emit('update:modelKeys', selectedRowKeys);
+        }
+      };
+    },
+    getRowKey(rowKey, record) {
+      return typeof rowKey === 'function' ? rowKey(record) : record[rowKey];
+    },
+  },
+};
+</script>
+<style lang="less" scoped>
+.resize-table-th {
+  position: relative;
+  .table-draggable-handle {
+    height: 100% !important;
+    bottom: 0;
+    left: auto !important;
+    right: -5px;
+    cursor: col-resize;
+    touch-action: none;
+  }
+}
+.table-draggable-handle {
+  transform: none !important;
+  position: absolute;
+}
+// .ant-table-empty .ant-table-body {
+//   overflow-x: hidden !important;
+// }
+</style>

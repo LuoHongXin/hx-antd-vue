@@ -25,7 +25,7 @@
           </a-tag>
         </span>
         <template v-slot:action>
-          <div class="y-table-column-action-button">
+          <!-- <div class="y-table-column-action-button">
             <y-button-action text="新增" :disabled="true" @click="add" />
             <span class="spacing"></span>
             <y-button-action text="修改" @click="update" />
@@ -40,16 +40,39 @@
                   <a-icon type="down" />
                 </template>
               </y-button-action>
-              <a-menu>
+              <a-menu slot="overlay">
                 <a-menu-item>
                   <a href="javascript:;">a</a>
                 </a-menu-item>
               </a-menu>
             </a-dropdown>
-          </div>
-        </template>
-      </a-table></template
-    >
+          </div> -->
+          <y-table-action-button
+            :buttonList="[
+              {
+                text: '新增',
+                click: add,
+                disabled: true,
+                show: true,
+              },
+              {
+                text: '修改',
+                click: update,
+                show: true,
+              },
+              {
+                text: '复制',
+                click: add,
+                show: true,
+              },
+              {
+                text: '删除',
+                show: true,
+              },
+            ]"
+          ></y-table-action-button>
+        </template> </a-table
+    ></template>
   </y-table-box>
 </template>
 
@@ -206,19 +229,19 @@ export default {
 </script>
 
 <style lang="less">
-.resize-table-th {
-  position: relative;
-  .table-draggable-handle {
-    height: 100% !important;
-    bottom: 0;
-    left: auto !important;
-    right: -5px;
-    cursor: col-resize;
-    touch-action: none;
-  }
-}
-.table-draggable-handle {
-  transform: none !important;
-  position: absolute;
-}
+// .resize-table-th {
+//   position: relative;
+//   .table-draggable-handle {
+//     height: 100% !important;
+//     bottom: 0;
+//     left: auto !important;
+//     right: -5px;
+//     cursor: col-resize;
+//     touch-action: none;
+//   }
+// }
+// .table-draggable-handle {
+//   transform: none !important;
+//   position: absolute;
+// }
 </style>

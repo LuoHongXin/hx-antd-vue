@@ -25,7 +25,7 @@ module.exports = {
   //   filename: '[name].js',
   //   libraryTarget: 'commonjs2',
   //   libraryExport: 'default',
-  //   library: 'hx-antd-vue',
+  //   library: 'wh-component',
   // },
   // externals: {
   //   vue: 'vue',
@@ -58,7 +58,7 @@ module.exports = {
       .set('@', path.resolve('examples'))
       .set('~', path.resolve('packages'))
       .set('@src', path.resolve('src'))
-      .set('hx-antd-vue', path.resolve('packages/index'));
+      .set('wh-component', path.resolve('packages/index'));
 
     // 把 packages 和 examples 加入编译，因为新增的文件默认是不被 webpack 处理的
     config.module
@@ -73,6 +73,22 @@ module.exports = {
         // 修改它的选项...
         return options;
       });
+    // set svg-sprite-loader
+    config.module
+      .rule("svg")
+      .exclude.add(path.join(__dirname, "./src/icons"))
+      .end();
+    config.module
+      .rule("icons")
+      .test(/\.svg$/)
+      .include.add(path.join(__dirname, "./src/icons"))
+      .end()
+      .use("svg-sprite-loader")
+      .loader("svg-sprite-loader")
+      .options({
+        symbolId: "icon-[name]"
+      })
+      .end();
   },
   pluginOptions: {
     // 引入全局less变量的方式

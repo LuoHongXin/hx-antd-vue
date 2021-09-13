@@ -8,19 +8,28 @@ export default {
     // 是否支持移动窗口，默认为 true 支持移动
     move: {
       type: Boolean,
-      default: function () {
+      default: function() {
         return true;
       },
     },
     maskClosable: {
-      type:Boolean,
-      default:function () {
+      type: Boolean,
+      default: function() {
         return false;
-      }
+      },
+    },
+  },
+  mounted() {
+    if (this.visible) {
+      // 打开弹窗添加移动事件
+      this.setMove();
+      return;
     }
+    // 关闭弹窗移除移动事件
+    this.relMove();
   },
   watch: {
-    visible: function (val) {
+    visible: function(val) {
       // 打开弹窗添加移动事件
       if (val && this.move) {
         this.setMove();
@@ -34,25 +43,28 @@ export default {
     this.relMove();
   },
   methods: {
-    mouseDown: function (ev) {
+    mouseDown: function(ev) {
       // 只有头部才可以拖拽
       if (ev.target.className === 'ant-modal-header' || ev.target.className === 'ant-modal-title') {
         const offsetX = ev.offsetX;
         const offsetY = ev.offsetY;
-        const contentArr = document.getElementsByClassName('ant-modal')
+        const contentArr = document.getElementsByClassName('ant-modal');
         let content = null;
-        const searchContent = (arr,index) => {
-          if (!arr[index]) return {}
-          if (arr[index].style.display == "none") {searchContent(arr,index-1);return;}
-          content = arr[index]
-        }
-        searchContent(contentArr,contentArr.length-1)
+        const searchContent = (arr, index) => {
+          if (!arr[index]) return {};
+          if (arr[index].style.display == 'none') {
+            searchContent(arr, index - 1);
+            return;
+          }
+          content = arr[index];
+        };
+        searchContent(contentArr, contentArr.length - 1);
         content.style.position = 'absolute';
         content.style.padding = 0;
         content.style.left = ev.clientX - parseInt(content.style.width) / 2 + 'px'; // 鼠标点击时默认取弹窗表头中间位置
         content.style.top = ev.clientY + 'px';
         // 滑动事件添加到 body 上会更顺滑，避免滑动过快突然卡顿现象
-        document.body.onmousemove = function (ev2) {
+        document.body.onmousemove = function(ev2) {
           let left = ev2.clientX - offsetX;
           let top = ev2.clientY - offsetY;
           const maxLeft = document.body.clientWidth - content.offsetWidth;
@@ -72,7 +84,7 @@ export default {
         };
       }
     },
-    mouseup: function () {
+    mouseup: function() {
       document.body.onmousemove = null;
     },
     setMove() {

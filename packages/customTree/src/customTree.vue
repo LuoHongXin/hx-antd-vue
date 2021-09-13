@@ -10,7 +10,7 @@
           </a-tooltip>
 
           <a-dropdown :trigger="['click']" placement="bottomLeft">
-            <img src="@src/images/operate.png" alt="" srcset="" class="y-custom-tree-operate" @click="(e) => e.preventDefault()" />
+            <img src="@src/images/operate.png" alt="" srcset="" class="y-custom-tree-operate" @click="e => e.preventDefault()" />
             <a-menu slot="overlay">
               <a-menu-item key="0">
                 <a href="javascript:;">创建下级</a>
@@ -87,6 +87,6 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @import '~/src/styles/components/customTree.less';
 </style>

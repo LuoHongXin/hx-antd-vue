@@ -221,21 +221,21 @@ export default {
 </script>
 
 <style lang="less">
-.resize-table-th {
-  position: relative;
-  .table-draggable-handle {
-    height: 100% !important;
-    bottom: 0;
-    left: auto !important;
-    right: -5px;
-    cursor: col-resize;
-    touch-action: none;
-  }
-}
-.table-draggable-handle {
-  transform: none !important;
-  position: absolute;
-}
+// .resize-table-th {
+//   position: relative;
+//   .table-draggable-handle {
+//     height: 100% !important;
+//     bottom: 0;
+//     left: auto !important;
+//     right: -5px;
+//     cursor: col-resize;
+//     touch-action: none;
+//   }
+// }
+// .table-draggable-handle {
+//   transform: none !important;
+//   position: absolute;
+// }
 .y-common-table-operator-group-1 {
   display: flex;
 }

@@ -12,6 +12,10 @@ import YsvgIcon from './svgIcon';
 import Ybreadcrumb from './breadcrumb';
 import Ytag from './tag';
 import Ymodal from './modal';
+import YtableActionButton from './tableActionButton';
+import Ytable from './table';
+import YtipsButton from './tipsButton';
+import YTagInput from './tagInput';
 
 export {
   Style,
@@ -28,4 +32,8 @@ export {
   Ybreadcrumb,
   Ytag,
   Ymodal,
+  YtableActionButton,
+  Ytable,
+  YtipsButton,
+  YTagInput
 };

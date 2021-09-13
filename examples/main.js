@@ -4,11 +4,16 @@ import App from './App.vue';
 import 'ant-design-vue/dist/antd.css';
 import router from './router';
 import store from '../src/store';
+import mixins  from './mixins';
+import "@src/icons";
 import '@src/styles/index.less'; // global css
 Vue.config.productionTip = false;
-import winhongcomponent from '../packages/index';
-Vue.use(winhongcomponent);
-
+import hxAntdVue from '../packages/index';
+Vue.use(hxAntdVue);
+import * as viewTemplate from "./views/view-template";
+for (let name of Object.keys(viewTemplate)) {
+  Vue.component(viewTemplate[name].name, viewTemplate[name])
+}
 // import YButton from '~/button/src/button.vue';
 // import YPagination from '~/pagination/src/pagination.vue';
 // import YButtonAction from '~/buttonAction/src/buttonAction.vue';
@@ -48,7 +53,7 @@ Vue.use(winhongcomponent);
 // Vue.use(Modal);
 
 Vue.use(Antd);
-
+Vue.mixin(mixins);
 new Vue({
   router,
   store,

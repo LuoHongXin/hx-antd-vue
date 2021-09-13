@@ -42,10 +42,10 @@ export default {
       },
       default: 'default',
     },
-    closable: {
-      type: Boolean,
-      default: true,
-    },
+    // closable: {
+    //   type: Boolean,
+    //   default: true,
+    // },
     selectType: {
       //1:多选 2:单选 默认为多选
       type: Number,

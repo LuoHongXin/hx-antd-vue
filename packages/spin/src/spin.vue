@@ -86,6 +86,6 @@ export default {
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @import '~/src/styles/components/spin.less';
 </style>
