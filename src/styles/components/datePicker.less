@@ -1,0 +1,29 @@
+@import "../variables/index.less";
+.y-date-picker.ant-calendar-picker, .y-range-picker.ant-calendar-picker, .y-month-picker.ant-calendar-picker, .y-week-picker.ant-calendar-picker {
+    .ant-calendar-picker-input {
+        border-radius: @y-radius-default;
+    }
+    &:hover {
+      .ant-calendar-picker-input:not(.ant-input-disabled) {
+        border-color: @y-color-text-regular;
+          &:hover, &:focus {
+            border-color: @y-color-text-regular;
+          }
+      }
+    }
+    .ant-calendar-picker-input:not(.ant-input-disabled) {
+      &:hover {
+        border-color: @y-color-text-regular;
+      }
+      &:focus {
+        border-color: @y-color-text-regular;
+        box-shadow:@y-shadow-active;
+      }
+    }
+    &:focus {
+      .ant-calendar-picker-input:not(.ant-input-disabled) {
+        border-color: @y-color-text-regular;
+        box-shadow:@y-shadow-active;
+      }
+    }
+}

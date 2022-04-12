@@ -1,4 +1,27 @@
-.y-button-link {
-  color: #3d61cc; // button链接样式
-  font-size: 12px;
+.text-ellipsis{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+}
+/*滚动条整体样式*/
+::-webkit-scrollbar {
+  width: 4px; /*高宽分别对应横竖滚动条的尺寸*/
+}
+::-webkit-scrollbar-thumb {
+  /*滚动条里面小方块*/
+  border-radius: 10px;
+  box-shadow: 0px 16px 32px 0px rgba(36, 41, 46, 0.08),
+    0px 2px 4px 0px rgba(36, 41, 46, 0.04);
+  background: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-track {
+  /*滚动条里面轨道*/
+  border-radius: 10px;
+  background: none;
+}
+.auto-width-form{
+  .y-form-width-xs,.y-form-width-s,.y-form-width-m,.y-form-width-l,.y-form-width-xl {
+    width: 100%;
+  }
 }

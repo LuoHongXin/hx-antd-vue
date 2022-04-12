@@ -1,43 +1,105 @@
-@import '../variables.less';
-.y-button {
-  font-size: @font-size;
-  height: @button-height;
-  padding: 0 1em;
-  border-radius: @border-radius;
-  border: 1px solid @border-color;
-  background: @button-bg;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  vertical-align: middle;
-  &:hover {
-    border-color: @border-color-hover;
-  }
-  &:active {
-    background-color: @button-active-bg;
-  }
-  &:focus {
-    outline: none;
-  }
-  > .y-button-content {
-    order: 2;
-  }
-  > .icon {
-    order: 1;
-    margin-right: 0.1em;
-  }
-
-  &.icon-right {
-    > .y-button-content {
-      order: 1;
+@import "../variables/index.less";
+.y-button-link {
+    color: @y-color-text-link; // button链接样式
+    font-size: @y-font-size-m;
+}
+.y-btn.ant-btn{
+    line-height: 1.5;
+    border-radius: @y-radius-default;
+}
+.y-btn.ant-btn[disabled]{
+    color: @y-color-text-placeholder;
+}
+// 主按钮
+.y-btn.ant-btn-primary:not([disabled]) {
+    text-shadow:unset;
+    box-shadow:unset;
+}
+// 危险按钮
+.y-btn.ant-btn-danger:not([disabled]) {
+    background-color:@y-color-fill-bg-white;
+    border-color:@y-color-error-border;
+    color: @y-color-error;
+    text-shadow:unset;
+    box-shadow:unset;
+    &:hover{
+    border-color:@y-color-error;
+    background-color:@y-color-fill-bg-white;
+    color: @y-color-error;
     }
-    > .icon {
-      order: 2;
-      margin-right: 0;
-      margin-left: 0.1em;
+    &:active{
+    border-color:@y-color-error;
+    background-color:@y-color-fill-bg-white;
+    color: @y-color-error;
     }
-  }
-  .loading {
-    .spin;
-  }
+}
+// 文字按钮高亮
+.y-btn.ant-btn-link:not([disabled]) {
+        color: @y-color-info;
+        padding: 0;
+    &:hover{
+        color: @y-color-info-hover;
+    }
+    &:active{
+        color: @y-color-info-pressed;
+    }
+    // 收起展开按钮图标特殊
+    span +.anticon-down,span +.anticon-up {
+        font-size: 10px;
+        margin-left: @y-spacing-xxs;
+    }
+}
+// 次要按钮
+.y-btn.ant-btn-icon-only:not(.ant-btn-primary,.no-bg),.y-btn.ant-btn-default:not([disabled],.no-bg ) {
+    border: @y-border-width-default @y-border-style-default @y-color-border-dark;
+    color: @y-color-text-regular;
+    &:hover{
+        border: @y-border-width-default @y-border-style-default @y-color-border-dark-hover; 
+    }
+    &:active{
+        border: @y-border-width-default @y-border-style-default @y-color-border-dark-hover;
+        box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.1);
+    }
+}
+// 文字按钮
+.y-btn.ant-btn-icon-only.no-bg,.y-btn.ant-btn-text {
+    border: none;
+    box-shadow:none;
+    background-color: transparent;
+    &:not([disabled]){
+        color: @y-color-text-regular;
+        &:hover{
+            color: @y-color-text-regular;
+            background: linear-gradient(0deg, @y-color-fill-hover, @y-color-fill-hover);
+        }
+       &:active{
+            color: @y-color-text-regular;
+            box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.1);
+        }
+    }
+    &[disabled]{
+        background-color: transparent;
+    }
+}
+// ant-btn-dashed {
+.y-btn.ant-btn-dashed:not([disabled]) {
+    background-color: @y-color-fill-normal-btn;
+    border: 1px dashed @y-color-border-dark;
+    color: @y-color-text-regular;
+    &:hover{
+        background-color: @y-color-fill-normal-btn;
+        border:1px dashed @y-color-border-dark-hover;
+        color: @y-color-text-regular;
+    }
+    &:active{
+        background-color: @y-color-fill-normal-btn;
+        box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.1);
+        border:1px dashed @y-color-border-dark-hover;
+        color: @y-color-text-regular;
+    }
+}  
+// 无背景（文字）
+.y-btn.ant-btn.no-bg {
+    background: none;
+    border: none;
 }

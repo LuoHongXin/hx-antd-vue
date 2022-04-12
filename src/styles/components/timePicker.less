@@ -1,0 +1,22 @@
+@import "../variables/index.less";
+.y-time-picker {
+  width: 212px;
+  .ant-time-picker-input {
+    border-radius: @y-radius-default;
+  }
+  .ant-time-picker-input:not(:disabled) {
+    border-radius: @y-radius-default;
+    &:hover {
+      border-color:@y-color-text-regular;
+      box-shadow:@y-shadow-active;
+    }
+  }
+}
+.y-time-picker-popup .ant-time-picker-panel-select {
+  .ant-time-picker-panel-select-option-selected {
+    background: @y-color-primary-light !important;
+  }
+  li:hover {
+    background: @y-color-fill-hover;
+  }
+}

@@ -1,5 +1,6 @@
 <template>
-  <a-tag :color="color" class="y-tag">
+  <a-tag v-on="$listeners" :color="iconObject.color" v-bind="$attrs" class="y-tag">
+    <a-icon v-if="iconObject.iconType" :type="iconObject.iconType" :theme="iconObject.iconTheme" />
     <slot></slot>
   </a-tag>
 </template>
@@ -13,15 +14,52 @@
 
 export default {
   name: 'YTag',
-  props: {
-    color: {
-      type: String,
-      default: '',
+  computed: {
+    iconObject: {
+      get() {
+        return this.statusFilter(this.$attrs);
+      },
+    },
+  },
+  methods: {
+    statusFilter($attrs) {
+      let color = $attrs.color;
+      let iconType = null;
+      let iconTheme = 'filled';
+      if (!$attrs.color && $attrs.status) {
+        switch ($attrs.status) {
+          case 'waiting':
+            iconType = 'clock-circle';
+            break;
+          case 'success':
+            color = 'green';
+            iconType = 'check-circle';
+            break;
+          case 'normal':
+            color = 'geekblue';
+            iconType = 'loading';
+            iconTheme = null;
+            break;
+          case 'error':
+            color = 'red';
+            iconType = 'close-circle';
+            break;
+          case 'warning':
+            color = 'gold';
+            iconType = 'info-circle';
+            break;
+          case 'seriousWarning':
+            color = 'volcano';
+            iconType = 'info-circle';
+            break;
+        }
+      }
+      return { color, iconType, iconTheme };
     },
   },
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @import '~/src/styles/components/tag.less';
 </style>

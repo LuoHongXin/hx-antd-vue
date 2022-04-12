@@ -1,0 +1,18 @@
+@import "../variables/index.less";
+.y-radio-group.ant-radio-group {
+  .ant-radio-button-wrapper:first-child {
+    border-radius: @y-radius-left;
+  }
+  .ant-radio-button-wrapper:last-child {
+    border-radius: @y-radius-right;
+  }
+  .ant-radio-button-wrapper {
+    background: @y-color-fill-bg-white;
+  }
+  .ant-radio-button-wrapper-disabled {
+    background: @y-color-fill-disable;
+  }
+  .ant-radio-button-wrapper-checked.ant-radio-button-wrapper-disabled {
+    background: #e6e6e6;
+  }
+}

@@ -52,7 +52,7 @@ export default {
       get() {
         let arr = this.linkTagValue.split(',');
         let labelArr = [];
-        this.dataSource.forEach((item) => {
+        this.dataSource.forEach(item => {
           if (arr.includes(item.value)) {
             labelArr.push(item.label);
           }
@@ -65,7 +65,7 @@ export default {
       },
       set(val) {
         let valueArr = [];
-        this.dataSource.forEach((item) => {
+        this.dataSource.forEach(item => {
           if (val.includes(item.label)) {
             valueArr.push(item.value);
           }
@@ -105,7 +105,7 @@ export default {
       // 初始所有标签
       // 格式{label: "CNware",value: "1"}
       type: Array,
-      default: function () {
+      default: function() {
         return [];
       },
     },
@@ -113,19 +113,19 @@ export default {
       // 选中的标签
       // dataSource的选中的value数组
       type: Array,
-      default: function () {
+      default: function() {
         return [];
       },
     },
     canAdd: {
       type: Boolean,
-      default: function () {
+      default: function() {
         return true;
       },
     },
     themeColor: {
-      default: function () {
-        return 'red';
+      default: function() {
+        return '#454852';
       },
     },
   },
@@ -136,7 +136,7 @@ export default {
     inputNewTag() {
       let newTagVal = this.newTagVal;
       let hasdata = false;
-      this.dataSource.forEach((item) => {
+      this.dataSource.forEach(item => {
         if (item.label === newTagVal) {
           hasdata = true;
         }
@@ -156,12 +156,13 @@ export default {
       this.dropdownView = !this.dropdownView;
     },
     closeTag(obj) {
-      this.selectValue = this.selectValue.filter((item) => {
+      this.selectValue = this.selectValue.filter(item => {
         return item != obj;
       });
     },
     tagClickEvent(e) {
       if (
+        e.toElement &&
         e.toElement.className &&
         e.toElement.className.includes &&
         !e.toElement.className.includes('y-link-tag-mark') && // 点击选中的tag不需关闭
@@ -174,7 +175,7 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .tagInput {
   display: inline-block;
   width: 100%;
@@ -191,22 +192,22 @@ export default {
     position: relative;
     display: inline-block;
     width: 100%;
-    min-height: 32px;
-    padding: 4px 11px;
-    color: rgba(0, 0, 0, 0.65);
-    font-size: 14px;
+    min-height: @y-height-m;
+    padding: @y-spacing-xxs @y-spacing-s;
+    color: @y-color-text-regular;
+    font-size: @y-font-size-m;
     line-height: 1.5;
     background-color: #fff;
     background-image: none;
-    border: 1px solid #d9d9d9;
-    border-radius: 4px;
+    border: 1px solid @y-color-border-dark;
+    border-radius: @y-radius-default;
     transition: all 0.3s;
   }
   .dropdown {
     top: 110%;
     margin: 0;
     padding: 8px;
-    color: rgba(0, 0, 0, 0.65);
+    color: @y-color-text-regular;
     position: absolute;
     z-index: 1050;
     box-sizing: border-box;
@@ -234,8 +235,5 @@ export default {
   margin-bottom: 5px;
   cursor: pointer;
   position: relative;
-}
-.y-link-tag .y-link-tag-list .y-tag-item {
-  margin-right: 8px;
 }
 </style>

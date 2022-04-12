@@ -1,0 +1,15 @@
+@import "../variables/index.less";
+.y-auto-complete {
+  .ant-input-affix-wrapper .ant-input-prefix {
+    color: @y-color-text-placeholder;
+  }
+}
+.y-auto-complete.ant-select-auto-complete {
+  .ant-input:not([disabled]) {
+    border-radius: @y-radius-default;
+    &:focus, &:hover {
+      border-color: @y-color-text-regular;
+      box-shadow:@y-shadow-active;
+    }
+  }
+}

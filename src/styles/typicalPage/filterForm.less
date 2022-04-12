@@ -1,0 +1,57 @@
+@import "../variables/index.less";
+.y-filter-form {
+    margin-bottom: @y-spacing-m;
+    border-bottom: 1px solid #EBEEF5;
+    .auto-width-form.ant-row {
+        &::before,&::after{
+            display: none;
+        }
+    }
+  .ant-row {
+      .ant-col {
+          .y-form-item.ant-form-item {
+              display: flex;
+              margin-bottom: 16px;
+              .ant-form-item-label {
+                  line-height: 32.2px;
+                  overflow: hidden;
+                  white-space: nowrap;
+                  text-overflow: ellipsis;
+                  .anticon {
+                      margin-left: @y-spacing-xxs;
+                  }
+              }
+              .ant-form-item-control {
+                  line-height: 32px;
+                }
+          }
+      }
+      // 单列布局
+      &[layouttype='1col'] {
+          .ant-col.btn-col{
+              padding-left: 8.3% !important;
+              margin-bottom: @y-spacing-m;;
+          }
+          .btn-col {
+              text-align: left;
+              margin-top: 0;
+              .y-btn {
+                  margin-left:0;
+                  margin-right: @y-spacing-xs;
+                  &:last-child {
+                      margin-right: 0;
+                  }
+              }
+          }
+      }
+      .btn-col {
+          text-align: right;
+          .y-btn {
+              margin-left: @y-spacing-xs;
+              &:first-child {
+                  margin-left: 0;
+              }
+          }
+      }
+  }
+}

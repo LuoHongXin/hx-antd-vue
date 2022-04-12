@@ -1,10 +1,27 @@
 <template>
-  <a-breadcrumb class="y-breadcrumb" separator="/">
-    <a-breadcrumb-item v-for="(item, index) in levelList" :key="item.path">
-      <span v-if="item.meta.redirect === 'noRedirect' || index == levelList.length - 1" class="no-redirect">{{ item.meta.title }}</span>
-      <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
-    </a-breadcrumb-item>
-  </a-breadcrumb>
+  <div class="breadcrumb-container">
+    <div class="back-btn" v-if="back" @click="goBack">
+      <a-icon type="left" />
+      <span>返回</span>
+    </div>
+    <a-breadcrumb class="y-breadcrumb" :separator="separator">
+      <a-breadcrumb-item v-for="(item, index) in levelList2" :key="item.path">
+        <template v-if="item.isEllips">
+          <span @click="ellips = false">...</span>
+        </template>
+        <template v-else>
+          <template v-if="item.meta.redirect === 'noRedirect' || index == levelList2.length - 1">
+            <a-icon :type="item.meta.antIcon" v-if="item.meta.antIcon" class="no-redirect" />
+            <span class="no-redirect">{{ item.meta.title }}</span>
+          </template>
+          <template v-else>
+            <a-icon :type="item.meta.antIcon" v-if="item.meta.antIcon" />
+            <span @click.prevent="handleLink(item)">{{ item.meta.title }}</span>
+          </template>
+        </template>
+      </a-breadcrumb-item>
+    </a-breadcrumb>
+  </div>
 </template>
 <script>
 import * as pathToRegexp from 'path-to-regexp';
@@ -13,7 +30,50 @@ export default {
   data() {
     return {
       levelList: null,
+      ellips: false,
     };
+  },
+  props: {
+    separator: {
+      type: String,
+      default: function() {
+        return '/';
+      },
+    },
+    // 自定义面包屑数据
+    data: {
+      type: Array,
+      default: function() {
+        return null;
+      },
+    },
+    // 超出指定数量显示省略
+    ellipsNum: {
+      type: Number,
+      default: function() {
+        return 5;
+      },
+    },
+    // 是否显示返回按钮
+    back: {
+      type: Boolean,
+      default: function() {
+        return false;
+      },
+    },
+  },
+  computed: {
+    levelList2: function() {
+      const levelList = [...this.levelList];
+      if (this.ellips && levelList.length > this.ellipsNum - 1) {
+        // 需省略时，只有前面两个和后面两个显示
+        let showIndex = [0, levelList.length - 1, levelList.length - 2];
+        let newLevelList = this.levelList.filter((i, index) => showIndex.includes(index));
+        newLevelList.splice(1, 0, { isEllips: true });
+        return newLevelList;
+      }
+      return levelList;
+    },
   },
   watch: {
     $route() {
@@ -24,16 +84,30 @@ export default {
     this.getBreadcrumb();
   },
   methods: {
+    goBack() {
+      let backObj = this.levelList.slice(-2, -1) && this.levelList.slice(-2, -1)[0]; //倒数第二个的路由
+      if (backObj) {
+        this.handleLink(backObj);
+      } else {
+        this.$router.back();
+      }
+    },
     getBreadcrumb() {
-      // only show routes with meta.title
-      let matched = this.$route.matched.filter(item => item.meta && item.meta.title);
+      if (this.data) {
+        this.levelList = this.data;
+      } else {
+        // only show routes with meta.title
+        let matched = this.$route.matched.filter(item => item.meta && item.meta.title);
+        // const first = matched[0];
+        // if (!this.isDashboard(first)) {
+        //   matched = [{ path: '/dashboard', meta: { title: 'Dashboard' } }].concat(matched);
+        // }
 
-      // const first = matched[0];
-      // if (!this.isDashboard(first)) {
-      //   matched = [{ path: '/dashboard', meta: { title: 'Dashboard' } }].concat(matched);
-      // }
-
-      this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false);
+        this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false);
+      }
+      if (this.levelList.length > this.ellipsNum - 1) {
+        this.ellips = true;
+      }
     },
     isDashboard(route) {
       const name = route && route.name;
@@ -64,6 +138,32 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @import '~/src/styles/components/breadcrumb.less';
+</style>
+<style lang="less" scoped>
+.back-btn {
+  cursor: pointer;
+  color: @y-color-text-link;
+  font-size: @y-font-size-m;
+  display: inline-block;
+  padding-right: @y-spacing-xs;
+  margin-right: @y-spacing-xs;
+  line-height: 100%;
+  position: relative;
+  .anticon-left {
+    font-size: @y-font-size-s;
+    margin-right: @y-spacing-xxs;
+  }
+  &::after {
+    content: '';
+    height: @y-spacing-xs;
+    width: 1px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: @y-color-border-light;
+  }
+}
 </style>

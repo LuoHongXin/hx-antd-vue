@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
 }
+
 .y-link-tag .y-link-tag-list li {
   list-style-type: none;
   height: 32px;
@@ -12,31 +13,37 @@
   background: #ffffff;
   padding: 0 16px;
   border: 1px solid #dcdfe6;
-  border-radius: 3px;
+  border-radius: 2px;
   margin-right: 16px;
-  margin-bottom: 5px;
+  /* margin-bottom: 5px; */
   cursor: pointer;
   position: relative;
 }
+
 .y-link-tag .y-link-tag-list li .y-link-tag-mark {
   position: absolute;
   right: 0;
   bottom: 0;
 }
+
 .y-link-tag .y-link-tag-list .activeClass {
   border-color: #d93934;
 }
+
 .y-link-tag .y-link-tag-list .y-tag-is-disabled {
   color: #ccc !important;
 }
+
 .y-link-tag .y-link-tag-list .y-tag-is-disabled:hover {
   color: #c0c4cc;
   cursor: not-allowed;
   background-image: none;
 }
+
 .y-link-tag .y-ul-is-disabled {
   color: #ccc !important;
 }
+
 .y-link-tag .y-ul-is-disabled li:hover {
   color: #c0c4cc;
   cursor: not-allowed;

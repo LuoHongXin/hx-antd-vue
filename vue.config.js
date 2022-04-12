@@ -1,18 +1,39 @@
 const path = require('path');
+const { modifyVars } = require('./src/antdVars');
+const { baseURL } = require('./examples/config');
+const TimePlugin = require('./TimePlugin');
 
+// const { themeColorReplacer, getThemeColors, resolveCss } = require('./src/theme');
+// const posicJoin = _path => path.posix.join('static', _path);
 // const utils = require('./build/utils');
 // const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 // function resolve(dir) {
 //   return path.join(__dirname, dir);
 // }
-const assetsPath = 'lib';
 module.exports = {
   publicPath: './',
   devServer: {
     overlay: {
       warnings: false,
       errors: true,
+    },
+    proxy: {
+      '/api': {
+        target: baseURL,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '',
+        },
+      },
+    },
+  },
+  css: {
+    loaderOptions: {
+      less: {
+        javascriptEnabled: true,
+        modifyVars: modifyVars(),
+      },
     },
   },
   // entry: ENV === 'development' ? path.resolve(__dirname, './examples/main.js') : path.resolve(__dirname, './packages/index.js'),
@@ -25,7 +46,7 @@ module.exports = {
   //   filename: '[name].js',
   //   libraryTarget: 'commonjs2',
   //   libraryExport: 'default',
-  //   library: 'wh-component',
+  //   library: 'hx-antd-vue',
   // },
   // externals: {
   //   vue: 'vue',
@@ -39,16 +60,20 @@ module.exports = {
     },
   },
   parallel: false,
-  // configureWebpack: config => {
-  //   if (ENV === 'development') {
-  //     config.entry = {
-  //       app: './examples/main.js',
-  //     };
-  //   } else {
-  //     config.entry = {
-  //       ...utils.getComponentEntries('packages'),
-  //     };
-  //   }
+  configureWebpack: () => {
+    return {
+      plugins: [new TimePlugin()],
+    };
+  },
+  // if (ENV === 'development') {
+  //   config.entry = {
+  //     app: './examples/main.js',
+  //   };
+  // } else {
+  //   config.entry = {
+  //     ...utils.getComponentEntries('packages'),
+  //   };
+  // }
   // },
   // 扩展 webpack 配置
   chainWebpack: config => {
@@ -58,7 +83,7 @@ module.exports = {
       .set('@', path.resolve('examples'))
       .set('~', path.resolve('packages'))
       .set('@src', path.resolve('src'))
-      .set('wh-component', path.resolve('packages/index'));
+      .set('hx-antd-vue', path.resolve('packages/index'));
 
     // 把 packages 和 examples 加入编译，因为新增的文件默认是不被 webpack 处理的
     config.module
@@ -75,18 +100,18 @@ module.exports = {
       });
     // set svg-sprite-loader
     config.module
-      .rule("svg")
-      .exclude.add(path.join(__dirname, "./src/icons"))
+      .rule('svg')
+      .exclude.add(path.join(__dirname, './src/icons'))
       .end();
     config.module
-      .rule("icons")
+      .rule('icons')
       .test(/\.svg$/)
-      .include.add(path.join(__dirname, "./src/icons"))
+      .include.add(path.join(__dirname, './src/icons'))
       .end()
-      .use("svg-sprite-loader")
-      .loader("svg-sprite-loader")
+      .use('svg-sprite-loader')
+      .loader('svg-sprite-loader')
       .options({
-        symbolId: "icon-[name]"
+        symbolId: 'icon-[name]',
       })
       .end();
   },
@@ -96,7 +121,7 @@ module.exports = {
       preProcessor: 'less',
       // 这个是加上自己的路径，
       // 注意：试过不能使用别名路径
-      patterns: [path.resolve(__dirname, './src/styles/index.less')],
+      patterns: [path.resolve(__dirname, './src/styles/variables/index.less')],
     },
   },
 };

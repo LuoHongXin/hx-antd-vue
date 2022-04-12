@@ -1,7 +1,8 @@
 <template>
-  <div style="padding-bottom: 30px">
-    <h3 class="fun-title">API</h3>
-    <a-table :pagination="pagination" :row-key="(record, index) => index" :columns="columns" :data-source="data"> </a-table>
+  <div style="padding-bottom: 30px" class="apiTable">
+    <h3 class="fun-title">{{ title }}</h3>
+    <a-table :scroll="{ x: true }" :pagination="pagination" :row-key="(record, index) => index" :columns="columns" :data-source="data">
+    </a-table>
   </div>
 </template>
 <script>
@@ -9,18 +10,24 @@ const columns = [
   {
     title: '参数',
     dataIndex: 'params',
+    width: 200,
+    fixed: 'left',
   },
   {
     title: '说明',
     dataIndex: 'explain',
+    width: 500,
   },
   {
     title: '类型',
     dataIndex: 'type',
+    fixed: 'right',
   },
   {
     title: '默认值',
-    dataIndex: 'default'
+    dataIndex: 'default',
+    width: 100,
+    fixed: 'right',
   },
 ];
 export default {
@@ -35,9 +42,15 @@ export default {
     };
   },
   props: {
+    title: {
+      type: String,
+      default: function() {
+        return 'API';
+      },
+    },
     data: {
       type: Array,
-      default: function () {
+      default: function() {
         return [];
       },
     },

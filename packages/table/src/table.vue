@@ -13,7 +13,7 @@ export default {
     selectedData: {
       type: Array,
       default: function() {
-        return [];
+        return null;
       },
     },
     // 选中的key，可用于操控组件选中数据
@@ -47,30 +47,45 @@ export default {
     }
   },
   watch: {
-    modelKeys() {
+    // 通过非点击事件清空modelKeys时，selectedData要同步
+    modelKeys(val) {
+      const rowKey = this.rowKey;
+      if (this.selectedData) {
+        const selectedData = this.selectedData.filter(item => {
+          return val.includes(this.getRowKey(rowKey, item));
+        });
+        this.$emit('update-selectedData', selectedData);
+      }
       this.set();
     },
-    dataSource: function(val) {
-      const rowKeyArr = val.map(item => {
-        return this.getRowKey(this.rowKey, item);
-      });
-      // 每次表格数据发生改变时（增删），确保选中 modelKeys 还保留在 dataSource 中
-      const modelKeys = this.modelKeys.filter(item => {
-        return rowKeyArr.includes(item);
-      });
-      // 每次表格数据发生改变时（增删），确保受控 modelKeys 和 selectedData 保持一致
-      const selectedData = this.selectedData.filter(item => {
-        return modelKeys.includes(this.getRowKey(this.rowKey, item));
-      });
-      this.$emit('update:modelKeys', modelKeys);
-      this.$emit('update-selectedData', selectedData);
-    },
+    // dataSource: function(val) {
+    //   const rowKeyArr = val.map(item => {
+    //     return this.getRowKey(this.rowKey, item);
+    //   });
+    //   let modelKeys = [];
+    //   let selectedData = [];
+    //   if (this.modelKeys) {
+    //     // 每次表格数据发生改变时（增删），确保选中 modelKeys 还保留在 dataSource 中
+    //     modelKeys = this.modelKeys.filter(item => {
+    //       return rowKeyArr.includes(item);
+    //     });
+    //   }
+    //   if (this.selectedData) {
+    //     // 每次表格数据发生改变时（增删），确保受控 modelKeys 和 selectedData 保持一致
+    //     selectedData = this.selectedData.filter(item => {
+    //       return modelKeys.includes(this.getRowKey(this.rowKey, item));
+    //     });
+    //   }
+    //   this.$emit('update:modelKeys', modelKeys);
+    //   this.$emit('update-selectedData', selectedData);
+    // },
   },
   methods: {
     oldOnSelect: function() {},
     oldOnSelectAll: function() {},
     oldOnChange: function() {},
     set() {
+      if (!this.rowSelection) return;
       const { oldOnSelect, oldOnSelectAll, oldOnChange } = this;
       const rowKey = this.rowKey;
       const getRowKey = this.getRowKey;
@@ -124,7 +139,7 @@ export default {
           const rowKey = _this.rowKey;
           const getRowKey = _this.getRowKey;
           let isExit = false;
-          if (selectedData) {
+          if (selectedData && selectedData.length > 0) {
             selectedData = selectedData.filter(item => {
               const itemKey = getRowKey(rowKey, item);
               if (itemKey !== targetKey) {
@@ -134,7 +149,7 @@ export default {
                 isExit = true;
               }
             });
-          } else {
+          } else if (_this.modelKeys && _this.modelKeys.length > 0) {
             selectedRowKeys = _this.modelKeys.filter(item => {
               if (item !== targetKey) {
                 return item;
@@ -144,8 +159,8 @@ export default {
             });
           }
 
-          // 选中状态
-          if (!isExit) {
+          // 未选中状态且选中不被禁用
+          if (!isExit && !ev.target.parentNode.querySelector('[disabled]')) {
             // 若为单选，则清空，只赋值一个值
             if (_this.rowSelection.type === 'radio') {
               selectedRowKeys = [];
@@ -160,6 +175,20 @@ export default {
                 }
               });
             }
+          } else if (isExit && !ev.target.parentNode.querySelector('[disabled]')) {
+            //选中状态且选中不被禁用
+            // 若为单选，则重新赋值
+            if (_this.rowSelection.type === 'radio') {
+              selectedRowKeys = [targetKey];
+              // 有绑定 v-model
+              if (selectedData) {
+                _this.dataSource.forEach(item => {
+                  if (getRowKey(rowKey, item) === targetKey) {
+                    selectedData = [item];
+                  }
+                });
+              }
+            }
           }
           _this.$emit('update-selectedData', selectedData);
           _this.$emit('update:modelKeys', selectedRowKeys);
@@ -172,7 +201,7 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .resize-table-th {
   position: relative;
   .table-draggable-handle {

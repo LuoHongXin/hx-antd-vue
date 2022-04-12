@@ -1,0 +1,19 @@
+@import "../variables/index.less";
+.y-input-search-group.ant-input-group.ant-input-group-compact {
+  display: inline-flex;
+  .y-input-search-select, .y-input {
+    border-radius: @y-radius-zero;
+  }
+  .y-input-search-select-input {
+    border-radius: @y-radius-left;
+  }
+  .y-select.ant-select .ant-select-selection  {
+    border-radius: @y-radius-left;
+  }
+  .y-select.ant-select:not([disabled]) .ant-select-selection {
+    background-color: @y-color-fill-normal-btn;
+  }
+  .y-btn {
+    border-radius: @y-radius-right;
+  }
+}

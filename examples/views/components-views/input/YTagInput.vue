@@ -52,7 +52,7 @@ export default {
           params: 'themeColor',
           explain: '主题颜色',
           type: 'string',
-          default: 'red',
+          default: '#454852',
         },
         {
           params: 'inputNewTag',

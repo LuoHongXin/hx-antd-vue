@@ -24,10 +24,13 @@
               buttonList: [
                 {
                   text: '新增',
+                  tips: {
+                    text: '数据添加',
+                    placement: 'left',
+                  },
                   click: () => {
                     this.add();
                   },
-                  show: true,
                 },
                 {
                   text: '修改',
@@ -45,8 +48,17 @@
                   show: true,
                 },
                 {
+                  text: '粘贴',
+                  click: () => {
+                    this.action('粘贴');
+                  },
+                  show: false,
+                },
+                {
                   text: '删除',
                   show: true,
+                  tips: '危险操作',
+                  disable: true,
                 },
               ]
             };
@@ -63,6 +75,7 @@
         </code>
     </pre>
     <api-table :data="tableData2"></api-table>
+    <api-table title="buttonList数组中对象属性" :data="tableData3"></api-table>
   </div>
 </template>
 <script>
@@ -73,10 +86,13 @@ export default {
       buttonList: [
         {
           text: '新增',
-          click: () => {
-            this.add();
+          tips: {
+            text: '数据添加',
+            placement: 'left',
           },
-          show: true,
+          click: () => {
+            this.action('新增');
+          },
         },
         {
           text: '修改',
@@ -94,16 +110,24 @@ export default {
           show: true,
         },
         {
+          text: '粘贴',
+          show: false,
+        },
+        {
           text: '删除',
           show: true,
+          tips: '危险操作',
+          click: () => {
+            this.action('删除');
+          },
+          disable: true,
         },
       ],
 
       tableData2: [
         {
           params: 'buttonList',
-          explain:
-            '按钮信息，text：String-按钮文字、click：Function-按钮点击事件、disabled：Boolean-按钮是否禁用、show：Boolean-按钮的显示隐藏',
+          explain: '详情查看【buttonList数组中对象属性】',
           type: 'Array',
           default: '[]',
         },
@@ -115,12 +139,42 @@ export default {
           default: '[hover]',
         },
       ],
+      tableData3: [
+        {
+          params: 'text',
+          explain: '按钮文字',
+          type: 'String',
+          default: '',
+        },
+        {
+          params: 'click',
+          explain: '按钮点击事件',
+          type: 'Function',
+          default: '',
+        },
+        {
+          params: 'disabled',
+          explain: '按钮是否禁用',
+          type: 'Boolean',
+          default: 'false',
+        },
+        {
+          params: 'show',
+          explain: '按钮的显示隐藏',
+          type: 'Boolean',
+          default: 'true',
+        },
+        {
+          params: 'tips',
+          explain:
+            '提示信息，若为字符串，则默认显示top位置；若为对象可根据对象中的placement（可选 top left right bottom topLeft topRight bottomLeft bottomRight leftTop leftBottom rightTop rightBottom）属性修改位置，text属性为字符串',
+          type: 'String|Object',
+          default: '',
+        },
+      ],
     };
   },
   methods: {
-    add() {
-      alert('新增');
-    },
     action(val) {
       alert(val);
     },

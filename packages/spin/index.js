@@ -28,4 +28,8 @@ Spin.hide = function() {
   });
 };
 
+Spin.install = function (Vue) {
+  Vue.component(Spin.name,Spin);
+}
+
 export default Spin;

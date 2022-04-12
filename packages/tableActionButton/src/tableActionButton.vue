@@ -2,7 +2,24 @@
   <div class="y-table-column-action-button">
     <template v-if="activeButtonList.length <= moreBtnNum">
       <div v-for="(item, index) in activeButtonList" :key="item.text">
+        <a-tooltip :placement="item.tips.placement || 'topLeft'" v-if="item.tips">
+          <template slot="title">
+            <span>{{ item.tips.text || item.tips }}</span>
+          </template>
+          <y-button-action
+            :text="item.text"
+            :disabled="item.disable"
+            @click="
+              () => {
+                if (item.click) {
+                  item.click();
+                }
+              }
+            "
+          />
+        </a-tooltip>
         <y-button-action
+          v-else
           :text="item.text"
           :disabled="item.disable"
           @click="
@@ -13,13 +30,30 @@
             }
           "
         />
-        <span v-if="index + 1 !== buttonList.length" class="spacing"></span>
+        <span v-if="index + 1 !== activeButtonList.length" class="spacing"></span>
       </div>
     </template>
     <!-- 出现更多 -->
     <template v-else>
-      <div v-for="item in activeButtonList.slice(0, moreBtnNum - 1)" :key="item.text">
+      <div v-for="(item, index) in activeButtonList.slice(0, moreBtnNum - 1)" :key="item.text">
+        <a-tooltip :placement="item.tips.placement || 'topLeft'" v-if="item.tips">
+          <template slot="title">
+            <span>{{ item.tips.text || item.tips }}</span>
+          </template>
+          <y-button-action
+            :text="item.text"
+            :disabled="item.disable"
+            @click="
+              () => {
+                if (item.click) {
+                  item.click();
+                }
+              }
+            "
+          />
+        </a-tooltip>
         <y-button-action
+          v-else
           :text="item.text"
           :disabled="item.disable"
           @click="
@@ -30,30 +64,37 @@
             }
           "
         />
-        <span class="spacing"></span>
+        <span v-if="index + 1 !== activeButtonList.length" class="spacing"></span>
       </div>
-      <a-dropdown :trigger="moreBtnTrigger">
+      <y-dropdown :trigger="moreBtnTrigger">
         <y-button-action text="更多">
           <template slot="slot-r">
             <a-icon type="down" />
           </template>
         </y-button-action>
         <a-menu slot="overlay">
-          <a-menu-item v-for="item in activeButtonList.slice(moreBtnNum - 1, 99)" :key="item.text">
-            <a
-              :disabled="item.disable"
-              @click="
-                () => {
-                  if (item.click) {
-                    item.click();
-                  }
+          <a-menu-item
+            v-for="item in activeButtonList.slice(moreBtnNum - 1, 99)"
+            @click="
+              () => {
+                if (item.click && !item.disable) {
+                  item.click();
                 }
-              "
-              >{{ item.text }}</a
-            >
+              }
+            "
+            :disabled="item.disable"
+            :key="item.text"
+          >
+            <a-tooltip :placement="item.tips.placement || 'top'" v-if="item.tips">
+              <template slot="title">
+                <span>{{ item.tips.text || item.tips }}</span>
+              </template>
+              <span>{{ item.text }}</span>
+            </a-tooltip>
+            <span v-else>{{ item.text }}</span>
           </a-menu-item>
         </a-menu>
-      </a-dropdown>
+      </y-dropdown>
     </template>
   </div>
 </template>
@@ -94,7 +135,7 @@ export default {
   computed: {
     activeButtonList: function() {
       const arr = this.buttonList.filter(item => {
-        return item.show;
+        return item.show || item.show === undefined;
       });
       return arr;
     },
@@ -102,9 +143,16 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .y-table-column-action-button {
   display: flex;
   align-items: center;
+  .spacing {
+    width: 1px;
+    height: 8px;
+    background-color: #ebeef5;
+    margin: 0 4px;
+    display: inline-block;
+  }
 }
 </style>

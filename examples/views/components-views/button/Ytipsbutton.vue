@@ -7,15 +7,15 @@
     <funTitleDetail title="基本用法" detail=""></funTitleDetail>
     <com-show>
       <y-tips-button :tooltip="true">
-        <a-button :disabled="true">开机</a-button>
+        <y-button :disabled="true">开机</y-button>
       </y-tips-button>
     </com-show>
     <!-- 代码展示 -->
     <pre class="line-numbers">
         <code class="language-html" v-text="`<y-tips-button :tooltip='true'>
-          <a-button
+          <y-button
             :disabled='true'
-            >开机</a-button
+            >开机</y-button
           >
         </y-tips-button>`">
         </code>
@@ -35,7 +35,12 @@ export default {
           type: 'Boolean',
           default: 'true',
         },
-        { params: 'placement', explain: '提示位置，可选 top left right bottom topLeft topRight bottomLeft bottomRight leftTop leftBottom rightTop rightBottom', type: 'String', default: 'bottom' },
+        {
+          params: 'placement',
+          explain: '提示位置，可选 top left right bottom topLeft topRight bottomLeft bottomRight leftTop leftBottom rightTop rightBottom',
+          type: 'String',
+          default: 'bottom',
+        },
         {
           params: 'title',
           explain: '提示信息',
@@ -44,6 +49,6 @@ export default {
         },
       ],
     };
-  }
+  },
 };
 </script>

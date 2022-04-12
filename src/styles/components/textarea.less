@@ -1,0 +1,26 @@
+@import "../variables/index.less";
+.y-textarea {
+  position:relative;
+  .text-num {
+    position: absolute;
+    bottom: 5px;
+    right: 12px;
+    color: @y-color-text-placeholder;
+    font-family: PingFang SC;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+  }
+  .ant-input-group-wrapper {
+    .ant-input-group-addon {
+      background: @y-color-fill-normal-btn;
+      border: 1px solid @y-color-table-hover;
+      &:first-child {
+        border-right: 0;
+      }
+      &:last-child {
+        border-left: 0;
+      }
+    }
+  }
+}

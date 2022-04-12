@@ -1,3 +1,42 @@
+@import "../variables/index.less";
 .y-tag {
-  border-radius: 101px;
+  line-height: 20px;
+  height: 22px;
+  border-radius:@y-radius-default;
+  &.dashTag{
+    cursor: pointer;
+    border: @y-border-width-default @y-border-style-dash @y-color-table-hover;
+    background-color:@y-color-fill-bg-white ;
+    &:hover{
+      border: @y-border-width-default @y-border-style-dash @y-color-text-regular;
+    }
+  }
+  &[closable] {
+      .anticon-close{
+        padding: 2px;
+        border-radius: @y-radius-default;
+        margin: 0;
+        &:hover{
+          background: @y-color-text-regular;
+          color: @y-color-fill-bg-white;
+      }
+    }
+  }
+  // 默认标签
+  &:not([color]):not([status]) {
+     background-color:@y-color-fill-normal-btn;
+     &:hover{
+       color: @y-color-text-regular;
+     }
+  }
+  // 状态标签
+  &[color],&[status]{
+    border-radius: 100px;
+  }
+  .anticon{
+    margin-right:@y-spacing-xxs ;
+  }
+}
+.dashTagInput {
+  border: @y-border-width-default @y-border-style-dash @y-color-text-regular;
 }

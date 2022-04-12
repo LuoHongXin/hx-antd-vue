@@ -1,0 +1,101 @@
+@import "../variables/index.less";
+.y-radio-content-box {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 8px;
+  label {
+    border-radius: @y-radius-default;
+    &:nth-child(2) {
+      border: 1px solid #d9d9d9;
+      &::before {
+        content: none;
+      }
+    }
+  }
+  .y-radio-title {
+    color: @y-color-text-regular;
+    line-height: 20px;
+  }
+  &:last-child {
+    margin: 0 !important;
+  }
+  .ant-radio-button-wrapper-checked {
+    &:nth-child(2) {
+      border-color: @y-color-primary !important;
+    }
+    .y-radio-title, .y-radio-content-content  {
+      color: @y-color-primary!important;
+    }
+  }
+  .ant-radio-wrapper {
+    position: absolute;
+    top: 13px;
+    left: 16px;
+    margin: 0;
+    z-index: 9999;
+  }
+  .y-radio-content {
+    height: auto;
+    line-height: 100%;
+    padding: 12px 40px;
+    background: transparent;
+    &:hover {
+      border-color: @y-color-primary;
+      transition: all 0.3s;
+    }
+    .y-radio-content-content {
+      line-height: 22px;
+      margin-top: 4px;
+      color: @y-color-text-secondary;
+    }
+  }
+
+}
+.y-radio-group .y-radio-content-box .y-radio-content {
+  border-radius: @y-radius-default;
+}
+.y-radio-content-hover {
+  .ant-radio-inner {
+    border: 1px solid @y-color-primary !important;
+    transition: all 0.3s;
+  }
+}
+.y-radio-group-disabled {
+  .y-radio-content {
+    border-color:@y-color-table-hover !important;
+  }
+  .y-radio-title {
+    color: @y-color-text-secondary !important;
+  }
+  .y-radio-content-content  {
+    color: @y-color-text-placeholder !important;
+  }
+  .ant-radio-button-wrapper-checked {
+    &:nth-child(2) {
+      border-color: @y-color-table-hover !important;
+    }
+    .y-radio-title {
+      color: @y-color-text-secondary !important;
+    }
+    .y-radio-content-content  {
+      color: @y-color-text-placeholder !important;
+    }
+  }
+  .y-radio-content-box {
+    .y-radio-content {
+      border-radius: @y-radius-default;	
+      border-color:@y-color-table-hover !important;
+    }
+    .y-radio-title {
+      color: @y-color-text-secondary !important;
+    }
+    .y-radio-content-content  {
+      color: @y-color-text-placeholder !important;
+    }
+  }
+  .y-radio-content-hover {
+    .ant-radio-inner {
+      border: 1px solid @y-color-table-hover !important;
+    }
+  }
+}

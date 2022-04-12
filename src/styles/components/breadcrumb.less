@@ -1,11 +1,14 @@
+@import "../variables/index.less";
 .y-breadcrumb.ant-breadcrumb {
   display: inline-block;
-  font-size: 14px;
-  line-height: 50px;
-  margin-left: 8px;
-
-  .no-redirect {
-    color: #97a8be;
+  font-size: @y-font-size-m;
+  color:  @y-color-text-secondary;
+  .ant-breadcrumb-link:hover {
+    cursor: pointer;
+    color: @y-color-text-link;
+  }
+  .no-redirect{
+    color: @y-color-text-regular;
     cursor: text;
   }
 }

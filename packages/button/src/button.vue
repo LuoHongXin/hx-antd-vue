@@ -1,43 +1,33 @@
 <template>
-  <button class="y-button" :class="{ [`icon-${iconPosition}`]: true }" @click="$emit('click')">
-    <g-icon class="icon" v-if="icon && !loading" :name="icon" />
-    <g-icon class="loading icon" v-if="loading" name="loading"></g-icon>
-    <div class="y-button-content">
-      <slot />
-    </div>
-  </button>
+  <a-button :class="className" :type="type" v-if="icon === 'fresh'" v-bind="$attrs" v-on="$listeners">
+    <y-svg-icon class="anticon" icon-class="fresh"/>
+    <slot
+  /></a-button>
+  <a-button v-else :class="className" :icon="icon" :type="type" v-bind="$attrs" v-on="$listeners"><slot /></a-button>
 </template>
 <script>
-/*
- * @Author: zhangbinzhbb
- * @Date: 2021-02-24 17:23:33
- * @Last Modified by: zhangbiaobin
- * @Last Modified time: 2021-02-24 17:23:33
- * 封装button
- */
-import Icon from '../../icon';
 export default {
   name: 'YButton',
-  components: {
-    'g-icon': Icon,
+  computed: {
+    className: function() {
+      let name = 'y-btn ';
+      if (Object.keys(this.$slots).length === 0) name += 'ant-btn-icon-only';
+      if (this.type === 'text') name += 'text-btn';
+      return name;
+    },
   },
   props: {
-    icon: {},
-    loading: {
-      type: Boolean,
-      default: false,
-    },
-    iconPosition: {
+    icon: {
       type: String,
-      default: 'left',
-      validator(value) {
-        return value === 'left' || value === 'right';
-      },
+    },
+    type: {
+      type: String,
+      default: 'default',
     },
   },
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @import '~/src/styles/components/button.less';
 </style>

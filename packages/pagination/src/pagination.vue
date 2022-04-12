@@ -1,15 +1,14 @@
 <template>
   <div class="y-pagination">
     <a-pagination
-      size="small"
+      :pageSizeOptions="pageSizeOptions"
       v-model="currentPage"
       v-bind="$attrs"
       :page-size.sync="pageSize"
-      :hide-on-single-page="true"
       :total="total"
-      show-quick-jumper
-      show-size-changer
-      :show-total="total => `共${allPage}页 ${total} 项`"
+      :show-quick-jumper="true"
+      :show-size-changer="true"
+      :show-total="(total, range) => `${range[0]}-${range[1]}项 共${total} 项`"
       @change="handleCurrentChange"
       @showSizeChange="handleSizeChange"
     />
@@ -24,6 +23,7 @@ export default {
     total: {
       required: true,
       type: Number,
+      default: 0,
     },
     page: {
       type: Number,
@@ -36,6 +36,12 @@ export default {
     autoScroll: {
       type: Boolean,
       default: true,
+    },
+    pageSizeOptions: {
+      type: Array,
+      default: function() {
+        return ['10', '20', '30', '50', '100', '200', '500', '1000', '2000'];
+      },
     },
   },
   computed: {
@@ -63,13 +69,13 @@ export default {
   },
   methods: {
     handleSizeChange(current, size) {
-      this.$emit('pagination', { page: current, limit: size });
+      this.$emit('pagination', { page: current, limit: size, total: this.total });
       if (this.autoScroll) {
         scrollTo(0, 800);
       }
     },
     handleCurrentChange(page, pageSize) {
-      this.$emit('pagination', { page: page, limit: pageSize });
+      this.$emit('pagination', { page: page, limit: pageSize, total: this.total });
       if (this.autoScroll) {
         scrollTo(0, 800);
       }
@@ -78,10 +84,20 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .y-pagination {
-  padding-top: 10px;
+  padding-top: @y-spacing-m;
   display: flex;
   justify-content: flex-end;
+  .ant-pagination-item,
+  .ant-pagination-prev .ant-pagination-item-link,
+  .ant-pagination-next .ant-pagination-item-link,
+  .ant-select-selection,
+  .ant-pagination-options-quick-jumper input {
+    border-radius: @y-radius-default;
+  }
+  .ant-pagination-total-text {
+    line-height: 33px;
+  }
 }
 </style>

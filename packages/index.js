@@ -1,20 +1,8 @@
-/*
- * @Author: zhangbinzhbb
- * @Date: 2021-02-24 17:23:33
- * @Last Modified by: zhangbiaobin
- * @Last Modified time: 2021-02-24 17:23:33
- */
-
-const {
-  version,
-  name
-} = require('../package.json');
+const { version, name } = require('../package.json');
 import {
   /* eslint-disable no-unused-vars */
-  Style,
   Ybutton,
   Ypagination,
-  // Ycommon,
   YbuttonAction,
   YlinkTag,
   Yspin,
@@ -28,14 +16,61 @@ import {
   YtableActionButton,
   Ytable,
   YtipsButton,
-  YTagInput
+  YTagInput,
+  YDropdownCheckButton,
+  YSelect,
+  YCheckbox,
+  YCheckboxGroup,
+  YtextLink,
+  YInput,
+  YTextarea,
+  YInputNumber,
+  YSteps,
+  YDatePicker,
+  YAutoComplete,
+  YRadio,
+  YSwitch,
+  YSlider,
+  YBadge,
+  YCollapse,
+  YEmpty,
+  YModelTable,
+  YButtonGroup,
+  YForm,
+  YFormModel,
+  YTransfer,
+  YTimePicker,
+  YTabs,
+  YTimeLine,
+  YTooltip,
+  YPopconfirm,
+  YPopover,
+  YDrawer,
+  YLoading,
+  YAlert,
+  YProgress,
+  PageViews,
+  YTagAction,
+  YNameSelect,
+  YDivider,
+  YDropdown,
+  YMenu,
+  YCard,
+  YTree,
+  YConfirm,
+  YNotification,
+  YMessage,
+  YInfo,
+  YSuccess,
+  YError,
+  YWarning,
+  YConfigProvider,
 } from './module';
 
 // ...如果还有的话继续添加
 const components = [
   Ybutton,
   Ypagination,
-  // Ycommon,
   YbuttonAction,
   YlinkTag,
   Yspin,
@@ -49,15 +84,62 @@ const components = [
   YtableActionButton,
   Ytable,
   YtipsButton,
-  YTagInput
+  YTagInput,
+  YDropdownCheckButton,
+  YSelect,
+  YCheckbox,
+  YCheckboxGroup,
+  YtextLink,
+  YInput,
+  YTextarea,
+  YInputNumber,
+  YSteps,
+  YDatePicker,
+  YAutoComplete,
+  YRadio,
+  YSwitch,
+  YSlider,
+  YBadge,
+  YCollapse,
+  YEmpty,
+  YModelTable,
+  YButtonGroup,
+  YForm,
+  YFormModel,
+  YTransfer,
+  YTimePicker,
+  YTabs,
+  YTimeLine,
+  YTooltip,
+  YPopconfirm,
+  YPopover,
+  YDrawer,
+  YLoading,
+  YAlert,
+  YProgress,
+  PageViews,
+  YTagAction,
+  YNameSelect,
+  YDivider,
+  YDropdown,
+  YMenu,
+  YCard,
+  YTree,
+  YConfigProvider,
   // ...如果还有的话继续添加
 ];
 
 // 方法类的组件
-import methods from "./methods";
-
+import methods from './methods';
+// 复制
+import VueClipboard from 'vue-clipboard2';
+// 引入组件使用的icon
+import '@src/icons';
+// 引入 antd
+import Antd from 'ant-design-vue';
+import 'ant-design-vue/dist/antd.less';
 // 公共的vue实例，有些方法必须得在vue实例中注册才能使用，所以Bus就是解决这个问题的公共Vue
-import Bus from "./Bus";
+import Bus from './Bus';
 
 const displayVersion = () => {
   Function(`
@@ -66,23 +148,26 @@ const displayVersion = () => {
 };
 
 // 定义install方法，接收Vue作为参数
-const install = function (Vue) {
+const install = function(Vue) {
   // 判断是否安装，安装过就不继续往下执行
   if (install.installed) return;
   install.installed = true;
+  Vue.use(Antd);
   // 遍历注册所有组件
-  components.map(component => Vue.component(component.name, component));
+  components.map(component => component.install(Vue));
   // 下面这个写法也可以
   // components.map(component => Vue.use(component))
   displayVersion();
   Vue.prototype.$YSpin = Yspin; // 全局
   Vue.prototype.$Bus = Bus; // 全局
   Vue.prototype.$YGetTableDragHeader = Bus.getTableDragHeader; // 全局
+  Vue.prototype.$YGetTablePagination = Bus.getTablePagination; // 全局
 
+  Vue.use(VueClipboard);
   // 注入全局方法
   methods.forEach(item => {
-    Vue.prototype[item.name] = item.method
-  })
+    Vue.prototype[item.name] = item.method;
+  });
 };
 
 /* 支持使用标签的方式引入 */
@@ -107,7 +192,55 @@ export {
   YtableActionButton,
   Ytable,
   YtipsButton,
-  YTagInput
+  YTagInput,
+  YDropdownCheckButton,
+  YSelect,
+  YCheckbox,
+  YCheckboxGroup,
+  YtextLink,
+  YInput,
+  YTextarea,
+  YInputNumber,
+  YSteps,
+  YDatePicker,
+  YAutoComplete,
+  YRadio,
+  YSwitch,
+  YSlider,
+  YBadge,
+  YCollapse,
+  YEmpty,
+  YModelTable,
+  YButtonGroup,
+  YForm,
+  YFormModel,
+  YTransfer,
+  YTimePicker,
+  YTabs,
+  YTimeLine,
+  YTooltip,
+  YPopconfirm,
+  YPopover,
+  YDrawer,
+  YLoading,
+  YAlert,
+  YProgress,
+  PageViews,
+  YTagAction,
+  YNameSelect,
+  YDivider,
+  YDropdown,
+  YMenu,
+  YCard,
+  YTree,
+  YConfirm,
+  YNotification,
+  YMessage,
+  YInfo,
+  YSuccess,
+  YError,
+  YWarning,
+  YConfigProvider,
 };
 
 export default {
@@ -127,5 +260,53 @@ export default {
   YtableActionButton,
   Ytable,
   YtipsButton,
-  YTagInput
+  YTagInput,
+  YDropdownCheckButton,
+  YSelect,
+  YCheckbox,
+  YCheckboxGroup,
+  YtextLink,
+  YInput,
+  YTextarea,
+  YInputNumber,
+  YSteps,
+  YDatePicker,
+  YAutoComplete,
+  YRadio,
+  YSwitch,
+  YSlider,
+  YBadge,
+  YCollapse,
+  YEmpty,
+  YModelTable,
+  YButtonGroup,
+  YForm,
+  YFormModel,
+  YTransfer,
+  YTimePicker,
+  YTabs,
+  YTimeLine,
+  YTooltip,
+  YPopconfirm,
+  YPopover,
+  YDrawer,
+  YLoading,
+  YAlert,
+  YProgress,
+  PageViews,
+  YTagAction,
+  YNameSelect,
+  YDivider,
+  YDropdown,
+  YMenu,
+  YCard,
+  YTree,
+  YConfirm,
+  YNotification,
+  YMessage,
+  YInfo,
+  YSuccess,
+  YError,
+  YWarning,
+  YConfigProvider,
 };

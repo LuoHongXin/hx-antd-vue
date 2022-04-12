@@ -1,0 +1,15 @@
+export default {
+  yHeightS: '按钮、输入框、选择器、下拉菜单、搜索、分页等组件高度小尺寸',
+  yHeightM: '按钮、输入框、选择器、下拉菜单、搜索、分页等组件高度默认尺寸，选项卡高度小尺寸',
+  yHeightL: '按钮、输入框、选择器、下拉菜单、搜索、分页等组件高度大尺寸，选项卡高度默认尺寸',
+  yMinWidthXxs: '菜单浮层最小宽度',
+  yMinWidthXs: '下拉菜单最小宽度',
+  yMinWidthS: '气泡卡片、气泡确认框最小宽度',
+  yMinWidthM: '-',
+  yMinWidthL: '弹窗最小宽度',
+  yFormWidthXs: '短数字、超短文本、超短下拉选项的录入，如数字选择器',
+  yFormWidthS: '较短文本、较短下拉选项的录入，如姓名、账户名、邮箱、ID等',
+  yFormWidthM: '标准输入框宽度，适于多数字段长度',
+  yFormWidthL: '较长字段的录入，如网址、文件路径、标签多选下拉框等',
+  yFormWidthXl: '段落文本的录入，如超长链接、备注等，通常预留多行空间',
+};

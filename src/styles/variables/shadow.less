@@ -1,0 +1,88 @@
+// 阴影
+@y-shadow-s1-down:0px 1px 2px -2px rgba(36,41,46,0.04),
+0px 2px 4px 0px rgba(36,41,46,0.08);
+@y-shadow-s1-up:0px -1px 2px -2px rgba(36,41,46,0.04),
+0px -2px 4px 0px rgba(36,41,46,0.08);
+@y-shadow-s1-left:-1px 0px 2px -2px rgba(36,41,46,0.04),
+-2px 0px 4px 0px rgba(36,41,46,0.08);
+@y-shadow-s1-right:1px 0px 2px -2px rgba(36,41,46,0.04),
+2px 0px 4px 0px rgba(36,41,46,0.08);
+@y-shadow-s2-down:0px 2px 4px 0px rgba(36,41,46,0.04),
+0px 16px 32px 0px rgba(36,41,46,0.08);
+@y-shadow-s2-up:0px -2px 4px 0px rgba(36,41,46,0.04),
+0px -16px 32px 0px rgba(36,41,46,0.08);
+@y-shadow-s2-left:-2px 0px 4px 0px rgba(36,41,46,0.04),
+-16px 0px 32px 0px rgba(36,41,46,0.08);
+@y-shadow-s2-right:2px 0px 4px 0px rgba(36,41,46,0.04),
+16px 0px 32px 0px rgba(36,41,46,0.08);
+@y-shadow-s3-down:0px 4px 12px 0px rgba(36,41,46,0.04),
+0px 12px 24px 0px rgba(36,41,46,0.08),
+0px 24px 56px 0px rgba(36,41,46,0.12);
+@y-shadow-s3-up:0px -4px 12px 0px rgba(36,41,46,0.04),
+0px -12px 24px 0px rgba(36,41,46,0.08),
+0px -24px 56px 0px rgba(36,41,46,0.12);
+@y-shadow-s3-left:-4px 0px 12px 0px rgba(36,41,46,0.04),
+-12px 0px 24px 0px rgba(36,41,46,0.08),
+-24px 0px 56px 0px rgba(36,41,46,0.12);
+@y-shadow-s3-right:4px 0px 12px 0px rgba(36,41,46,0.04),
+12px 0px 24px 0px rgba(36,41,46,0.08),
+24px 0px 56px 0px rgba(36,41,46,0.12);
+@y-shadow-active:0px 0px 0px 2px rgba(0, 0, 0, 0.1);
+
+.y-shadow-s1-down {
+    box-shadow:@y-shadow-s1-down
+}
+.y-shadow-s1-up {
+    box-shadow:@y-shadow-s1-up
+}
+.y-shadow-s1-left {
+    box-shadow:@y-shadow-s1-left
+}
+.y-shadow-s1-right {
+    box-shadow:@y-shadow-s1-right
+}
+.y-shadow-s2-down {
+    box-shadow:@y-shadow-s2-down
+}
+.y-shadow-s2-up {
+    box-shadow:@y-shadow-s2-up
+}
+.y-shadow-s2-left {
+    box-shadow:@y-shadow-s2-left
+}
+.y-shadow-s2-right {
+    box-shadow:@y-shadow-s2-right
+}
+.y-shadow-s3-down {
+    box-shadow:@y-shadow-s3-down
+}
+.y-shadow-s3-up {
+    box-shadow:@y-shadow-s3-up
+}
+.y-shadow-s3-left {
+    box-shadow:@y-shadow-s3-left
+}
+.y-shadow-s3-right {
+    box-shadow:@y-shadow-s3-right
+}
+.y-shadow-active {
+    box-shadow:@y-shadow-active
+}
+
+:export{
+    yShadowS1Down:@y-shadow-s1-down;
+    yShadowS1Up:@y-shadow-s1-up;
+    yShadowS1Left:@y-shadow-s1-left;
+    yShadowS1Right:@y-shadow-s1-right;
+
+    yShadowS2Down:@y-shadow-s2-down;
+    yShadowS2Up:@y-shadow-s2-up;
+    yShadowS2Left:@y-shadow-s2-left;
+    yShadowS2Right:@y-shadow-s2-right;
+
+    yShadowS3Down:@y-shadow-s3-down;
+    yShadowS3Up:@y-shadow-s3-up;
+    yShadowS3Left:@y-shadow-s3-left;
+    yShadowS3Right:@y-shadow-s3-right;
+    yShadowActive:@y-shadow-active;
+}

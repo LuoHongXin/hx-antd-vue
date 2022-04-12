@@ -30,7 +30,7 @@ export default {
     },
     svgClass() {
       if (this.className) {
-        return 'y-svg-icon' + this.className;
+        return 'y-svg-icon-' + this.className;
       } else {
         return 'y-svg-icon';
       }
@@ -45,6 +45,6 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @import '~/src/styles/components/svgIcon.less';
 </style>

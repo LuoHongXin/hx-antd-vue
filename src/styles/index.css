@@ -12,10 +12,6 @@
 .spin {
   animation: spin 2s infinite linear;
 }
-.y-button-link {
-  color: #3d61cc;
-  font-size: 12px;
-}
 .y-common-table-contanier .y-common-table-operator-group {
   margin-bottom: 16px;
 }
