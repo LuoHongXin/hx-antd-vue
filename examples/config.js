@@ -1,4 +1,4 @@
 const config = {
-  baseURL: 'http://172.16.205.91:7777',
+  baseURL: 'https://service-ijabkrhg-1302167662.gz.apigw.tencentcs.com',
 };
 module.exports = config;
