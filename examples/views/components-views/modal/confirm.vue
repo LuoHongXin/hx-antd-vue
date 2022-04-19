@@ -15,9 +15,7 @@
           @click="$YConfirm({ title: '可以移动confirm', content: '这里是一段简要的描述性信息，尽量控制在三行以内，需要用户二次确认。' })"
           >可以移动confirm</a-button
         >
-        <a-button type="primary" style="margin-left: 20px" @click="$YConfirm({ title: '不移动confirm', move: false })"
-          >不移动confirm</a-button
-        >
+        <a-button type="primary" @click="$YConfirm({ title: '不移动confirm', move: false })">不移动confirm</a-button>
       </div>
     </com-show>
     <!-- 代码展示 -->
@@ -25,9 +23,23 @@
         <code class="language-html" v-text="`
         <div>
           <a-button type='primary' @click='$YConfirm({title:'可以移动confirm'})'>可以移动confirm</a-button>
-          <a-button type='primary' style='margin-left:20px' @click='$YConfirm({ title:'不移动confirm',move:false})'>不移动confirm</a-button>
+          <a-button type='primary' @click='$YConfirm({ title:'不移动confirm',move:false})'>不移动confirm</a-button>
         </div>
         `">
+        </code>
+    </pre>
+    <!-- 组件展示 -->
+    <com-show>
+      <div>
+        <a-button type="primary" @click="confirm1">确认1</a-button>
+        <a-button type="primary" @click="confirm2">确认2</a-button>
+      </div>
+    </com-show>
+    <!-- 代码展示 -->
+    <pre class="line-numbers">
+        <code class="language-html" v-text="html">
+        </code>
+        <code class="language-javaScript" v-text="js">
         </code>
     </pre>
   </div>
@@ -40,7 +52,58 @@ export default {
       modalVisible: false,
       modalVisible2: false,
       modalMove: true,
+      html: ` <a-button type="primary" @click="confirm1">确认1</a-button>
+      <a-button type="primary" @click="confirm2">确认2</a-button>`,
+      js: `methods: {
+      confirm1() {
+        this.$YConfirm({
+          title: '确认1',
+          content: '确认执行xxx操作？确认后，系统将会xxx,xxxxxxxx,xxxxxx，超长文字，超长文字，超长文字超长文字，超长文字超长文字',
+          onOk() {
+            alert('确认后操作');
+          },
+          onCancel() {},
+        });
+      },
+      confirm2() {
+        this.$YConfirm({
+          content: '确认执行xxx操作？确认后，系统将会xxx,xxxxxxxx,xxxxxx，超长文字超长文字超长文字超长文字超长文字超长文字',
+          okText: '确定123',
+          onOk() {
+            alert('确认后操作');
+          },
+          onCancel() {},
+        });
+      },
+    },`,
     };
+  },
+  methods: {
+    confirm1() {
+      this.$YConfirm({
+        title: '确认1',
+        content: '确认执行xxx操作？确认后，系统将会xxx,xxxxxxxx,xxxxxx，超长文字，超长文字，超长文字超长文字，超长文字超长文字',
+        onOk() {
+          alert('确认后操作');
+        },
+        onCancel() {},
+      });
+    },
+    confirm2() {
+      this.$YConfirm({
+        content: '确认执行xxx操作？确认后，系统将会xxx,xxxxxxxx,xxxxxx，超长文字超长文字超长文字超长文字超长文字超长文字',
+        okText: '确定123',
+        onOk() {
+          alert('确认后操作');
+        },
+        onCancel() {},
+      });
+    },
   },
 };
 </script>
+<style scoped lang="less">
+.ant-btn {
+  margin-right: 14px;
+}
+</style>

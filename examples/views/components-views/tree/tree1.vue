@@ -13,6 +13,7 @@
         @check="onCheck"
       >
         <span slot="title0010" style="color: #1890ff">sss</span>
+        <span slot="custom" slot-scope="{ title }" style="color: #1890ff">{{ title }}</span>
       </y-tree>
     </com-show>
     <pre class="line-numbers">
@@ -35,7 +36,7 @@ const treeData = [
         disabled: true,
         children: [
           { title: 'leaf', key: '0-0-0-0', disableCheckbox: true },
-          { title: 'leaf', key: '0-0-0-1' },
+          { title: 'leaf123', key: '0-0-0-1', scopedSlots: { title: 'custom' } },
         ],
       },
       {
@@ -61,6 +62,7 @@ export default {
         @check="onCheck"
       >
         <span slot="title0010" style="color: #1890ff">sss</span>
+        <span slot="custom" slot-scope="{ title }" style="color: #1890ff">{{ title }}</span>
       </y-tree>`,
       js: `
       const treeData = [
@@ -74,7 +76,7 @@ export default {
                     disabled: true,
                     children: [
                         { title: 'leaf', key: '0-0-0-0', disableCheckbox: true },
-                        { title: 'leaf', key: '0-0-0-1' },
+                        { title: 'leaf123', key: '0-0-0-1' },
                     ],
                 },
                 {

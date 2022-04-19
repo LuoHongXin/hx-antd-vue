@@ -13,8 +13,10 @@ export default {
 </script>
 
 <style lang="less">
-.ant-dropdown-menu-item:hover,
-.ant-dropdown-menu-submenu-title:hover {
-  background-color: #f5f5f5;
+.ant-dropdown {
+  .ant-dropdown-menu-item:hover,
+  .ant-dropdown-menu-submenu-title:hover {
+    background-color: @y-color-fill-hover;
+  }
 }
 </style>

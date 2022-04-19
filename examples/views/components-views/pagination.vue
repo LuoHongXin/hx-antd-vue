@@ -81,7 +81,7 @@ export default {
           params: 'pageSizeOptions',
           explain: '单页展示选项',
           type: 'Array',
-          default: "['10', '20', '30', '50', '100', '200', '500', '1000', '2000']",
+          default: "['10', '20', '30', '50', '100', '200', '500']",
         },
       ],
     };

@@ -7,7 +7,7 @@ const Bus = new Vue({
       return Object.assign(
         {
           pageSize: 10,
-          pageSizeOptions: ['10', '20', '30', '50', '100', '200', '500', '1000', '2000'],
+          pageSizeOptions: ['10', '20', '30', '50', '100', '200', '500'],
           total: 0,
           current: 1,
           showQuickJumper: true,
@@ -16,16 +16,6 @@ const Bus = new Vue({
         },
         pagination
       );
-      // return {
-      //   pageSize: 10,
-      //   pageSizeOptions: ['10', '20', '30', '50', '100', '200', '500', '1000', '2000'],
-      //   total: 0,
-      //   current: 1,
-      //   showQuickJumper: true,
-      //   showSizeChanger: true,
-      //   showTotal: (total, range) => `${range[0]}-${range[1]}项 共${total} 项`,
-      //   ...pagination,
-      // };
     },
     getTableDragHeader(columns) {
       const draggingMap = {};

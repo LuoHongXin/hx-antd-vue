@@ -1,10 +1,18 @@
 <template>
-  <a-modal v-model="visible" v-if="value !== null" v-on="$listeners" :width="sizeWidth" v-bind="$attrs" class="y-modal">
+  <a-modal
+    v-model="visible"
+    v-if="value !== null"
+    :maskClosable="maskClosable"
+    v-on="$listeners"
+    :width="sizeWidth"
+    v-bind="$attrs"
+    class="y-modal"
+  >
     <template v-for="(val, key) in $slots" :slot="key">
       <slot :name="key"></slot>
     </template>
   </a-modal>
-  <a-modal v-else v-on="$listeners" :width="sizeWidth" v-bind="$attrs" class="y-modal">
+  <a-modal v-else :maskClosable="maskClosable" v-on="$listeners" :width="sizeWidth" v-bind="$attrs" class="y-modal">
     <template v-for="(val, key) in $slots" :slot="key">
       <slot :name="key"></slot>
     </template>

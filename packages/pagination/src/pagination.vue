@@ -40,7 +40,7 @@ export default {
     pageSizeOptions: {
       type: Array,
       default: function() {
-        return ['10', '20', '30', '50', '100', '200', '500', '1000', '2000'];
+        return ['10', '20', '30', '50', '100', '200', '500'];
       },
     },
   },
