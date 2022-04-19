@@ -1,6 +1,7 @@
 <template>
   <div style="padding-bottom: 30px" class="apiTable">
     <h3 class="fun-title">{{ title }}</h3>
+    <p v-if="detail">{{ detail }}</p>
     <a-table :scroll="{ x: true }" :pagination="pagination" :row-key="(record, index) => index" :columns="columns" :data-source="data">
     </a-table>
   </div>
@@ -46,6 +47,12 @@ export default {
       type: String,
       default: function() {
         return 'API';
+      },
+    },
+    detail: {
+      type: String,
+      default: function() {
+        return null;
       },
     },
     data: {

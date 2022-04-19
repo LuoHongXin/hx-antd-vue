@@ -1,6 +1,6 @@
 {
   "name": "hx-antd-vue",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "基于 vue-cli4 的组件库",
   "main": "lib/hx-antd-vue.common.js",
   "style": "lib/hx-antd-vue.css",

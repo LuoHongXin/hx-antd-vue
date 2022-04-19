@@ -7,41 +7,41 @@
 
     <!-- 组件展示 -->
     <com-show>
-      <a-radio-group v-model="size" style="margin-bottom: 16px">
-        <a-radio-button value="small">
+      <y-radio-group v-model="size" style="margin-bottom: 16px">
+        <y-radio-button value="small">
           小尺寸
-        </a-radio-button>
-        <a-radio-button value="default">
+        </y-radio-button>
+        <y-radio-button value="default">
           大尺寸
-        </a-radio-button>
-      </a-radio-group>
+        </y-radio-button>
+      </y-radio-group>
       <y-tabs default-active-key="1" :size="size">
-        <a-tab-pane key="1" tab="Tab 1">
+        <y-tab-pane key="1" tab="Tab 1">
           Content of Tab Pane 1
-        </a-tab-pane>
-        <a-tab-pane key="2" tab="Tab 2" force-render>
+        </y-tab-pane>
+        <y-tab-pane key="2" tab="Tab 2" force-render>
           Content of Tab Pane 2
-        </a-tab-pane>
-        <a-tab-pane key="3" tab="Tab 3">
+        </y-tab-pane>
+        <y-tab-pane key="3" tab="Tab 3">
           Content of Tab Pane 3
-        </a-tab-pane>
+        </y-tab-pane>
       </y-tabs>
-      <a-radio-group v-model="mode" style="margin: 16px 0">
-        <a-radio-button value="top">
+      <y-radio-group v-model="mode" style="margin: 16px 0">
+        <y-radio-button value="top">
           顶部
-        </a-radio-button>
-        <a-radio-button value="right">
+        </y-radio-button>
+        <y-radio-button value="right">
           右侧
-        </a-radio-button>
-        <a-radio-button value="bottom">
+        </y-radio-button>
+        <y-radio-button value="bottom">
           底部
-        </a-radio-button>
-        <a-radio-button value="left">
+        </y-radio-button>
+        <y-radio-button value="left">
           左侧
-        </a-radio-button>
-      </a-radio-group>
-      <y-tabs default-active-key="1" :tab-position="mode">
-        <a-tab-pane v-for="i in 24" :key="i" :tab="`Tab ${i}`"> Content of Tab Pane {{ i }} </a-tab-pane>
+        </y-radio-button>
+      </y-radio-group>
+      <y-tabs v-model="activeKey" :tab-position="mode">
+        <y-tab-pane v-for="i in 24" :key="i" :tab="`Tab ${i}`"> Content of Tab Pane {{ i }} </y-tab-pane>
       </y-tabs>
     </com-show>
     <!-- 代码展示 -->
@@ -56,6 +56,7 @@
                     return {
                         size: 'default',
                         mode: 'top',
+                        activeKey: 2,
                     };
                 },
             };
@@ -70,41 +71,42 @@ export default {
     return {
       size: 'default',
       mode: 'top',
-      html: `<a-radio-group v-model="size" style="margin-bottom: 16px">
-        <a-radio-button value="small">
+      activeKey: 2,
+      html: `<y-radio-group v-model="size" style="margin-bottom: 16px">
+        <y-radio-button value="small">
           小尺寸
-        </a-radio-button>
-        <a-radio-button value="default">
+        </y-radio-button>
+        <y-radio-button value="default">
           大尺寸
-        </a-radio-button>
-      </a-radio-group>
+        </y-radio-button>
+      </y-radio-group>
       <y-tabs default-active-key="1" :size="size">
-        <a-tab-pane key="1" tab="Tab 1">
+        <y-tab-pane key="1" tab="Tab 1">
           Content of Tab Pane 1
-        </a-tab-pane>
-        <a-tab-pane key="2" tab="Tab 2" force-render>
+        </y-tab-pane>
+        <y-tab-pane key="2" tab="Tab 2" force-render>
           Content of Tab Pane 2
-        </a-tab-pane>
-        <a-tab-pane key="3" tab="Tab 3">
+        </y-tab-pane>
+        <y-tab-pane key="3" tab="Tab 3">
           Content of Tab Pane 3
-        </a-tab-pane>
+        </y-tab-pane>
       </y-tabs>
-      <a-radio-group v-model="mode" style="margin: 16px 0">
-        <a-radio-button value="top">
+      <y-radio-group v-model="mode" style="margin: 16px 0">
+        <y-radio-button value="top">
           顶部
-        </a-radio-button>
-        <a-radio-button value="right">
+        </y-radio-button>
+        <y-radio-button value="right">
           右侧
-        </a-radio-button>
-        <a-radio-button value="bottom">
+        </y-radio-button>
+        <y-radio-button value="bottom">
           底部
-        </a-radio-button>
-        <a-radio-button value="left">
+        </y-radio-button>
+        <y-radio-button value="left">
           左侧
-        </a-radio-button>
-      </a-radio-group>
-      <y-tabs default-active-key="1" :tab-position="mode">
-        <a-tab-pane v-for="i in 24" :key="i" :tab="'Tab'+ i"> Content of Tab Pane {{ i }} </a-tab-pane>
+        </y-radio-button>
+      </y-radio-group>
+      <y-tabs v-model="activeKey" :tab-position="mode">
+        <y-tab-pane v-for="i in 24" :key="i" :tab="\`Tab \${i}\`"> Content of Tab Pane {{ i }} </y-tab-pane>
       </y-tabs>`,
     };
   },
