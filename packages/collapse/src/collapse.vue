@@ -9,6 +9,7 @@ export default {
 };
 </script>
 <style lang="less">
+@import '~/src/styles/variables/index.less';
 .y-collapse.ant-collapse {
   border: @y-border-width-default @y-border-style-default @y-color-border-light;
   color: @y-color-text-regular;

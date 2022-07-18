@@ -6,7 +6,7 @@
         <y-breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
       </a-col>
     </a-row>
-    <a-divider />
+    <y-divider />
     <a-row>
       <a-col :span="24" class="flex-row">
         <span class="row-label">表格组件可伸缩列：</span>
@@ -15,7 +15,7 @@
         </div>
       </a-col>
     </a-row>
-    <a-divider />
+    <y-divider />
     <!-- <transfer /> -->
     <a-row style="padding-top: 14px; padding-bottom: 14px">
       <a-col :span="24">
@@ -30,14 +30,14 @@
         <y-tag color="volcano">更严重的警示</y-tag>
       </a-col>
     </a-row>
-    <a-divider />
+    <y-divider />
     <a-row>
       <a-col :span="24">
         <span class="row-label">button组件：</span>
         <y-button @click.native="test"> 123 </y-button>
       </a-col>
     </a-row>
-    <a-divider />
+    <y-divider />
     <a-row>
       <a-col :span="24" class="flex-row">
         <span class="row-label">表格组件：</span>
@@ -46,14 +46,14 @@
         </div>
       </a-col>
     </a-row>
-    <a-divider />
+    <y-divider />
     <a-row>
       <a-col :span="24" class="flex-row">
         <span class="row-label" style="padding-top: 10px">分页组件：</span>
         <y-pagination :total="total" :page.sync="pages.page" :limit.sync="pages.limit" @pagination="paginationChange" />
       </a-col>
     </a-row>
-    <a-divider />
+    <y-divider />
     <a-row style="padding-top: 10px">
       <a-col :span="24" class="flex-row">
         <span class="row-label">自定义表格组件：</span>
@@ -65,7 +65,7 @@
         </div>
       </a-col>
     </a-row>
-    <a-divider />
+    <y-divider />
     <a-row style="padding-top: 10px">
       <a-col :span="24" class="flex-row">
         <span class="row-label">tag标签组件：</span>
@@ -74,7 +74,7 @@
         <input type="text" v-model="linkTagValue" />
       </a-col>
     </a-row>
-    <a-divider />
+    <y-divider />
     <a-row>
       <a-col :span="24" class="flex-row">
         <span class="row-label">上传组件：</span>
@@ -83,14 +83,14 @@
         </div>
       </a-col>
     </a-row>
-    <a-divider />
+    <y-divider />
     <a-row style="padding-top: 10px">
       <a-col :span="24" class="flex-row">
         <span class="row-label">tree组件：</span>
         <y-custom-tree />
       </a-col>
     </a-row>
-    <a-divider />
+    <y-divider />
     <a-row style="padding-top: 10px">
       <a-col :span="24" class="flex-row">
         <span class="row-label">spin 全局组件：</span>
@@ -100,7 +100,7 @@
         </div>
       </a-col>
     </a-row>
-    <a-divider />
+    <y-divider />
     <a-row style="padding-top: 10px">
       <a-col :span="24" class="flex-row">
         <span class="row-label">弹窗组件：</span>
@@ -115,7 +115,7 @@
               "
               >{{ modalMove ? '取消滑动' : '添加滑动' }}</a-button
             >
-          <a-button type="primary" style="margin-left:20px" @click="modalVisible2 = true">打开弹窗2</a-button>
+            <a-button type="primary" style="margin-left:20px" @click="modalVisible2 = true">打开弹窗2</a-button>
           </y-modal>
           <y-modal :move="false" :visible="modalVisible2" title="弹窗2" @ok="modalVisible2 = false" @cancel="modalVisible2 = false">
             <p>弹窗2内容</p>
@@ -127,13 +127,15 @@
       <a-col :span="24" class="flex-row">
         <span class="row-label">confirm 全局方法：</span>
         <div>
-          <a-button type="primary" @click="$YConfirm({title:'可以移动confirm'})">可以移动confirm</a-button>
-          <a-button type="primary" style="margin-left:20px" @click="$YConfirm({ title:'不移动confirm',move:false})">不移动confirm</a-button>
+          <a-button type="primary" @click="$YConfirm({ title: '可以移动confirm' })">可以移动confirm</a-button>
+          <a-button type="primary" style="margin-left:20px" @click="$YConfirm({ title: '不移动confirm', move: false })"
+            >不移动confirm</a-button
+          >
         </div>
       </a-col>
     </a-row>
 
-    <!-- <a-divider />
+    <!-- <y-divider />
     <a-row style="padding-top: 10px">
       <a-col :span="24" class="flex-row">
         <span class="row-label">自定义日期选择框面板组件：</span>
@@ -214,7 +216,7 @@ export default {
         message: '123',
       };
       this.$Ytipshow.info(data);
-    }
+    },
   },
 };
 </script>

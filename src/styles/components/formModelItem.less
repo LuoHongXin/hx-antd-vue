@@ -1,8 +1,12 @@
 .y-form-item {
+  .ant-form-item-control {
+    line-height: 34px;
+  }
   .ant-form-item-label {
+    line-height: 34px;
     label {
       display: inline-flex;
-      width: 100%;
+      max-width: 100%;
       align-items: center;
     }
   }
@@ -13,6 +17,14 @@
     label {
       display: inline-flex;
       width: 100%;
+    }
+  }
+  &.more-form-item {
+     .ant-form-item-children {
+      display: flex;
+      .y-form-item {
+        margin: 0;
+      }
     }
   }
 }

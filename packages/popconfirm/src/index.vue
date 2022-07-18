@@ -10,6 +10,7 @@
 import colorVariables from '@src/styles/variables/index.less';
 export default {
   name: 'YPopconfirm',
+  inheritAttrs: false,
   data() {
     return {
       colorVariables,
@@ -18,6 +19,7 @@ export default {
 };
 </script>
 <style lang="less">
+@import '~/src/styles/variables/index.less';
 .ant-popover-buttons {
   border-radius: 2px;
   .ant-btn:not(.ant-btn-primary):hover {

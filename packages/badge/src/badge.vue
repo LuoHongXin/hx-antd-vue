@@ -9,6 +9,7 @@ export default {
 };
 </script>
 <style lang="less">
+@import '~/src/styles/variables/index.less';
 .y-badge {
   .ant-badge-count {
     background: @y-color-primary;

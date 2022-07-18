@@ -1,7 +1,11 @@
 <template>
   <div>
     <com-show>
-      <y-input passwordMode placeholder="用户名" v-model="val" />
+      <div>不使用v-model</div>
+      <y-input passwordMode placeholder="用户名" :value="val" />
+      <br /><br />
+      <div>v-model</div>
+      <y-input-password :visibilityToggle="false" placeholder="visibilityToggle false" v-model="val" />
       <br /><br />
       <y-input-password placeholder="input password" v-model="val" />
       <br /><br />
@@ -9,7 +13,12 @@
       <!-- 代码展示 -->
       <pre class="line-numbers">
         <code class="language-html" v-text='`
-        <y-input placeholder="用户名" passwordMode v-model="val" />
+        <div>不使用v-model</div>
+        <y-input passwordMode placeholder="用户名" :value="val" />
+        <br /><br />
+        <div>v-model</div>
+        <br /><br />
+        <y-input-password :visibilityToggle="false" placeholder="visibilityToggle false" v-model="val" />
         <br /><br />
         <y-input-password placeholder="input password" v-model="val" />
         <br /><br />

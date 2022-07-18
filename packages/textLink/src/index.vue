@@ -1,8 +1,9 @@
 <template>
-  <div :class="`y-text-link ${type}`" @click="click">
+  <div v-if="$slots.default" :class="`y-text-link ${type}`" @click="click">
     <span class="text"><slot /></span>
-    <y-svg-icon v-if="icon" icon-class="link" class-name="text-link " />
+    <y-svg-icon v-if="icon" :icon-class="iconClass" class="text-link-icon " />
   </div>
+  <y-svg-icon v-else :icon-class="iconClass" :class="`y-text-link ${type} icon-only`" />
 </template>
 <script>
 export default {
@@ -15,10 +16,15 @@ export default {
       },
     },
     icon: {
-      type: Boolean,
+      type: [Boolean, String],
       default: function() {
         return false;
       },
+    },
+  },
+  computed: {
+    iconClass() {
+      return typeof this.icon === 'boolean' ? 'link' : this.icon;
     },
   },
   methods: {
@@ -28,18 +34,19 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped>
+<style lang="less">
+@import '~/src/styles/variables/index.less';
 .y-text-link {
   cursor: pointer;
   color: @y-color-text-regular;
   display: inline-block;
   position: relative;
-  .y-svg-icon-text-link {
+  .text-link-icon {
     width: @y-icon-s;
     height: @y-icon-s;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-38%);
     right: calc(-@y-spacing-xxs - @y-icon-s);
   }
   &:hover {
@@ -60,6 +67,9 @@ export default {
         background-color: @y-color-text-link;
       }
     }
+  }
+  &.icon-only {
+    margin: 0;
   }
   &.default {
     .text::after {

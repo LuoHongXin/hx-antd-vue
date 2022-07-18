@@ -4,7 +4,13 @@
     <funTitleDetail title="基础表格（前端分页）" detail="常见的基础表格" />
     <!-- 组件展示 -->
     <com-show>
-      <y-model-table :rowSelection="false" :scroll="{ x: true }" :dataSource="tableData" :columns="columns">
+      <y-model-table
+        :rowSelection="false"
+        :scroll="{ x: true,y:445 }"
+        :paramsKeyFilter="paramsKeyFilter"
+        :dataSource="tableData"
+        :columns="columns"
+      >
         <template v-slot:name="{ text }">
           <a class="y-button-link">{{ text }}</a>
         </template>
@@ -199,6 +205,9 @@ export default {
       js,
       columns,
       tableData: [],
+      paramsKeyFilter: {
+        search: 'name',
+      },
       buttonList,
       html: `<y-model-table :rowSelection="false" :scroll="{ x: true }" :dataSource="tableData" :columns="columns">
         <template v-slot:name="{ text }">

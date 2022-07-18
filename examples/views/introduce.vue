@@ -10,7 +10,7 @@
       在预编译css语言上，我们选择保持和antd一致，都是采用 less 预编译语言，所以在安装我们组件库时，请保证项目已安装 less 和 less-loader
       依赖。且 less 的版本最好是 3.* 的版本，否则可能会报错
     </p>
-    antd具体API文档地址：<a href="https://www.antdv.com/docs/vue/introduce-cn/">Ant Design of Vue</a>
+    antd具体API文档地址：<a target="_blank" href="https://www.antdv.com/docs/vue/introduce-cn/">Ant Design of Vue</a>
     <h3 class="fun-title">快速使用</h3>
     <funTitleDetail
       title="安装"
@@ -19,7 +19,7 @@
     <!-- 代码展示 -->
     <pre class="line-numbers">
         <code class="language-JavaScript">
-          // 设置内网 npm 代理
+          // 公司内网需设置内网 npm 代理
           npm config set registry http://192.168.101.160:8081/repository/npm-group/
           // 开始安装 hx-antd-vue
           npm i --save hx-antd-vue
@@ -29,7 +29,10 @@
     <pre class="line-numbers">
         <code class="language-JavaScript">
           import whComponents from "hx-antd-vue";
+          // 组件样式
           import "hx-antd-vue/lib/hx-antd-vue.css";
+          // 典型页面布局样式
+          import "hx-antd-vue/src/styles/index.less";
           Vue.use(whComponents);
         </code>
     </pre>

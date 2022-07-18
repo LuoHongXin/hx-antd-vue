@@ -2,7 +2,7 @@
   <div class="breadcrumb-container">
     <div class="back-btn" v-if="back" @click="goBack">
       <a-icon type="left" />
-      <span>返回</span>
+      <span>{{ $wci18n.t('wh.breadcrumb.back') }}</span>
     </div>
     <a-breadcrumb class="y-breadcrumb" :separator="separator">
       <a-breadcrumb-item v-for="(item, index) in levelList2" :key="item.path">
@@ -12,11 +12,11 @@
         <template v-else>
           <template v-if="item.meta.redirect === 'noRedirect' || index == levelList2.length - 1">
             <a-icon :type="item.meta.antIcon" v-if="item.meta.antIcon" class="no-redirect" />
-            <span class="no-redirect">{{ item.meta.title }}</span>
+            <span class="no-redirect">{{ translate(item.meta.title) }}</span>
           </template>
           <template v-else>
             <a-icon :type="item.meta.antIcon" v-if="item.meta.antIcon" />
-            <span @click.prevent="handleLink(item)">{{ item.meta.title }}</span>
+            <span @click.prevent="handleLink(item)">{{ translate(item.meta.title) }}</span>
           </template>
         </template>
       </a-breadcrumb-item>
@@ -92,6 +92,13 @@ export default {
         this.$router.back();
       }
     },
+    // 根据所在应用的国际化进行翻译
+    translate(str) {
+      if (window.app && window.app.$t) {
+        return window.app.$t(str);
+      }
+      return str;
+    },
     getBreadcrumb() {
       if (this.data) {
         this.levelList = this.data;
@@ -140,30 +147,4 @@ export default {
 
 <style lang="less">
 @import '~/src/styles/components/breadcrumb.less';
-</style>
-<style lang="less" scoped>
-.back-btn {
-  cursor: pointer;
-  color: @y-color-text-link;
-  font-size: @y-font-size-m;
-  display: inline-block;
-  padding-right: @y-spacing-xs;
-  margin-right: @y-spacing-xs;
-  line-height: 100%;
-  position: relative;
-  .anticon-left {
-    font-size: @y-font-size-s;
-    margin-right: @y-spacing-xxs;
-  }
-  &::after {
-    content: '';
-    height: @y-spacing-xs;
-    width: 1px;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: @y-color-border-light;
-  }
-}
 </style>

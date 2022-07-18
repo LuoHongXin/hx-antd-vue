@@ -3,6 +3,7 @@
     <a-config-provider :locale="locale">
       <a-layout style="height: 100%">
         <a-layout-sider style="height: 100%;overflow: auto;">
+          <h3 class="versionTitle">{{ packageInfo.version }}</h3>
           <a-menu :defaultOpenKeys="openKeys" v-model="selectdRoute" mode="inline">
             <template v-for="item in routes">
               <a-sub-menu v-if="item.children" :key="item.name">
@@ -26,7 +27,7 @@
           @mouseleave.native="lottieMoveOut"
           v-if="lottieShow"
           class="myLottie"
-          style="position:absolute;bottom:0;left:0;"
+          style="position:absolute;bottom:0;right:0;"
           :options="defaultOptions"
           :height="200"
           :width="200"
@@ -39,10 +40,12 @@
 
 <script>
 import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN';
+const packageInfo = require('../package.json');
 import { dragClass } from '@src/utils/common.js';
 export default {
   data() {
     return {
+      packageInfo,
       locale: zhCN,
       routes: [],
       openKeys: [],
@@ -116,6 +119,14 @@ export default {
   // -webkit-font-smoothing: antialiased;
   // -moz-osx-font-smoothing: grayscale;
   text-align: left;
+  .versionTitle {
+    font-size: 24px;
+    line-height: 24px;
+    height: 30px;
+    padding-top: 6px;
+    padding-left: 24px;
+    margin: 0;
+  }
   // color: #2c3e50;
   .myLottie {
     svg {

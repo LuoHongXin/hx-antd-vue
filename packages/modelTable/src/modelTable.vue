@@ -2,54 +2,56 @@
   <div class="y-model-table-container">
     <div class="y-table-header" v-if="tableHeader">
       <div class="left">
-        <y-button-group v-if="buttonList2" :buttonList="buttonList2"></y-button-group>
+        <y-button-group v-if="tableHeader2.left && buttonList2" :buttonList="buttonList2"></y-button-group>
+        <template v-if="$slots.tableHeaderLeft">
+          <slot name="tableHeaderLeft"></slot>
+        </template>
       </div>
       <div class="right">
-        <!-- 带选项 -->
-        <y-input-search
-          autoWidth
-          key="hasOption"
-          v-if="selectOptions"
-          :placeholder="`请输入${searchTitle}`"
-          v-model="inputSearch"
-          @search="onSearch"
-          :selectOption="selectOptions"
-          :selectValue.sync="selectSearchKey"
-          selectStyle="maxWidth:150px"
-        >
-        </y-input-search>
-        <!-- 不带选项 -->
-        <y-auto-complete v-else autoWidth key="noOption" :placeholder="`请输入${searchTitle}`" v-model="inputSearch" @onSearch="onSearch">
-          <y-input>
-            <a-icon slot="prefix" type="search" class="certain-category-icon" />
-          </y-input>
-        </y-auto-complete>
-        <div class="icon-btn-group">
-          <a-tooltip v-if="fresh" placement="top">
-            <template slot="title">
-              <span>重置</span>
-            </template>
-            <y-button icon="fresh" @click="freshTable"></y-button>
-          </a-tooltip>
-          <a-tooltip placement="top" v-if="$listeners.filter">
-            <template slot="title">
-              <span>高级搜索</span>
-            </template>
-            <y-button icon="filter" @click="filter"></y-button>
-          </a-tooltip>
-          <a-tooltip placement="top" v-if="$listeners.download">
-            <template slot="title">
-              <span>导出</span>
-            </template>
-            <y-button icon="download" @click="download"></y-button>
-          </a-tooltip>
-          <a-tooltip placement="top" v-if="setting">
-            <template slot="title">
-              <span>列设置</span>
-            </template>
-            <y-dropdown-check-button v-model="columnsCheck" :checkList="columnsCheckList" />
-          </a-tooltip>
-        </div>
+        <template v-if="$slots.tableHeaderRight">
+          <slot name="tableHeaderRight"></slot>
+        </template>
+        <template v-if="tableHeader2.right">
+          <!-- 带选项 selectOptions -->
+          <y-input-search
+            autoWidth
+            v-if="search"
+            key="hasOption"
+            :placeholder="searchTitle"
+            v-model="inputSearch"
+            @search="onSearch"
+            :selectOption="selectOptions"
+            :selectValue.sync="selectSearchKey"
+            selectStyle="maxWidth:150px"
+          >
+          </y-input-search>
+          <div class="icon-btn-group">
+            <a-tooltip v-if="fresh" placement="top">
+              <template slot="title">
+                <span>{{ $wci18n.t('wh.modalTables.reset') }}</span>
+              </template>
+              <y-button icon="fresh" @click="freshTable"></y-button>
+            </a-tooltip>
+            <a-tooltip placement="top" v-if="$listeners.filter">
+              <template slot="title">
+                <span>{{ $wci18n.t('wh.modalTables.advancedSearch') }}</span>
+              </template>
+              <y-button icon="filter" @click="filter"></y-button>
+            </a-tooltip>
+            <a-tooltip placement="top" v-if="$listeners.download">
+              <template slot="title">
+                <span>{{ $wci18n.t('wh.modalTables.export') }}</span>
+              </template>
+              <y-button icon="download" @click="download"></y-button>
+            </a-tooltip>
+            <a-tooltip placement="top" v-if="setting">
+              <template slot="title">
+                <span>{{ $wci18n.t('wh.modalTables.columnSetting') }}</span>
+              </template>
+              <y-dropdown-check-button v-model="columnsCheck" :checkList="columnsCheckList" />
+            </a-tooltip>
+          </div>
+        </template>
       </div>
     </div>
 
@@ -67,6 +69,7 @@
         :row-selection="rowSelection2"
         :components="$YGetTableDragHeader(columns3)"
         :columns="columns3"
+        :key="columns3.length"
         :data-source="tableData"
         :pagination="false"
         :modelKeys.sync="selectedDataKeys"
@@ -109,6 +112,7 @@
         :row-selection="rowSelection2"
         :components="$YGetTableDragHeader(columns3)"
         :columns="columns3"
+        :key="columns3.length"
         :data-source="tableData"
         :pagination="false"
         :loading="loading"
@@ -148,7 +152,7 @@
           ></slot>
           <a-tooltip v-if="col.copy && text" :key="'copy' + col.dataIndex" placement="top">
             <template slot="title">
-              <span>复制</span>
+              <span>{{ $wci18n.t('wh.modalTables.copy') }}</span>
             </template>
             <y-svg-icon class="anticon" icon-class="copy" @click="copyText(text)" />
           </a-tooltip>
@@ -163,13 +167,15 @@
       <div class="y-table-footer" ref="tableFooter">
         <div class="left">
           <y-button-group
-            moreText="批量操作"
+            :moreText="$wci18n.t('wh.modalTables.batchOperation')"
             :moreBtnNum="1"
             v-if="batchOperateShow && rowSelection2 && buttonList2"
             :buttonList="buttonList2"
           ></y-button-group>
-          <span class="select-text" v-if="rowSelection2">已选：{{ selectedDataKeys.length }}项</span>
-          <y-button v-if="rowSelection2" @click="clearSelect" type="link">清空</y-button>
+          <span class="select-text" v-if="rowSelection2"
+            >{{ $wci18n.t('wh.modalTables.selected') }}{{ selectedDataKeys.length }}{{ $wci18n.t('wh.modalTables.item') }}</span
+          >
+          <y-button v-if="rowSelection2" @click="clearSelect" type="link">{{ $wci18n.t('wh.modalTables.clear') }}</y-button>
         </div>
         <div class="right">
           <y-pagination
@@ -186,10 +192,10 @@
 <script>
 import { deepCopy } from '@src/utils/common.js';
 // 查找整个表格节点
-const findTableElement = el => {
-  if (el.parentNode.tagName === 'TABLE') return el.parentNode;
-  return findTableElement(el.parentNode);
-};
+// const findTableElement = el => {
+//   if (el.parentNode.tagName === 'TABLE') return el.parentNode;
+//   return findTableElement(el.parentNode);
+// };
 export default {
   name: 'YModelTable',
   props: {
@@ -203,14 +209,20 @@ export default {
       default: null,
     },
     tableHeader: {
-      type: Boolean,
-      default: true,
+      type: [Boolean, Object],
+      default: function() {
+        return {
+          left: true,
+          right: true,
+        };
+      },
     },
     // 表格内的悬浮相对定位对象
     getPopupContainer: {
       type: Function,
-      default: triggerNode => {
-        return findTableElement(triggerNode) || document.body;
+      default: () => {
+        // return findTableElement(triggerNode) || document.body;
+        return document.body;
       },
     },
     // 非请求获取表格数据，通过该参数传全部表格数据
@@ -263,6 +275,11 @@ export default {
       type: Object,
       default: null,
     },
+    // 是否需要搜索
+    search: {
+      type: Boolean,
+      default: true,
+    },
     // 是否需要刷新
     fresh: {
       type: Boolean,
@@ -286,6 +303,21 @@ export default {
       type: Function,
       default: null,
     },
+    // 搜索关键字的名称
+    searchPlaceholder: {
+      type: String,
+      default: null,
+    },
+    // 列设置展示默认勾选的数据
+    defaultCheckColumsValue: {
+      type: Array,
+      default: null,
+    },
+    // 前端分页时，是否自动根据搜索内容过滤
+    autoSearchFilter: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -298,6 +330,7 @@ export default {
       selectedDataKeys: [],
       filters: null,
       sorter: null,
+      queryParams: null, // 上次请求参数
       searchValue: '', // 最终搜索的字段
       inputSearch: '', // 输入框实时的字段
       selectSearchKey: this.selectOptions ? this.selectOptions[0].value : null, // 下拉选项选择的搜索关键字
@@ -310,6 +343,19 @@ export default {
     };
   },
   computed: {
+    tableHeader2: {
+      get() {
+        const th = this.tableHeader;
+        if (th) {
+          if (th instanceof Object) {
+            return Object.assign({ left: true, right: true }, th);
+          } else {
+            return { left: true, right: true };
+          }
+        }
+        return {};
+      },
+    },
     // 最终头部左侧按钮组数据
     buttonList2: {
       get() {
@@ -320,6 +366,9 @@ export default {
             if ((item.checkDisabled !== false && item.disable === undefined && item.type !== 'primary') || item.checkDisabled) {
               // 根据表格是否选中数据判定禁用
               item.disable = this.selectedDataKeys.length === 0;
+              if (!item.tips) {
+                item.tips = this.selectedDataKeys.length === 0 ? this.$wci18n.t('wh.modalTables.pleaseSelectDataFirst') : '';
+              }
             }
             return item;
           });
@@ -334,11 +383,22 @@ export default {
         return columns2.map(i => {
           // 控制过滤
           if (i.onFilter || i.filter) {
-            i.filteredValue = filters ? filters[i.dataIndex] || null : null;
+            i.filteredValue = filters ? filters[i.dataIndex] || null : i.filteredValue;
+            if (i.filteredValue && !filters) {
+              this.filters = {
+                [i.dataIndex]: i.filteredValue,
+              };
+            }
           }
           // 控制排序
           if (i.sorter) {
-            i.sortOrder = sorter ? sorter.columnKey === i.dataIndex && sorter.order : null;
+            i.sortOrder = sorter ? sorter.columnKey === i.dataIndex && sorter.order : i.sortOrder;
+            if (i.sortOrder && !sorter) {
+              this.sorter = {
+                columnKey: i.dataIndex,
+                order: i.sortOrder,
+              };
+            }
           }
           if (i.ellipsis && !i.scopedSlots) {
             i.autoEllipsis = true;
@@ -350,18 +410,22 @@ export default {
     },
     // 搜索关键字的名称
     searchTitle() {
+      const searchPlaceholder = this.searchPlaceholder;
+      if (searchPlaceholder) {
+        return searchPlaceholder;
+      }
       const selectOptions = this.selectOptions;
       if (selectOptions) {
         for (let i = 0; i < selectOptions.length; i++) {
           if (selectOptions[i].value === this.selectSearchKey) {
-            return selectOptions[i].title;
+            return this.$wci18n.t('wh.modalTables.pleaseInput') + `${selectOptions[i].title}`;
           }
         }
       }
-      if (this.columns.length > 0) {
-        return this.columns[0].title;
+      if (this.columns.length > 0 && this.columns[0].title) {
+        return this.$wci18n.t('wh.modalTables.pleaseInput') + `${this.columns[0].title}`;
       }
-      return this.columns[0].title;
+      return this.$wci18n.t('wh.modalTables.pleaseInput');
     },
     rowSelection2() {
       let dfRowSelection = {
@@ -394,7 +458,7 @@ export default {
     columnsCheckList: {
       get() {
         return this.columns.map(i => {
-          return { text: i.title, value: i.dataIndex };
+          return { text: i.columnSetTitle || i.title, value: i.dataIndex, disabled: i.columnsCheckDisabled };
         });
       },
     },
@@ -421,9 +485,21 @@ export default {
     this.clearAffix();
   },
   watch: {
+    defaultCheckColumsValue: {
+      handler: function(val) {
+        if (val) this.columnsCheck = [...val];
+      },
+      immediate: true,
+    },
     dataSource: {
       handler: function() {
         this.getTableData();
+      },
+      deep: true,
+    },
+    selectedData: {
+      handler: function() {
+        this.$emit('check', this.selectedDataKeys, this.selectedData);
       },
       deep: true,
     },
@@ -436,11 +512,11 @@ export default {
       const _this = this;
       this.$copyText(text).then(
         function(e) {
-          _this.$message.success('文本已复制');
+          _this.$YMessage.success(this.$wci18n.t('wh.modalTables.textCopied'));
           console.log('复制成功', e);
         },
         function(e) {
-          _this.$message.error('文本复制失败，请手动尝试复制');
+          _this.$YMessage.error(this.$wci18n.t('wh.modalTables.textFailed'));
           console.log('复制失败', e);
         }
       );
@@ -498,25 +574,26 @@ export default {
       this.selectedDataKeys = [];
     },
     onSearch(val) {
+      this.$emit('onSearch', val); // 搜索回调
       this.searchValue = typeof val === 'string' ? val : '';
       this.$set(this.pagination, 'page', 1);
       this.getTableData();
-      this.$emit('onSearch', this.searchValue); // 搜索回调
     },
-    getTableData() {
+    getTableData({ needLoading } = { needLoading: true }) {
       let params = {};
-      this.loading = true;
-      const { paramsKey, pagination, searchValue, selectSearchKey, sorter, filters, extraParams } = this;
+      this.loading = needLoading;
+      const { paramsKey, pagination, searchValue, autoSearchFilter, selectSearchKey, sorter, filters, extraParams } = this;
       if (this.dataSource) {
         let tbdata = [];
-        const dataSource = searchValue
-          ? this.dataSource.filter(item => {
-              return (
-                item[selectSearchKey ? selectSearchKey : paramsKey.search] &&
-                item[selectSearchKey ? selectSearchKey : paramsKey.search].includes(searchValue)
-              );
-            })
-          : [...this.dataSource];
+        const dataSource =
+          searchValue && autoSearchFilter
+            ? this.dataSource.filter(item => {
+                return (
+                  item[selectSearchKey ? selectSearchKey : paramsKey.search] &&
+                  item[selectSearchKey ? selectSearchKey : paramsKey.search].includes(searchValue)
+                );
+              })
+            : [...this.dataSource];
         for (let i = (pagination.page - 1) * pagination.limit; i < pagination.page * pagination.limit; i++) {
           if (dataSource[i]) {
             tbdata.push(dataSource[i]);
@@ -561,6 +638,7 @@ export default {
         }
         // 有网才请求
         if (navigator.onLine) {
+          this.queryParams = params;
           this.api(params)
             .then(res => {
               if (this.handleResponse) {
@@ -577,6 +655,7 @@ export default {
             })
             .catch(err => {
               this.emptyScene = 'systemError';
+              this.assignTableData([]);
               this.$emit('getTableCallback', { data: err, type: 'error' }); // 获取列表回调
               this.loading = false;
             });
@@ -602,7 +681,11 @@ export default {
       this.filters = null;
       this.sorter = null;
       this.$set(this.pagination, 'page', 1);
-      this.onSearch(this.inputSearch);
+      if (this.$listeners.freshCallback) {
+        this.$emit('freshCallback');
+      } else {
+        this.onSearch(this.inputSearch);
+      }
     },
     download() {
       this.$emit('download');

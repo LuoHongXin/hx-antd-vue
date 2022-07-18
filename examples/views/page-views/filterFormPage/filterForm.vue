@@ -24,7 +24,7 @@
         <span slot="label"
           >表单标题
           <y-tooltip title="提示信息">
-            <a-icon type="exclamation-circle" />
+            <y-svg-icon icon-class="info" />
           </y-tooltip>
         </span>
         <y-input placeholder="请输入" />

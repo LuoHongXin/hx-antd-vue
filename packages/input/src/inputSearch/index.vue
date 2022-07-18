@@ -1,5 +1,5 @@
 <template>
-  <a-input-group class="y-input-search-group" compact :class="widthSizeClass">
+  <a-input-group v-on="$listeners" v-bind="$attrs" :size="size" class="y-input-search-group" compact :class="widthSizeClass">
     <y-select
       class="y-input-search-select"
       v-if="selectOption"
@@ -9,10 +9,8 @@
       @change="selectValueChange"
       :style="selectStyle"
       :class="selectClassName"
+      :options="selectOption"
     >
-      <y-select-option v-for="select in selectOption" :key="select.value" :value="select.value">
-        {{ select.title }}
-      </y-select-option>
     </y-select>
     <y-input
       :class="selectOption ? '' : 'y-input-search-select-input'"
@@ -25,10 +23,13 @@
       :allowClear="allowClear"
     >
     </y-input>
-    <y-button :disabled="disabled" @click="callback('callbackInput')">
-      <a-icon v-if="loading" type="loading"></a-icon>
-      <a-icon v-else type="search"></a-icon>
-    </y-button>
+    <y-button
+      :size="size"
+      :disabled="disabled"
+      @click="callback('callbackInput')"
+      :icon="loading ? 'loading' : 'search'"
+      class="y-input-search-select-button"
+    />
   </a-input-group>
 </template>
 <script>
@@ -41,11 +42,15 @@ export default {
   props: {
     value: {
       type: [String, Number],
-      default: null,
+      default: undefined,
     },
     disabled: {
       type: Boolean,
       default: false,
+    },
+    size: {
+      type: String,
+      default: 'default',
     },
     loading: {
       type: Boolean,
@@ -98,10 +103,15 @@ export default {
       inValue2: '',
     };
   },
+  watch: {
+    value(val) {
+      this.inValue2 = val;
+    },
+  },
   computed: {
     inValue: {
       get: function() {
-        return this.value === null ? this.inValue2 : this.value;
+        return this.value === undefined ? this.inValue2 : this.value;
       },
       set: function(newValue) {
         this.$emit('update-value', newValue);

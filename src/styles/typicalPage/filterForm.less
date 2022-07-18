@@ -8,6 +8,10 @@
         }
     }
   .ant-row {
+      .y-divider {
+          margin-top: 0;
+          margin-bottom: 16px;
+      }
       .ant-col {
           .y-form-item.ant-form-item {
               display: flex;
@@ -23,14 +27,16 @@
               }
               .ant-form-item-control {
                   line-height: 32px;
-                }
+            }
           }
+          &.btn-col{
+            margin-bottom: @y-spacing-m;;
+        }
       }
       // 单列布局
       &[layouttype='1col'] {
           .ant-col.btn-col{
               padding-left: 8.3% !important;
-              margin-bottom: @y-spacing-m;;
           }
           .btn-col {
               text-align: left;

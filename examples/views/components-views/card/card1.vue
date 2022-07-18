@@ -9,6 +9,14 @@
         <p>card content</p>
         <p>card content</p>
       </y-card>
+      <div style="margin-top:30px"></div>
+      <y-card size="small" :titleBorderBottom="false" style="width: 500px;height:300px" :hoverable="true">
+        <a slot="extra" href="#">more</a>
+        <div slot="title" class="handleFlex">我是插槽分发的标题我是</div>
+        <p>card content</p>
+        <p>card content</p>
+        <p>card content</p>
+      </y-card>
     </com-show>
     <pre class="line-numbers">
         <code class="language-html" v-text="html1">
@@ -60,12 +68,21 @@ export default {
   name: 'myCard1',
   data() {
     return {
-      html1: `<y-card size="small" title="Small size card" style="width: 300px">
+      html1: `<y-card size="small" title="Small size card" style="width: 300px;height:300px;">
         <a slot="extra" href="#">more</a>
         <p>card content</p>
         <p>card content</p>
         <p>card content</p>
-      </y-card>`,
+      </y-card>
+
+        <y-card size="small" :titleBorderBottom="false" style="width: 500px;height:300px" :hoverable="true">
+        <a slot="extra" href="#">more</a>
+        <div slot="title">我是插槽分发的标题</div>
+        <p>card content</p>
+        <p>card content</p>
+        <p>card content</p>
+      </y-card>
+      `,
       html2: `<y-card title="Card title">
         <p style="fontSize: 14px;color: rgba(0, 0, 0, 0.85); marginBottom: 16px;fontWeight: 500">
           Group title
@@ -110,3 +127,8 @@ export default {
   },
 };
 </script>
+<style lang="less" scoped>
+.handleFlex {
+  display: flex;
+}
+</style>

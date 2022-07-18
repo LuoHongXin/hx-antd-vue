@@ -1,6 +1,7 @@
 <script>
 // 基于 a-table 的基础上再封装
 import { Table } from 'ant-design-vue';
+import { flatArr } from '@src/utils/common.js';
 export default {
   name: 'YTable',
   extends: Table,
@@ -133,6 +134,7 @@ export default {
       const _this = this;
       this.$el.onclick = function(ev) {
         const targetKey = ev.target.parentNode.getAttribute('data-row-key');
+
         if (targetKey) {
           let selectedRowKeys = [];
           let selectedData = _this.selectedData;
@@ -169,7 +171,7 @@ export default {
             selectedRowKeys.push(targetKey);
             // 有绑定 v-model
             if (selectedData) {
-              _this.dataSource.forEach(item => {
+              flatArr.get([..._this.dataSource], 'children').forEach(item => {
                 if (getRowKey(rowKey, item) === targetKey) {
                   selectedData.push(item);
                 }
@@ -182,7 +184,7 @@ export default {
               selectedRowKeys = [targetKey];
               // 有绑定 v-model
               if (selectedData) {
-                _this.dataSource.forEach(item => {
+                flatArr.get([..._this.dataSource], 'children').forEach(item => {
                   if (getRowKey(rowKey, item) === targetKey) {
                     selectedData = [item];
                   }

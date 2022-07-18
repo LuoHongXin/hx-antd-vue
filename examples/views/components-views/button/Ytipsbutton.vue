@@ -47,6 +47,12 @@ export default {
           type: 'String',
           default: '请先选择数据',
         },
+        {
+          params: 'getPopupContainer',
+          explain: '悬浮提示相对定位的节点',
+          type: 'Function(triggerNode)',
+          default: '() => document.body',
+        },
       ],
     };
   },

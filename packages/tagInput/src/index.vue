@@ -7,40 +7,59 @@
   canAdd - Boolean，是否可以新增，默认 true
   <tag-input v-model="selectTag" :data="tagData" @inputNewTag="inputNewTag"></tag-input> 
   -->
-  <div class="tagInput notshrink">
-    <div class="self-input notshrink" @click="dropdownShow" :style="'border-color:' + (dropdownView ? themeColor || '' : '')">
-      <a-tag v-for="item in selectValue" style="margin-bottom: 5px" :key="item" closable @close="closeTag(item)">{{ item }}</a-tag>
+  <div class="tagInput notshrink" :class="widthSizeClass">
+    <div class="self-input notshrink" @click.stop="dropdownShow" :style="'border-color:' + (dropdownView ? themeColor || '' : '')">
+      <y-tag v-for="item in selectValue" :key="item.label" :closable="!item.noClose" @close="closeTag(item)">
+        <y-tooltip>
+          <template slot="title">
+            <span>{{ item.label }}</span>
+          </template>
+          {{ item.label }}
+        </y-tooltip>
+      </y-tag>
+      <y-input
+        type="text"
+        v-if="inputAddNewTag"
+        ref="myTagInput"
+        autoWidth
+        v-model="inputVal"
+        @pressEnter="tagInputPressEnter"
+        placeholder=""
+        :style="{
+          minWidth: '8px',
+          border: 'none',
+          margin: '0px',
+          padding: '0px',
+          height: '22px',
+          boxShadow: 'none',
+          width: inputWidth,
+          maxWidth: '100%',
+        }"
+      />
     </div>
     <!-- <a-input mode="tags" placeholder="请输入新标签" v-model="selectValue" /> -->
-    <div class="dropdown notshrink" v-if="dropdownView">
+    <div class="dropdown notshrink" v-if="showDropdown && dropdownView">
       <y-link-tag class="notshrink" :data="dataSource" v-model="linkTagValue" />
       <div v-if="canAdd">
         <div v-if="!addTagView" class="addTag notshrink" @click="addTag">
           <div>
             <a-icon type="plus" style="margin-right: 5px" />
-            <span>新增标签</span>
+            <span>{{ $wci18n.t('wh.tagInput.addTag') }}</span>
           </div>
         </div>
         <div v-else>
-          <a-input class="notshrink" placeholder="请输入新标签" v-model="newTagVal" @pressEnter="inputNewTag" />
+          <a-input
+            class="notshrink"
+            :placeholder="$wci18n.t('wh.tagInput.PleaseEnterNewTag')"
+            v-model="newTagVal"
+            @pressEnter="inputNewTag"
+          />
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-// function tagClickEvent(e) {
-//   console.log(e);
-//   if (
-//     e.toElement.className &&
-//     e.toElement.className.includes &&
-//     !e.toElement.className.includes("y-link-tag-mark") && // 点击选中的tag不需关闭
-//     !e.toElement.className.includes("notshrink") && // 点击含有 notshrink 类名的不需关闭
-//     !e.toElement.className.includes("y-tag-item")
-//   ) {
-//     this.dropdownView = false;
-//   }
-// }
 export default {
   name: 'YTagInput',
   model: {
@@ -48,25 +67,31 @@ export default {
     event: 'update-value',
   },
   computed: {
+    inputWidth() {
+      return this.inputVal.length * 9 + 12 + 'px';
+    },
     selectValue: {
       get() {
         let arr = this.linkTagValue.split(',');
         let labelArr = [];
+        let newArr = [];
         this.dataSource.forEach(item => {
-          if (arr.includes(item.value)) {
+          if (arr.includes(item.value) && !labelArr.includes(item.label)) {
             labelArr.push(item.label);
+            newArr.push(item);
           }
         });
         if (this.$refs.select) {
           // 解决选择tag时失去焦点问题
           this.$refs.select.focus();
         }
-        return labelArr;
+        return newArr;
       },
-      set(val) {
+      set(arr) {
         let valueArr = [];
+        const labelArr = arr.map(i => i.label);
         this.dataSource.forEach(item => {
-          if (val.includes(item.label)) {
+          if (labelArr.includes(item.label)) {
             valueArr.push(item.value);
           }
         });
@@ -78,20 +103,30 @@ export default {
         return this.value.join(',');
       },
       set(val) {
-        this.$emit('update-value', val.split(','));
+        this.$emit('update-value', val ? val.split(',') : []);
       },
+    },
+
+    widthSizeClass() {
+      return this.autoWidth ? '' : `y-form-width-${this.widthSize}`;
     },
   },
   data() {
     return {
+      inputVal: '',
       dataSource: [],
       addTagView: false,
       dropdownView: false,
       newTagVal: '',
     };
   },
-  created() {
-    this.dataSource = this.data;
+  watch: {
+    data: {
+      handler: function(val) {
+        this.dataSource = val;
+      },
+      immediate: true,
+    },
   },
   mounted() {
     document.querySelector('body').addEventListener('click', this.tagClickEvent, false);
@@ -117,6 +152,13 @@ export default {
         return [];
       },
     },
+    // 是否支持直接可输入新增标签
+    inputAddNewTag: {
+      type: Boolean,
+      default: function() {
+        return false;
+      },
+    },
     canAdd: {
       type: Boolean,
       default: function() {
@@ -128,8 +170,44 @@ export default {
         return '#454852';
       },
     },
+    showDropdown: {
+      type: Boolean,
+      default: function() {
+        return true;
+      },
+    },
+    widthSize: {
+      type: String,
+      default: 'l',
+    },
+    autoWidth: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
+    tagInputPressEnter() {
+      if (!this.inputVal) return;
+      let inputVal = this.inputVal;
+      let hasdata = false;
+      this.dataSource.forEach(item => {
+        if (item.label === inputVal) {
+          hasdata = true;
+        }
+      });
+      if (!hasdata) {
+        this.dataSource.push({
+          label: inputVal,
+          value: inputVal,
+        });
+      }
+      let tagValueArr = this.linkTagValue ? this.linkTagValue.split(',') : [];
+      tagValueArr = tagValueArr.filter(i => i !== inputVal);
+      tagValueArr.push(inputVal);
+      this.linkTagValue = tagValueArr.join();
+      this.$emit('inputNewTag', inputVal);
+      this.inputVal = '';
+    },
     addTag() {
       this.addTagView = true;
     },
@@ -149,25 +227,28 @@ export default {
         this.$emit('inputNewTag', newTagVal);
         this.addTagView = false;
       } else {
-        this.$message.warning('标签已存在！');
+        this.$YMessage.warning('标签已存在！');
       }
     },
     dropdownShow() {
+      if (this.$refs.myTagInput) {
+        this.$refs.myTagInput.$el.focus();
+      }
       this.dropdownView = !this.dropdownView;
     },
     closeTag(obj) {
       this.selectValue = this.selectValue.filter(item => {
-        return item != obj;
+        return item.label !== obj.label;
       });
     },
     tagClickEvent(e) {
       if (
-        e.toElement &&
-        e.toElement.className &&
-        e.toElement.className.includes &&
-        !e.toElement.className.includes('y-link-tag-mark') && // 点击选中的tag不需关闭
-        !e.toElement.className.includes('notshrink') && // 点击含有 notshrink 类名的不需关闭
-        !e.toElement.className.includes('y-tag-item')
+        e.target &&
+        e.target.className &&
+        e.target.className.includes &&
+        !e.target.className.includes('y-link-tag-mark') && // 点击选中的tag不需关闭
+        !e.target.className.includes('notshrink') && // 点击含有 notshrink 类名的不需关闭
+        !e.target.className.includes('y-tag-item')
       ) {
         this.dropdownView = false;
       }
@@ -176,13 +257,17 @@ export default {
 };
 </script>
 <style lang="less">
+@import '~/src/styles/variables/index.less';
 .tagInput {
-  display: inline-block;
-  width: 100%;
+  // display: inline-block;
+  // width: 100%;
+  cursor: text;
   text-align: start;
   vertical-align: top;
   position: relative;
+  border-radius: 2px;
   line-height: 100%;
+
   .self-input {
     box-sizing: border-box;
     margin: 0;
@@ -202,6 +287,24 @@ export default {
     border: 1px solid @y-color-border-dark;
     border-radius: @y-radius-default;
     transition: all 0.3s;
+    .y-tag {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      position: relative;
+      margin-top: 2px;
+      margin-bottom: 2px;
+      border-radius: 2px;
+      &[closable] {
+        padding-right: 24px;
+      }
+      .anticon-close {
+        position: absolute;
+        right: 7px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
   }
   .dropdown {
     top: 110%;

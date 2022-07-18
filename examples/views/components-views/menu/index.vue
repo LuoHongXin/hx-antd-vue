@@ -5,24 +5,31 @@
     <h3 class="fun-title">代码演示</h3>
     <declareList title="通用原则" :value="declareList" />
     <declareList title="不适用" :value="declareList2" />
-    <menu1 />
-    <menu2 />
-    <api-table title="Menu API" :data="tableData"></api-table>
-    <api-table title="Menu 事件" :data="tableData2"></api-table>
-    <api-table title="Menu.Item API" :data="tableData3"></api-table>
-    <api-table title="Menu.SubMenu API (Menu.SubMenu 的子元素必须是 MenuItem 或者 SubMenu.)" :data="tableData4"></api-table>
-    <api-table title="SubMenu 事件" :data="tableData5"></api-table>
-    <api-table title="Menu.ItemGroup API (Menu.ItemGroup 的子元素必须是 MenuItem)" :data="tableData6"></api-table>
+    <a-tabs type="card">
+      <a-tab-pane key="1" tab="基础菜单">
+        <menu1 />
+        <menu2 />
+        <api-table title="Menu API" :data="tableData"></api-table>
+        <api-table title="Menu 事件" :data="tableData2"></api-table>
+        <api-table title="Menu.Item API" :data="tableData3"></api-table>
+        <api-table title="Menu.SubMenu API (Menu.SubMenu 的子元素必须是 MenuItem 或者 SubMenu.)" :data="tableData4"></api-table>
+        <api-table title="SubMenu 事件" :data="tableData5"></api-table>
+        <api-table title="Menu.ItemGroup API (Menu.ItemGroup 的子元素必须是 MenuItem)" :data="tableData6"></api-table>
+      </a-tab-pane>
+      <a-tab-pane key="2" tab="通用菜单"><menu3 /> </a-tab-pane>
+    </a-tabs>
   </div>
 </template>
 <script>
 import menu1 from './menu1.vue';
 import menu2 from './menu2.vue';
+import menu3 from './menu3.vue';
 export default {
   name: 'Mydropdown',
   components: {
     menu1,
     menu2,
+    menu3,
   },
   data() {
     return {
@@ -207,4 +214,3 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped></style>

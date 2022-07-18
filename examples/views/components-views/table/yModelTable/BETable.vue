@@ -10,8 +10,12 @@
         :selectOptions="selectOptions"
         :api="getTableData"
         :columns="columns"
+        ref="tableRef"
+        @check="check"
+        @freshCallback="freshCallback"
         :buttonList="buttonList"
         :handleResponse="handleResponse"
+        :defaultCheckColumsValue="defaultCheckColumsValue"
       >
         <template v-slot:name="{ text }">
           <a class="y-button-link">{{ text }}</a>
@@ -38,7 +42,9 @@
 import api from '@/api';
 const js = `const columns = [
     {
+      columnSetTitle:"标题", // 自定义表头时，用于列设置中显示
       dataIndex: 'name',
+      columnsCheckDisabled: true,
       slots: { title: 'customTitle' },
       scopedSlots: { customRender: 'name' },
       width: 200,
@@ -120,10 +126,17 @@ const js = `const columns = [
         selectOptions: [
           { title: '标题', value: 'name' },
           { title: '任务描述', value: 'description' },
-        ]
+        ],
+        defaultCheckColumsValue: ['name', 'createLoginName'],
       };
     },
     methods: {
+      freshCallback() {
+        this.$refs.tableRef.onSearch();
+      },
+      check(a, b) {
+        console.log(a, b);
+      },
       handleResponse(res, type) {
         if (type === 'total') {
           return res.data.total;
@@ -136,7 +149,9 @@ const js = `const columns = [
   };`;
 const columns = [
   {
+    columnSetTitle: '标题',
     dataIndex: 'name',
+    columnsCheckDisabled: true,
     slots: { title: 'customTitle' },
     scopedSlots: { customRender: 'name' },
     width: 200,
@@ -222,6 +237,7 @@ export default {
         { title: '标题', value: 'name' },
         { title: '任务描述', value: 'description' },
       ],
+      defaultCheckColumsValue: ['name', 'createLoginName'],
       declareList: [
         '一般出现在通知图标或头像的右上角，用于显示需要处理的消息条数，通过醒目视觉形式吸引用户关注和处理',
         '作为一个链接，快速查看详情的入口',
@@ -232,8 +248,10 @@ export default {
         :selectOptions="selectOptions"
         :api="getTableData"
         :columns="columns"
+        @freshCallback="freshCallback
         :buttonList="buttonList"
         :handleResponse="handleResponse"
+        :defaultCheckColumsValue="defaultCheckColumsValue"
       >
         <template v-slot:name="{ text }">
           <a class="y-button-link">{{ text }}</a>
@@ -246,6 +264,12 @@ export default {
     };
   },
   methods: {
+    freshCallback() {
+      this.$refs.tableRef.onSearch();
+    },
+    check(a, b) {
+      console.log(a, b);
+    },
     handleResponse(res, type) {
       if (type === 'total') {
         return res.data.total;

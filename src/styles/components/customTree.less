@@ -1,27 +1,114 @@
 @import "../variables/index.less";
 .y-custom-tree {
-  width: @y-form-width-s;
+  .no-style {
+    &>.ant-tree-node-content-wrapper {
+      background-color: unset !important;
+      cursor: auto;
+      color: @y-color-text-regular !important;
+    }
+  }
+  
+  &[checkable] {
+     .ant-tree li {
+      .ant-tree-checkbox +.ant-tree-node-content-wrapper {
+        width: calc(100% - 38px);
+      }
+    } 
+    .ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected {
+      background-color: unset;
+      color: @y-color-text-regular;
+    }
+    .ant-tree li span.ant-tree-checkbox {
+      z-index: 1;
+    }
+  }
+  // width: @y-form-width-s;
+  width: 100%;
   position: relative;
-  .ant-tree-title {
-    display: inline-block;
+  .ant-tree {
+    .anticon-file {
+      display: none;
+    }
+    li{
+      .ant-tree-node-content-wrapper {
+        width: calc(100% - 16px);
+        padding: 0;
+        overflow: hidden;
+        text-overflow: ellipsis; 
+        white-space: nowrap;
+        vertical-align: middle
+    }
+    }
+    &.ant-tree-show-line li:not(:last-child) .ant-tree-switcher-noop::before {
+      position: absolute;
+      left: 12px;
+      width: 1px;
+      height: calc(200% - 22px);
+      margin: 22px 0 0;
+      border-left: 1px solid #fff;
+      content: ' ';
+    }
+    // &.ant-tree-show-line li.ant-tree-treenode-switcher-close:not(:last-child)::before {
+    //   content: none;
+    // }
   }
-  .y-custom-tree-node {
-    display: inline-block;
+  &.m {
+    .ant-tree {
+      .y-custom-tree-operate {
+        box-sizing: content-box;
+        width: 16px;
+        height: 16px;
+        padding: 2px;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        outline: none;
+      }
+      li{
+        .ant-tree-node-content-wrapper {
+          height: 32px;
+          line-height: 32px;
+          position: relative;
+        }
+      }
+    }
   }
-
+  &.s {
+    .ant-tree {
+      .y-custom-tree-operate {
+        box-sizing: content-box;
+        padding: 2px;
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        outline: none;
+      }
+      li{
+        .ant-tree-node-content-wrapper {
+          height: 40px;
+          line-height: 40px;
+          position: relative;
+        }
+      }
+    }
+  }
+  
   .y-custom-tree-title {
-    min-width: 50px;
-    max-width: 84px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow-wrap: break-word;
-    display: inline-block;
+  
   }
-
-  .y-custom-tree-operate {
-    position: absolute;
-    right: 0;
-    top: 11px;
+ 
+  .ant-tree-child-tree li{
+    position: relative;
   }
+ 
+  
 }
+

@@ -1,17 +1,16 @@
 <template>
-  <a-checkbox v-on="$listeners" v-bind="$attrs" v-if="YCheckboxGroup" :value="value">
-    <slot />
-  </a-checkbox>
-  <a-checkbox v-on="$listeners" v-bind="$attrs" v-model="inValue" v-else>
+  <a-checkbox v-on="$listeners" v-bind="$attrs" v-model="inValue">
     <slot />
   </a-checkbox>
 </template>
 <script>
 export default {
   name: 'YCheckbox',
+  inheritAttrs: false,
   props: {
-    value: {
+    checked: {
       type: null,
+      default: undefined,
     },
     defaultChecked: {
       type: Boolean,
@@ -19,29 +18,24 @@ export default {
     },
   },
   model: {
-    prop: 'value',
+    prop: 'checked',
     event: 'update-value',
-  },
-  inject: {
-    YCheckboxGroup: {
-      default: '',
-    },
   },
   data() {
     return {
-      val: this.value || this.defaultChecked,
+      val: this.defaultChecked,
       params: {},
     };
   },
   watch: {
-    value(value) {
-      this.val = value;
+    checked(val) {
+      this.val = val;
     },
   },
   computed: {
     inValue: {
       get: function() {
-        return this.val;
+        return this.checked === undefined ? this.val : this.checked;
       },
       set: function(newValue) {
         this.$emit('update-value', newValue);

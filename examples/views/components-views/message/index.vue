@@ -85,9 +85,9 @@ export default {
         methods: {
             openLoadingMessage() {
               const key = 'updatable';
-              this.$message.loading({ content: '加载中...', key });
+              this.$YMessage.loading({ content: '加载中...', key, duration: 0});
               setTimeout(() => {
-                this.$message.success({ content: '加载完成!', key, duration: 2 });
+                this.$YMessage.success({ content: '加载完成!', key, duration: 2 });
               }, 1000);
             },
           }
@@ -112,10 +112,10 @@ export default {
     },
     openLoadingMessage() {
       const key = 'updatable';
-      this.$message.loading({ content: '加载中...', key });
+      this.$YMessage.loading({ content: '加载中...', key, duration: 0 });
       setTimeout(() => {
-        this.$message.success({ content: '加载完成!', key, duration: 2 });
-      }, 1000);
+        this.$YMessage.success({ content: '加载完成!', key, duration: 2 });
+      }, 5000);
     },
   },
 };

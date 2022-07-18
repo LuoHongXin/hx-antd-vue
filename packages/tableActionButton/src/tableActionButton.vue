@@ -67,7 +67,7 @@
         <span v-if="index + 1 !== activeButtonList.length" class="spacing"></span>
       </div>
       <y-dropdown :trigger="moreBtnTrigger">
-        <y-button-action text="更多">
+        <y-button-action :text="$wci18n.t('wh.tableActionButton.more')">
           <template slot="slot-r">
             <a-icon type="down" />
           </template>

@@ -2,10 +2,11 @@
   <div :class="`y-action-button-group ${reversed ? 'reversed' : ''}`">
     <template v-if="activeButtonList.length <= moreBtnNum">
       <div class="y-act-btn" v-for="item in activeButtonList" :key="item.text">
-        <a-tooltip :placement="item.tips.placement || 'topLeft'" v-if="item.tips">
-          <template slot="title">
-            <span>{{ item.tips.text || item.tips }}</span>
-          </template>
+        <y-tips-button
+          :placement="(item.tips && item.tips.placement) || 'topLeft'"
+          :tooltip="boolean(item.tips)"
+          :title="(item.tips && item.tips.text) || item.tips"
+        >
           <y-button
             :disabled="item.disable"
             :type="item.type || 'default'"
@@ -19,31 +20,18 @@
             "
             >{{ item.text }}</y-button
           >
-        </a-tooltip>
-        <y-button
-          v-else
-          :disabled="item.disable"
-          :icon="item.icon || null"
-          :type="item.type || 'default'"
-          @click="
-            () => {
-              if (item.click) {
-                item.click();
-              }
-            }
-          "
-          >{{ item.text }}</y-button
-        >
+        </y-tips-button>
         <!-- <span v-if="index + 1 !== activeButtonList.length" class="spacing"></span> -->
       </div>
     </template>
     <!-- 出现更多 -->
     <template v-else>
       <div class="y-act-btn" v-for="(item, index) in activeButtonList.slice(0, moreBtnNum - 1)" :key="item.text">
-        <a-tooltip :placement="item.tips.placement || 'topLeft'" v-if="item.tips">
-          <template slot="title">
-            <span>{{ item.tips.text || item.tips }}</span>
-          </template>
+        <y-tips-button
+          :placement="(item.tips && item.tips.placement) || 'topLeft'"
+          :tooltip="boolean(item.tips)"
+          :title="(item.tips && item.tips.text) || item.tips"
+        >
           <y-button
             :disabled="item.disable"
             :icon="item.icon || null"
@@ -57,27 +45,14 @@
             "
             >{{ item.text }}</y-button
           >
-        </a-tooltip>
-        <y-button
-          v-else
-          :disabled="item.disable"
-          :icon="item.icon || null"
-          :type="item.type || 'default'"
-          @click="
-            () => {
-              if (item.click) {
-                item.click();
-              }
-            }
-          "
-          >{{ item.text }}</y-button
-        >
-        <a-dropdown v-if="omitType === 'ellipsis' && index === 1" :trigger="moreBtnTrigger" :getPopupContainer="getPopupContainer">
+        </y-tips-button>
+        <y-dropdown v-if="omitType === 'ellipsis' && index === 0" :trigger="moreBtnTrigger" :getPopupContainer="getPopupContainer">
           <y-button type="default">
             <a-icon type="more" />
           </y-button>
-          <a-menu slot="overlay">
-            <a-menu-item
+          <slot v-if="$scopedSlots.dropdown" name="dropdown" :menuData="activeButtonList.slice(moreBtnNum - 1, 99)" slot="overlay" />
+          <y-menu v-else slot="overlay">
+            <y-menu-item
               v-for="item in activeButtonList.slice(moreBtnNum - 1, 99)"
               @click="
                 () => {
@@ -89,25 +64,26 @@
               :disabled="item.disable"
               :key="item.text"
             >
-              <a-tooltip :placement="item.tips.placement || 'top'" v-if="item.tips">
+              <y-tooltip :placement="item.tips.placement || 'top'" v-if="item.tips">
                 <template slot="title">
                   <span>{{ item.tips.text || item.tips }}</span>
                 </template>
                 <span>{{ item.text }}</span>
-              </a-tooltip>
+              </y-tooltip>
               <span v-else>{{ item.text }}</span>
-            </a-menu-item>
-          </a-menu>
-        </a-dropdown>
+            </y-menu-item>
+          </y-menu>
+        </y-dropdown>
         <!-- <span v-if="index + 1 !== activeButtonList.length" class="spacing"></span> -->
       </div>
-      <a-dropdown v-if="omitType === 'default'" :trigger="moreBtnTrigger" :getPopupContainer="getPopupContainer">
+      <y-dropdown v-if="omitType === 'default'" :trigger="moreBtnTrigger" :getPopupContainer="getPopupContainer">
         <y-button type="default">
           {{ moreText }}
           <a-icon type="down" />
         </y-button>
-        <a-menu slot="overlay">
-          <a-menu-item
+        <slot v-if="$scopedSlots.dropdown" name="dropdown" :menuData="activeButtonList.slice(moreBtnNum - 1, 99)" slot="overlay" />
+        <y-menu v-else slot="overlay">
+          <y-menu-item
             v-for="item in activeButtonList.slice(moreBtnNum - 1, 99)"
             @click="
               () => {
@@ -126,9 +102,9 @@
               <span>{{ item.text }}</span>
             </a-tooltip>
             <span v-else>{{ item.text }}</span>
-          </a-menu-item>
-        </a-menu>
-      </a-dropdown>
+          </y-menu-item>
+        </y-menu>
+      </y-dropdown>
     </template>
   </div>
 </template>
@@ -196,6 +172,9 @@ export default {
   methods: {
     getPopupContainer: triggerNode => {
       return triggerNode || document.body;
+    },
+    boolean(str) {
+      return Boolean(str);
     },
   },
 };

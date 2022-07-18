@@ -8,6 +8,7 @@
 <script>
 export default {
   name: 'YPopover',
+  inheritAttrs: false,
 };
 </script>
 <style lang="less">

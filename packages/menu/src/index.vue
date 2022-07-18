@@ -6,5 +6,3 @@ export default {
   extends: Menu,
 };
 </script>
-
-<style lang="less"></style>

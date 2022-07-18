@@ -5,7 +5,7 @@
       title="表格"
       detail="基于antd的table组件封装的表格组件，拥有antd所有table组件的API，并在此基础上增添丰富了新的功能，例如表格列宽拖拽、行点击选中、v-model的选中数据绑定等，具体可查看如下API。"
     />
-    <a href="https://www.antdv.com/components/table-cn/">antd表格组件API</a>
+    <a target="_blank" href="https://www.antdv.com/components/table-cn/">antd表格组件API</a>
     <h3 class="fun-title">代码演示</h3>
     <!-- 组件展示 -->
     <funTitleDetail title="基本用法" detail=""></funTitleDetail>
@@ -40,6 +40,7 @@
       <code class="language-javascript" v-text="js">
         </code>
       </pre>
+    <yTable2 />
     <api-table :data="tableData01"></api-table>
     <api-table :data="tableData02" title="rowSelection选择功能的配置"></api-table>
     <api-table :data="tableData3" title="scroll滚动API"></api-table>
@@ -48,6 +49,7 @@
 </template>
 <script>
 import mixins from './mixins';
+import yTable2 from './yTable2.vue';
 const columns = [
   {
     title: '标题',
@@ -109,6 +111,9 @@ const data = [
 export default {
   name: 'tableviews',
   mixins: [mixins],
+  components: {
+    yTable2,
+  },
   data() {
     return {
       html: `<template>

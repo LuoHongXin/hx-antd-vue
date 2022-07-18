@@ -31,6 +31,7 @@
 <script>
 export default {
   name: 'YInput',
+  inheritAttrs: false,
   props: {
     value: {
       type: [String, Number],
@@ -58,7 +59,7 @@ export default {
   },
   data() {
     return {
-      val: this.value ?? this.defaultValue,
+      val: this.defaultValue,
       params: {},
     };
   },
@@ -68,13 +69,16 @@ export default {
     }
   },
   watch: {
-    value(value) {
-      this.val = value;
+    value(val) {
+      this.val = val;
     },
   },
   computed: {
     inValue: {
       get: function() {
+        if (this.value !== undefined) {
+          return this.value;
+        }
         return this.val;
       },
       set: function(newValue) {
@@ -82,7 +86,6 @@ export default {
         this.val = newValue;
       },
     },
-
     widthSizeClass() {
       return this.autoWidth ? '' : `y-form-width-${this.widthSize}`;
     },

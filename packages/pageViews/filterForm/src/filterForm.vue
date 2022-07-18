@@ -74,7 +74,8 @@ export default {
             return i.tag.includes('YFilterFormItem');
           }).length;
         }
-        return Math.abs(((length * 8) % 24) - 24);
+        let s = Math.abs(((length * 8) % 24) - 24);
+        return s < 10 ? s - 1 : s;
       },
     },
   },

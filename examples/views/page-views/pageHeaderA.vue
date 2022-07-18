@@ -10,16 +10,24 @@
         <div class="back-btn">
           <y-button icon="arrow-left" class="no-bg"></y-button>
         </div>
-        <h3 class="page-title">页面标题</h3>
+        <h3 class="page-title">
+          页面标题
+        </h3>
         <y-tag color="green">成功</y-tag>
         <y-button type="link">收起<a-icon type="up"/></y-button>
       </div>
+
       <div class="title-right">
         <y-tips-button :tooltip="true" title="说明信息">
           <div class="guide"><a-icon type="question-circle" />指引说明</div>
         </y-tips-button>
         <y-button-group reversed omitType="ellipsis" :buttonList="buttonList"></y-button-group>
       </div>
+    </div>
+    <!-- 了解更多 -->
+    <div class="knowMore">
+      这里是一段简要描述。
+      <y-text-link type="light">了解更多</y-text-link>
     </div>
     <!-- 自定义标签 -->
     <div class="tags">

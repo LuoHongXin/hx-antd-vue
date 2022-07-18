@@ -3,6 +3,11 @@ export default {
     return {
       tableData: [
         {
+          params: 'freshCallback',
+          explain: '重置按钮的点击回调，若有传，表格不会主动请求，而需要在该回调里面开发自己调用请求',
+          type: 'function',
+        },
+        {
           params: 'rowSelection',
           explain: '选择功能的配置，false则隐藏选择，默认为true，对象则看rowSelection选择API',
           type: 'Object | Boolean',
@@ -10,11 +15,21 @@ export default {
         },
         {
           params: 'tableHeader',
-          explain: '是否需要表格头部上的左侧操作按钮和右侧搜索等',
-          type: 'Boolean',
-          default: 'true',
+          explain:
+            '控制表头上的操作内容,若不想要左边的按钮，可以设对象属性中的 left 为 false，右边搜索同理；整个都不想要可以直接设为 false',
+          type: 'Boolean|Object',
+          default: '{left:true,right:true}',
         },
-
+        {
+          params: 'tableHeaderLeft',
+          explain: '表格头部左侧slot位置',
+          type: 'slot',
+        },
+        {
+          params: 'tableHeaderRight',
+          explain: '表格头部右侧slot位置',
+          type: 'slot',
+        },
         {
           params: 'scroll',
           explain: '控制表格滚动，具体看scroll滚动API',
@@ -34,6 +49,18 @@ export default {
           default: 'null',
         },
         {
+          params: 'defaultCheckColumsValue',
+          explain: '列设置展示默认勾选的数据',
+          type: 'Array',
+          default: '',
+        },
+        {
+          params: 'autoSearchFilter',
+          explain: '前端分页时，是否可支持表格根据搜索内容过滤',
+          type: 'Boolean',
+          default: `true`,
+        },
+        {
           params: 'columns',
           explain: '列数据，具体查看columns列数据API',
           type: 'Array',
@@ -47,7 +74,7 @@ export default {
         },
         {
           params: 'buttonList',
-          explain: '将会根据buttonList生成表头左侧的操作按钮和批量操作按钮',
+          explain: 'tableHeaderLeft插槽为空时将会根据buttonList生成表头左侧的操作按钮和批量操作按钮',
           type: 'Array',
           default: `null`,
         },
@@ -88,6 +115,12 @@ export default {
           default: `true`,
         },
         {
+          params: 'search',
+          explain: `是否需要表头右侧的搜索`,
+          type: 'Boolean',
+          default: `true`,
+        },
+        {
           params: 'setting',
           explain: `是否需要表头右侧的设置列`,
           type: 'Boolean',
@@ -95,8 +128,14 @@ export default {
         },
         {
           params: 'selectOptions',
-          explain: `搜索下拉选项[{title:'标题',value:'值'}]，输入框会根据对应选项title显示到placeholder，若没有选项，默认是第一列title作为搜索对象`,
+          explain: `searchPlaceholder为空时搜索下拉选项[{title:'标题',value:'值'}]，输入框会根据对应选项title显示到placeholder，若没有选项，默认是第一列title作为搜索对象`,
           type: 'Array',
+          default: `null`,
+        },
+        {
+          params: 'searchPlaceholder',
+          explain: `搜索关键字的名称(placeholder)`,
+          type: 'String',
           default: `null`,
         },
         {
@@ -121,6 +160,12 @@ export default {
           params: 'filter',
           explain: `点击高级搜索按钮的回调`,
           type: 'Function',
+          default: `null`,
+        },
+        {
+          params: 'check',
+          explain: `选中数据回调`,
+          type: 'Function(selectDatakeys,selectData)',
           default: `null`,
         },
         {
@@ -190,6 +235,18 @@ export default {
       ],
       tableData4: [
         {
+          params: 'columnSetTitle',
+          explain: `自定义表头右上角列设置显示的名称`,
+          type: `string`,
+          default: ``,
+        },
+        {
+          params: 'columnsCheckDisabled',
+          explain: `是否可以进行列控制`,
+          type: `Boolean`,
+          default: `false`,
+        },
+        {
           params: 'align',
           explain: `设置列内容的对齐方式`,
           type: `'left' | 'right' | 'center'`,
@@ -241,6 +298,12 @@ export default {
           default: `false`,
         },
         {
+          params: 'filteredValue',
+          explain: `过滤初始值`,
+          type: `Array`,
+          default: ``,
+        },
+        {
           params: 'filterIcon',
           explain: `自定义 filter 图标。`,
           type: `VNode | (filtered: boolean, column: Column) => vNode |slot |slot-scope`,
@@ -273,6 +336,12 @@ export default {
           explain: `排序函数，本地排序使用一个函数(参考 Array.sort 的 compareFunction)，服务端排序可设为 true`,
           type: `Function|boolean`,
           default: `false`,
+        },
+        {
+          params: 'sortOrder',
+          explain: `排序初始值`,
+          type: `string`,
+          default: `'ascend' 'descend'`,
         },
         {
           params: 'sortDirections',
@@ -380,13 +449,27 @@ export default {
         {
           params: 'getTableData',
           explain: `执行搜索但不会重置页数回到第一页`,
-          type: 'function',
+          type: `function({
+            needLoading:boolean // 是否需要loading效果的搜索，默认为 true
+          })`,
           default: ``,
         },
         {
           params: 'freshTable',
           explain: `进行清空输入框、表格过滤、表格排序并重置回到第一页的搜索`,
           type: 'function',
+          default: ``,
+        },
+        {
+          params: 'selectedDataKeys',
+          explain: `表格选中的数据key值，可操控清除选中`,
+          type: 'Array',
+          default: ``,
+        },
+        {
+          params: 'selectedData',
+          explain: `表格选中的数据`,
+          type: 'Array',
           default: ``,
         },
       ],

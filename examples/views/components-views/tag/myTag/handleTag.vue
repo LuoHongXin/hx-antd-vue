@@ -6,6 +6,8 @@
     <!-- 组件展示 -->
     <com-show>
       <y-tag-action v-model="tagData" />
+
+      <y-tag-action style="margin-top:10px" v-model="tagData2" :noCloseData="[0, 1]" addTagButtonName="自定义按钮名字" />
     </com-show>
     <!-- 代码展示 -->
     <pre class="line-numbers">
@@ -18,6 +20,7 @@
             data() {
               return {
                 tagData: ['标签1', '标签2', '标签3'],
+                tagData2: ['标签1', '标签2', '标签3'],
               };
             },
           };
@@ -31,9 +34,11 @@ export default {
   data() {
     return {
       tagData: ['标签1', '标签2', '标签3'],
+      tagData2: ['标签1', '标签2', '标签3'],
       inputVisible: false,
       inputValue: '',
-      html: `<y-tag-action v-model="tagData" />`,
+      html: `<y-tag-action v-model="tagData" />
+      <y-tag-action style="margin-top:10px" v-model="tagData" :noCloseData="[0, 1]" addTagButtonName="自定义按钮名字" />`,
     };
   },
 };

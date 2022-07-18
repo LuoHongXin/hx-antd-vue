@@ -14,6 +14,7 @@ export default {
     },
     value: {
       type: [Object, Array],
+      default: undefined,
     },
     widthSize: {
       type: String,
@@ -30,22 +31,22 @@ export default {
   },
   data() {
     return {
-      inValue: this.value || this.defaultValue,
+      val: this.defaultValue,
     };
   },
   watch: {
-    value(value) {
-      this.inValue = value;
+    value(val) {
+      this.val = val;
     },
   },
   computed: {
     modelVal: {
       get() {
-        return this.inValue;
+        return this.value === undefined ? this.val : this.value;
       },
-      set(val) {
-        this.$emit('update-value', val);
-        this.inValue = val;
+      set(newValue) {
+        this.$emit('update-value', newValue);
+        this.val = newValue;
       },
     },
     widthSizeClass() {

@@ -18,9 +18,14 @@ export default {
       type: [String, Number],
     },
   },
+  watch: {
+    activeKey(val) {
+      this.activeKey3 = val;
+    },
+  },
   data() {
     return {
-      activeKey3: this.activeKey || this.defaultActiveKey,
+      activeKey3: this.activeKey ?? this.defaultActiveKey,
     };
   },
   computed: {
@@ -38,7 +43,7 @@ export default {
 </script>
 
 <style lang="less">
-// @import '~/src/styles/components/tag.less';
+@import '~/src/styles/variables/index.less';
 .y-tabs {
   // default
   .ant-tabs-nav {

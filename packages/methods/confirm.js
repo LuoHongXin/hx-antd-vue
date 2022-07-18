@@ -14,8 +14,9 @@ function YConfirm(config) {
     if (config.onCancel) config.onCancel();
     if (config.move !== false) drag.relMove();
   };
-  newConfig.okText = newConfig.okText || '确定';
-  newConfig.cancelText = newConfig.cancelText || '取消';
+  config.centered = 'centered' in config ? config.centered : true;
+  newConfig.okText = newConfig.okText || this.$wci18n.t('wh.confirm.ok');
+  newConfig.cancelText = newConfig.cancelText || this.$wci18n.t('wh.confirm.cancel');
   delete newConfig.class;
   const h = this.$createElement;
   const confirmObj = confirm({

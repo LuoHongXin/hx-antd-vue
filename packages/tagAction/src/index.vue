@@ -1,6 +1,6 @@
 <template>
   <div>
-    <y-tag v-for="(i, index) in tagData" :key="i" :closable="index !== 0" @close="() => handleClose(i)"> {{ i }} </y-tag>
+    <y-tag v-for="(i, index) in tagData" :key="i" :closable="!noCloseData.includes(index)" @close="() => handleClose(i)"> {{ i }} </y-tag>
     <y-input
       ref="input"
       v-if="inputVisible"
@@ -13,7 +13,7 @@
       @blur="handleInputConfirm"
       @keyup.enter="handleInputConfirm"
     />
-    <y-tag class="dashTag" v-else @click="showInput"> <a-icon type="plus" /> 添加标签 </y-tag>
+    <y-tag class="dashTag" v-else @click="showInput"> <a-icon type="plus" />{{ addTagButtonName }} </y-tag>
   </div>
 </template>
 <script>
@@ -24,6 +24,16 @@ export default {
     event: 'update-tagData',
   },
   props: {
+    noCloseData: {
+      type: Array,
+      default: function() {
+        return [];
+      },
+    },
+    addTagButtonName: {
+      type: String,
+      default: '添加标签',
+    },
     tagData: {
       type: Array,
       default: function() {

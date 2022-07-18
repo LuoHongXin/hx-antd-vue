@@ -52,20 +52,21 @@ export default {
   data() {
     return {
       componentId: 'noData',
-      text: '暂无数据',
+      text: this.$wci18n.t('wh.empty.noData'),
       sceneMapText: {
-        networkError: '网络出错',
-        noAccess: '暂未接入',
-        noData: '暂无数据',
-        noMessage: '暂无消息',
-        noService: '暂无服务',
-        systemError: '系统出错',
+        networkError: this.$wci18n.t('wh.empty.networkError'),
+        noAccess: this.$wci18n.t('wh.empty.noAccess'),
+        noData: this.$wci18n.t('wh.empty.noData'),
+        noMessage: this.$wci18n.t('wh.empty.noMessage'),
+        noService: this.$wci18n.t('wh.empty.noService'),
+        systemError: this.$wci18n.t('wh.empty.systemError'),
       },
     };
   },
 };
 </script>
 <style lang="less">
+@import '~/src/styles/variables/index.less';
 .y-empty {
   .ant-empty-description {
     font-size: 14px;

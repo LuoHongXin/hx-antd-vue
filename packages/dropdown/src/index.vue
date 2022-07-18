@@ -13,6 +13,7 @@ export default {
 </script>
 
 <style lang="less">
+@import '~/src/styles/variables/index.less';
 .ant-dropdown {
   .ant-dropdown-menu-item:hover,
   .ant-dropdown-menu-submenu-title:hover {

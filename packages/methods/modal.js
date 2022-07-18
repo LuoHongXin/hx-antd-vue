@@ -2,26 +2,27 @@ import { Modal } from 'ant-design-vue';
 import colorVariables from '@src/styles/variables/index.less';
 import { dragClass, unLetter } from '@src/utils/common';
 export const YInfo = function(config) {
-  handleConfig(config, 'info');
+  handleConfig.bind(this, config, 'info');
   Modal.info(config);
 };
 export const YSuccess = function(config) {
-  handleConfig(config, 'success');
+  handleConfig.bind(this, config, 'success');
   Modal.success(config);
 };
 
 export const YError = function(config) {
-  handleConfig(config, 'error');
+  handleConfig.bind(this, config, 'error');
   Modal.error(config);
 };
 
 export const YWarning = function(config) {
-  handleConfig(config, 'warning');
+  handleConfig.bind(this, config, 'warning');
   Modal.warning(config);
 };
 
 function handleConfig(config, type) {
   let iconColor, iconType, icon;
+  config.centered = 'centered' in config ? config.centered : true;
   switch (type) {
     case 'info':
       icon = h =>
@@ -75,7 +76,7 @@ function handleConfig(config, type) {
             theme: 'filled',
           },
         });
-  config.okText = config.okText ? config.okText : '我知道了';
+  config.okText = config.okText ? config.okText : this.$wci18n.t('wh.modalMethods.ok');
   const unClassName = unLetter();
   config.class = (config.class ? config.class + ' ' + unClassName : unClassName) + ' y-confirm';
   let onOk = config.onOk;

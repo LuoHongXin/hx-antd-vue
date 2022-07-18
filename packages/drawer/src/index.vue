@@ -25,6 +25,7 @@ export default {
       default: 'm',
     },
   },
+  inheritAttrs: false,
   computed: {
     sizeWidth: {
       get() {
@@ -40,6 +41,7 @@ export default {
 };
 </script>
 <style lang="less">
+@import '~/src/styles/variables/index.less';
 .y-drawer {
   .ant-drawer-header {
     position: absolute;

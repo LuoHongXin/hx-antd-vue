@@ -11,7 +11,7 @@
       <y-tag color="red">错误/失败</y-tag>
       <y-tag color="gold">警示/提示</y-tag>
       <y-tag color="volcano">更严重的警示</y-tag>
-      <a-divider />
+      <y-divider />
       <y-tag status="waiting">等待中</y-tag>
       <y-tag status="success">成功</y-tag>
       <y-tag status="normal">正常/进行中</y-tag>
@@ -38,7 +38,7 @@ export default {
         <y-tag color="red">错误/失败</y-tag>
         <y-tag color="gold">警示/提示</y-tag>
         <y-tag color="volcano">更严重的警示</y-tag>
-        <a-divider />
+        <y-divider />
         <y-tag status="waiting">等待中</y-tag>
         <y-tag status="success">成功</y-tag>
         <y-tag status="normal">正常/进行中</y-tag>

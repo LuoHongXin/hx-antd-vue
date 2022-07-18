@@ -2,6 +2,7 @@
 .y-page-header-a {
     padding:@y-spacing-xs @y-spacing-xl 0 @y-spacing-xl;
     background-color: @y-color-fill-bg-white;
+    border-bottom:@y-border-width-default @y-border-style-default @y-color-border-light;
     width: 100%;
     .breadcrumb {
       height: 30px;
@@ -12,6 +13,7 @@
       .title-left {
         float: left;
         display: flex;
+        height: 100%;
         align-items: center;
         .back-btn {
           margin-right: @y-spacing-xs;
@@ -35,6 +37,7 @@
       .title-right {
         float: right;
         display: flex;
+        height: 100%;
         align-items: center;
         .guide {
           .anticon {
@@ -45,6 +48,12 @@
           margin-left: @y-spacing-xl;
         }
       }
+    }
+    .knowMore{
+      color: @y-color-text-secondary;
+      font-size: @y-font-size-s;
+      margin-top:-@y-spacing-xs;
+      padding-bottom: @y-spacing-xs;
     }
     .tags {
       height: 30px;

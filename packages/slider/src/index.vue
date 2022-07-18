@@ -9,6 +9,7 @@ export default {
   props: {
     value: {
       type: [String, Number, Array],
+      default: null,
     },
     defaultValue: {
       type: [String, Number, Array],
@@ -20,7 +21,7 @@ export default {
   },
   data() {
     return {
-      val: this.value || this.defaultValue,
+      val: this.defaultValue,
     };
   },
   watch: {
@@ -31,7 +32,7 @@ export default {
   computed: {
     inValue: {
       get: function() {
-        return this.val;
+        return this.value === null ? this.val : this.value;
       },
       set: function(newValue) {
         this.$emit('update-value', newValue);

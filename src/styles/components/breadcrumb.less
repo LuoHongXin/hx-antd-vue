@@ -3,6 +3,30 @@
   display: inline-block;
   font-size: @y-font-size-m;
   color:  @y-color-text-secondary;
+  .back-btn {
+    cursor: pointer;
+    color: @y-color-text-link;
+    font-size: @y-font-size-m;
+    display: inline-block;
+    padding-right: @y-spacing-xs;
+    margin-right: @y-spacing-xs;
+    line-height: 100%;
+    position: relative;
+    .anticon-left {
+      font-size: @y-font-size-s;
+      margin-right: @y-spacing-xxs;
+    }
+    &::after {
+      content: '';
+      height: @y-spacing-xs;
+      width: 1px;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: @y-color-border-light;
+    }
+  }
   .ant-breadcrumb-link:hover {
     cursor: pointer;
     color: @y-color-text-link;

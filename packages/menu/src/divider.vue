@@ -6,5 +6,3 @@ export default {
   extends: Menu.Divider,
 };
 </script>
-
-<style lang="less"></style>

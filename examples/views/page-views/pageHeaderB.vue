@@ -22,6 +22,11 @@
           <y-button-group reversed omitType="ellipsis" :buttonList="buttonList"></y-button-group>
         </div>
       </div>
+      <!-- 了解更多 -->
+      <div class="knowMore">
+        这里是一段简要描述。
+        <y-text-link type="light">了解更多</y-text-link>
+      </div>
       <!-- 自定义标签 -->
       <div class="tags">
         <y-tag-action v-model="tagData" />

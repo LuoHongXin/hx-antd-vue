@@ -9,7 +9,7 @@
     <api-table :data="tableData3" title="scroll滚动API"></api-table>
     <api-table :data="tableData4" title="columns列数据数组中对象API"></api-table>
     <api-table :data="tableData5" title="buttonList数组中对象API"></api-table>
-    <api-table :data="tableData6" title="modelTable表格实例提供的方法"></api-table>
+    <api-table :data="tableData6" title="modelTable表格$ref实例提供的方法和属性"></api-table>
   </div>
 </template>
 <script>

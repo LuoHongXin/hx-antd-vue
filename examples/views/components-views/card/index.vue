@@ -6,6 +6,7 @@
     <declareList title="通用原则" :value="declareList" />
     <card1 />
     <card2 />
+    <card3 />
     <api-table title="Card API" :data="tableData"></api-table>
     <api-table title="Menu 事件" :data="tableData2"></api-table>
     <api-table title="Card.Meta  API" :data="tableData3"></api-table>
@@ -14,11 +15,13 @@
 <script>
 import card1 from './card1.vue';
 import card2 from './card2.vue';
+import card3 from './card3.vue';
 export default {
   name: 'Mydropdown',
   components: {
     card1,
     card2,
+    card3,
   },
   data() {
     return {
@@ -30,6 +33,12 @@ export default {
         '当整个卡片可点击的时候，需给出明确指示',
       ],
       tableData: [
+        {
+          params: 'titleBorderBottom',
+          explain: '控制标题下是否有底边框,设置为false则没有边框',
+          type: 'Boolean',
+          default: 'true',
+        },
         {
           params: 'actions',
           explain: '卡片操作组，位置在卡片底部',

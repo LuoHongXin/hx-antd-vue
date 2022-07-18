@@ -36,11 +36,11 @@
       <a-select-option v-for="item in options" :key="item.value" :value="item.value" :disabled="item.disabled" class="y-select-option">
         <a-tooltip :placement="placement" v-if="tooltip">
           <template slot="title">
-            {{ item.label }}
+            {{ item.label || item.title }}
           </template>
-          <div class="y-select-ellipsis">{{ item.label }}</div>
+          <div class="y-select-ellipsis">{{ item.label || item.title }}</div>
         </a-tooltip>
-        <template v-else>{{ item.label }}</template>
+        <template v-else>{{ item.label || item.title }}</template>
       </a-select-option>
     </template>
     <slot v-else />
@@ -71,12 +71,11 @@ export default {
     },
     defaultValue: {
       type: [String, Number, Array],
-      default: function() {
-        return undefined;
-      },
+      default: undefined,
     },
     value: {
       type: [String, Number, Array],
+      default: undefined,
     },
     options: {
       type: Array,
@@ -105,22 +104,22 @@ export default {
   },
   data() {
     return {
-      value2: this.value || this.defaultValue,
+      val: this.defaultValue,
     };
   },
   watch: {
-    value(value) {
-      this.value2 = value;
+    value(val) {
+      this.val = val;
     },
   },
   computed: {
     modelVal: {
       get() {
-        return this.value2;
+        return this.value !== undefined ? this.value : this.val;
       },
-      set(val) {
-        this.$emit('update-value', val);
-        this.value2 = val;
+      set(newValue) {
+        this.$emit('update-value', newValue);
+        this.val = newValue;
       },
     },
     widthSizeType() {
@@ -130,8 +129,10 @@ export default {
       return 's';
     },
     widthSizeClass() {
+      const widthSize = this.widthSize;
       const widthSizeType = this.widthSizeType;
-      return this.autoWidth ? '' : `y-form-width-${widthSizeType}`;
+      const size = widthSize === 's' ? widthSizeType : widthSize;
+      return this.autoWidth ? '' : `y-form-width-${size}`;
     },
   },
 };

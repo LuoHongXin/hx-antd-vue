@@ -4,7 +4,6 @@ import YbuttonAction from './buttonAction';
 import YlinkTag from './linkTag';
 import Yspin from './spin';
 import YcustomTree from './customTree';
-import YcustomDatePicker from './customDatePicker';
 import YtableBox from './tableBox';
 import YsvgIcon from './svgIcon';
 import Ybreadcrumb from './breadcrumb';
@@ -60,7 +59,10 @@ import YNotification from './methods/notification';
 import YMessage from './methods/message';
 import { YInfo, YSuccess, YError, YWarning } from './methods/modal';
 import YConfigProvider from './configProvider';
-
+import YDescribe from './describe';
+import YEditor from './editor';
+import YUpload from './upload';
+import YJsonViewer from './jsonViewer';
 export {
   Ybutton,
   Ypagination,
@@ -68,7 +70,6 @@ export {
   YlinkTag,
   Yspin,
   YcustomTree,
-  YcustomDatePicker,
   YtableBox,
   YsvgIcon,
   Ybreadcrumb,
@@ -126,4 +127,8 @@ export {
   YError,
   YWarning,
   YConfigProvider,
+  YDescribe,
+  YEditor,
+  YUpload,
+  YJsonViewer,
 };

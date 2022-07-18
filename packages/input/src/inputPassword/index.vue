@@ -20,8 +20,12 @@ export default {
   name: 'YInputPassword',
   props: {
     value: {
-      type: null,
-      default: false,
+      type: [String, Number],
+      default: undefined,
+    },
+    defaultValue: {
+      type: [String, Number],
+      default: null,
     },
     widthSize: {
       type: String,
@@ -36,18 +40,27 @@ export default {
     prop: 'value',
     event: 'update-value',
   },
+  data() {
+    return {
+      val: this.defaultValue,
+    };
+  },
   watch: {
-    value(value) {
-      this.inValue = value;
+    value(val) {
+      this.val = val;
     },
   },
   computed: {
     inValue: {
       get: function() {
-        return this.value;
+        if (this.value !== undefined) {
+          return this.value;
+        }
+        return this.val;
       },
       set: function(newValue) {
         this.$emit('update-value', newValue);
+        this.val = newValue;
       },
     },
     widthSizeClass() {

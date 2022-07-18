@@ -75,7 +75,7 @@ export default {
         },
         {
           params: 'checked',
-          explain: '指定当前是否选中',
+          explain: '指定当前是否选中(v-model)',
           type: 'boolean',
           default: 'false',
         },

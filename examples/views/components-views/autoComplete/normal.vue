@@ -34,7 +34,6 @@
         <y-auto-complete
           v-model="value"
           :data-source="dataSource"
-          style="width: 200px"
           placeholder="input here"
           @select="onSelect"
           @search="search"
@@ -129,7 +128,7 @@ export default {
           type: 'HTMLInputElement / HTMLTextAreaElement',
           default: '<Input />',
         },
-        { params: 'dataSource', explain: '自动完成的数据源', type: 'slot | DataSourceItemType[ ]' },
+        { params: 'dataSource', explain: '自动完成的数据源', type: 'slot | DataSourceItemType[ ]， [ {value: String,text: String} ]' },
         { params: 'dropdownMenuStyle', explain: 'dropdown 菜单自定义样式', type: 'object' },
         { params: 'defaultActiveFirstOption', explain: '是否默认高亮第一个选项。', type: 'boolean', default: 'true' },
         { params: 'defaultValue', explain: '指定默认选中的条目', type: 'string|string[ ]| 无' },

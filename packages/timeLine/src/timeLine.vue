@@ -12,6 +12,7 @@ export default {
 
 <style lang="less">
 // @import '~/src/styles/components/tag.less';
+@import '~/src/styles/variables/index.less';
 .y-time-line {
   .ant-timeline-item-head-blue {
     color: @y-color-info;

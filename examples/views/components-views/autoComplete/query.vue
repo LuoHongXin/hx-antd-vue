@@ -109,10 +109,10 @@ export default {
           let readyState = 'fulfill';
           if (random < 0.4) readyState = 'reject';
           if (readyState === 'fulfill') {
-            this.$message.destroy();
+            this.$YMessage.destroy();
             reslove({ code: 200, message: '加载成功' });
           } else {
-            this.$message.destroy();
+            this.$YMessage.destroy();
             reject({ code: 500, message: '加载失败' });
           }
         }, 1000);

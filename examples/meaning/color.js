@@ -67,6 +67,7 @@ export default {
   yColorFillNormalBtn: '普通按钮背景',
   yColorFillHover: '可点击元素鼠标移入底色',
   yColorFillDisable: '禁用、失效状态背景色',
+  yColorFillHoverDarker: '加深的可点击元素鼠标移入底色',
 
   // Table 表格
   yColorTableHeader: '表头背景',

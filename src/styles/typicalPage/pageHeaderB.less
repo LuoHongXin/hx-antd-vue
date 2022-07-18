@@ -3,6 +3,7 @@
     padding-top:@y-spacing-s;
     padding-bottom: 0;
     background-color: @y-color-fill-bg-white;
+    border-bottom:@y-border-width-default @y-border-style-default @y-color-border-light;
     width: 100%;
     .content {
       width: 1270px;
@@ -16,6 +17,7 @@
         .title-left {
           float: left;
           display: flex;
+          height: 100%;
           align-items: center;
           .back-btn {
             margin-right: @y-spacing-xs;
@@ -39,6 +41,7 @@
         .title-right {
           float: right;
           display: flex;
+          height: 100%;
           align-items: center;
           justify-content: end;
           width: 50%;
@@ -51,6 +54,12 @@
             margin-left: @y-spacing-xl;
           }
         }
+      }
+      .knowMore{
+        color: @y-color-text-secondary;
+        font-size: @y-font-size-s;
+        margin-top:-@y-spacing-xs;
+        padding-bottom: @y-spacing-xs;
       }
       .tags {
         height: 30px;

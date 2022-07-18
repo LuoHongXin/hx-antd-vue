@@ -140,58 +140,75 @@
       </pre>
     <pre class="line-numbers">
         <code class="language-javascript">
-         export default {
+          export default {
             data() {
               return {
-                getPopupContainer: () => document.body,
-                labelCol: { span: 4 },
-                wrapperCol: { span: 14 },
-                other: '',
-                form: {
-                  name: '',
-                  region: undefined,
-                  date1: undefined,
-                  delivery: false,
-                  type: [],
-                  resource: '',
-                  desc: '',
+              confirmDirty: false,
+              autoCompleteResult: [],
+              formItemLayout: {
+                labelCol: {
+                  xs: { span: 6 },
+                  sm: { span: 4 },
                 },
-                rules: {
-                  name: [
-                    { required: true, message: 'Please input Activity name', trigger: 'blur' },
-                    { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
-                  ],
-                  region: [{ required: true, message: 'Please select Activity zone', trigger: 'change' }],
-                  date1: [{ required: true, message: 'Please pick a date', trigger: 'change' }],
-                  type: [
-                    {
-                      type: 'array',
-                      required: true,
-                      message: 'Please select at least one activity type',
-                      trigger: 'change',
-                    },
-                  ],
-                  resource: [{ required: true, message: 'Please select activity resource', trigger: 'change' }],
-                  desc: [{ required: true, message: 'Please input activity form', trigger: 'blur' }],
+                wrapperCol: {
+                  xs: { span: 24 },
+                  sm: { span: 16 },
                 },
-              };
-            },
-            methods: {
-              onSubmit() {
-                this.$refs.ruleForm.validate(valid => {
-                  if (valid) {
-                    alert('submit!');
-                  } else {
-                    console.log('error submit!!');
-                    return false;
-                  }
-                });
               },
-              resetForm() {
-                this.$refs.ruleForm.resetFields();
+              tailFormItemLayout: {
+                wrapperCol: {
+                  xs: {
+                    span: 24,
+                    offset: 0,
+                  },
+                  sm: {
+                    span: 16,
+                    offset: 8,
+                  },
+                },
               },
+              form: this.$form.createForm(this, { name: 'register' }),
+            };
+          },
+          methods: {
+            handleSubmit(e) {
+              e.preventDefault();
+              this.form.validateFieldsAndScroll((err, values) => {
+                if (!err) {
+                  console.log('Received values of form: ', values);
+                }
+              });
             },
-          };
+            handleConfirmBlur(e) {
+              const value = e.target.value;
+              this.confirmDirty = this.confirmDirty || !!value;
+            },
+            compareToFirstPassword(rule, value, callback) {
+              const form = this.form;
+              if (value && value !== form.getFieldValue('password')) {
+                callback('Two passwords that you enter is inconsistent!');
+              } else {
+                callback();
+              }
+            },
+            validateToNextPassword(rule, value, callback) {
+              const form = this.form;
+              if (value && this.confirmDirty) {
+                form.validateFields(['confirm'], { force: true });
+              }
+              callback();
+            },
+            handleWebsiteChange(value) {
+              let autoCompleteResult;
+              if (!value) {
+                autoCompleteResult = [];
+              } else {
+                autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
+              }
+              this.autoCompleteResult = autoCompleteResult;
+            },
+          },
+        };
         </code>
     </pre>
   </com-show>
@@ -358,11 +375,8 @@ export default {
           },
         },
       },
+      form: this.$form.createForm(this, { name: 'register' }),
     };
-  },
-  beforeCreate() {
-    this.form = this.$form.createForm(this, { name: 'register' });
-    console.log(this.form, 123);
   },
   methods: {
     handleSubmit(e) {

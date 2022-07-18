@@ -24,6 +24,7 @@
           :affixTarget="affixTarget"
           :selectOptions="selectOptions"
           :api="getTableData"
+          :search="false"
           :columns="columns"
           :buttonList="buttonList"
           :handleResponse="handleResponse"

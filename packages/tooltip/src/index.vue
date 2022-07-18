@@ -20,6 +20,7 @@
 <script>
 export default {
   name: 'YTooltip',
+  inheritAttrs: false,
   model: {
     prop: 'value',
     event: 'update-value',

@@ -6,15 +6,11 @@
 <script>
 export default {
   name: 'YCheckboxGroup',
-  provide() {
-    return {
-      YCheckboxGroup: this,
-    };
-  },
+  inheritAttrs: false,
   props: {
     value: {
       type: Array,
-      default: () => [],
+      default: null,
     },
     defaultValue: {
       type: Array,
@@ -27,19 +23,14 @@ export default {
   },
   data() {
     return {
-      val: this.value.length ? [...this.value] : [...this.defaultValue],
+      val: this.defaultValue,
       params: {},
     };
-  },
-  watch: {
-    value(value) {
-      this.val = value;
-    },
   },
   computed: {
     inValue: {
       get: function() {
-        return this.val;
+        return this.value === null ? this.val : this.value;
       },
       set: function(newValue) {
         this.$emit('update-value', newValue);

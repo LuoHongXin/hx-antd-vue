@@ -1,7 +1,6 @@
 <template>
   <div class="y-textarea" :class="widthSizeClass">
-    <a-textarea @input.native="textarea" v-on="$listeners" v-bind="{ ...$attrs, ...params }" v-model="inValue" v-if="value !== false" />
-    <a-textarea @change="textarea" v-on="$listeners" v-bind="{ ...$attrs, ...params }" v-else />
+    <a-textarea v-on="$listeners" v-bind="{ ...$attrs, ...params }" v-model="inValue" />
     <div v-if="fixedNumber" class="text-num">{{ valueLength }}/{{ maxLength }}</div>
   </div>
 </template>
@@ -10,8 +9,12 @@ export default {
   name: 'YTextarea',
   props: {
     value: {
-      type: null,
-      default: false,
+      type: [String, Number],
+      default: null,
+    },
+    defaultValue: {
+      type: [String, Number],
+      default: null,
     },
     fixedNumber: {
       type: Boolean,
@@ -42,8 +45,8 @@ export default {
   },
   data() {
     return {
+      val: this.defaultValue,
       params: {},
-      valueLength: 0,
     };
   },
   created() {
@@ -52,21 +55,28 @@ export default {
     }
     this.$set(this.params, 'autoSize', this.autoSize);
   },
-  methods: {
-    textarea(e) {
-      if (e && e.type === 'input' && this.fixedNumber) {
-        this.valueLength = e.target.value.length || 0;
-      }
+  watch: {
+    value(value) {
+      this.val = value;
     },
   },
   computed: {
     inValue: {
       get: function() {
-        return this.value;
+        if (this.value !== null) {
+          return this.value;
+        }
+        return this.val;
       },
       set: function(newValue) {
         this.$emit('update-value', newValue);
+        this.val = newValue;
       },
+    },
+    valueLength() {
+      let inValue = this.inValue;
+      if (!inValue) return 0;
+      return inValue.length;
     },
     widthSizeClass() {
       return this.autoWidth ? '' : `y-form-width-${this.widthSize}`;

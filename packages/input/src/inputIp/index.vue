@@ -114,25 +114,3 @@ export default {
 <style lang="less">
 @import '~/src/styles/components/inputIp.less';
 </style>
-<style lang="less" scoped>
-.y-input-ip {
-  display: inline-flex;
-  align-items: center;
-  .y-input-ip-divider {
-    display: inline-block;
-    width: 22px;
-    height: 1px;
-    background: #d9d9d9;
-  }
-  // .y-input-ip-explain {
-  //   position: absolute;
-  //   color: @y-color-error;
-  //   font-size: 14px;
-  //   clear: both;
-  //   min-height: 22px;
-  //   margin-top: 2px;
-  //   line-height: 1.5;
-  //   transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
-  // }
-}
-</style>

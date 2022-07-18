@@ -9,6 +9,7 @@ export default {
 };
 </script>
 <style lang="less">
+@import '~/src/styles/variables/index.less';
 .y-steps {
   // 完成
   .ant-steps-item-finish .ant-steps-item-icon {
@@ -36,6 +37,25 @@ export default {
     // 描述中的文字
   .ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-description {
     color: @y-color-text-secondary;
+  }
+  // 正在处理的点状样式
+  &.ant-steps-dot .ant-steps-item-process .ant-steps-item-icon,
+  &.ant-steps-dot.ant-steps-small .ant-steps-item-process .ant-steps-item-icon {
+    width: 8px;
+    height: 8px;
+    line-height: 8px;
+  }
+  // 白色的点
+  &.ant-steps-dot .ant-steps-item-process .ant-steps-item-icon .ant-steps-icon-dot {
+    background-color: #fff;
+    border: @y-border-width-default @y-border-style-default @y-color-primary;
+  }
+  &.ant-steps-vertical.ant-steps-dot .ant-steps-item-process .ant-steps-icon-dot {
+    left: 0px;
+  }
+  &.ant-steps-dot .ant-steps-item-process .ant-steps-item-icon .ant-steps-icon-dot,
+  &.ant-steps-dot.ant-steps-small .ant-steps-item-process .ant-steps-item-icon .ant-steps-icon-dot {
+    top: 1px;
   }
 }
 </style>

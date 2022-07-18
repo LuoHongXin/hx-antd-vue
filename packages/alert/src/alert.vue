@@ -12,6 +12,7 @@ export default {
 };
 </script>
 <style lang="less">
+@import '~/src/styles/variables/index.less';
 .y-alert {
   .y-btn {
     height: 22px;
@@ -31,16 +32,16 @@ export default {
       font-weight: @y-font-weight-regular;
     }
   }
-}
-.ant-alert-info {
-  background-color: @y-color-info-light;
-  border: 1px solid @y-color-info-border;
-  .ant-alert-icon {
-    color: @y-color-info;
+  &.ant-alert-info {
+    background-color: @y-color-info-light;
+    border: 1px solid @y-color-info-border;
+    .ant-alert-icon {
+      color: @y-color-info;
+    }
   }
-}
-.ant-alert-error {
-  background-color: @y-color-primary-light;
-  border: 1px solid @y-color-primary-border;
+  &.ant-alert-error {
+    background-color: @y-color-primary-light;
+    border: 1px solid @y-color-primary-border;
+  }
 }
 </style>

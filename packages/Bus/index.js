@@ -17,10 +17,14 @@ const Bus = new Vue({
         pagination
       );
     },
-    getTableDragHeader(columns) {
+    getTableDragHeader(columns, maxDragwidth = 1000) {
       const draggingMap = {};
+      let totalWidth = 0;
       columns.forEach(col => {
-        draggingMap[col.key] = col.width;
+        if (!isNaN(col.width)) {
+          draggingMap[col.key] = col.width;
+          totalWidth += col.width;
+        }
       });
       const draggingState = Vue.observable(draggingMap);
       const resizeable = (a, b, c) => {
@@ -52,8 +56,8 @@ const Bus = new Vue({
         }
         const onDrag = x => {
           draggingState[key] = 0;
-          const maxWidth = thDom.parentNode.offsetWidth / 2 || 100; // 拖拽最长长度不能超过表格的一半
-          col.width = Math.min(Math.max(x, 50), maxWidth);
+          const maxWidth = totalWidth; // 拖拽最长长度不能超过所有的长度和
+          col.width = Math.min(Math.max(x, 50), maxWidth, maxDragwidth);
         };
 
         const onDragstop = () => {

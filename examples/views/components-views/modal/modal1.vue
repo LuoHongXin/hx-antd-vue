@@ -5,7 +5,7 @@
     <com-show>
       <div>
         <y-button type="primary" @click="modalVisible = true">打开弹窗</y-button>
-        <y-modal :move="modalMove" :visible="modalVisible" title="弹窗" @ok="modalVisible = false" @cancel="modalVisible = false">
+        <y-modal :move="modalMove" v-model="modalVisible" title="弹窗" @ok="modalVisible = false" @cancel="modalVisible = false">
           <p>弹窗内容</p>
           <y-button
             @click="
@@ -38,17 +38,17 @@ export default {
       modalVisible2: false,
       modalMove: true,
       html: `<div>
-            <a-button type='primary' @click='modalVisible = true'>打开弹窗</a-button>
+            <y-button type='primary' @click='modalVisible = true'>打开弹窗</y-button>
             <y-modal :move='modalMove' :visible='modalVisible' title='弹窗' @ok='modalVisible = false' @cancel='modalVisible = false'>
                 <p>弹窗内容</p>
-                <a-button
+                <y-button
                     @click='
                     modalMove = !modalMove;
                     modalVisible = false;
                     '
-                    >{{ modalMove ? '取消滑动' : '添加滑动' }}</a-button
+                    >{{ modalMove ? '取消滑动' : '添加滑动' }}</y-button
                 >
-                <a-button type='primary' style='margin-left: 20px' @click='modalVisible2 = true'>打开弹窗2</a-button>
+                <y-button type='primary' style='margin-left: 20px' @click='modalVisible2 = true'>打开弹窗2</y-button>
             </y-modal>
             <y-modal :move='false' :visible='modalVisible2' title='弹窗2' @ok='modalVisible2 = false' @cancel='modalVisible2 = false'>
                 <p>弹窗2内容</p>

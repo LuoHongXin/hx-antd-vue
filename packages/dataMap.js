@@ -15,3 +15,9 @@ export const sizeHeight = {
   xl: 528,
   xxl: 688,
 };
+// 树的高度
+export const treeHeight = {
+  s: 24,
+  m: 32,
+  l: 40,
+};

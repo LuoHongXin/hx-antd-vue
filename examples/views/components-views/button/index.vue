@@ -4,10 +4,10 @@
       <a-tab-pane key="1" tab="按钮">
         <Ybutton />
       </a-tab-pane>
-      <a-tab-pane key="2" tab="表格操作按钮">
+      <a-tab-pane key="2" tab="表格列操作按钮">
         <Ytableactionbutton />
       </a-tab-pane>
-      <a-tab-pane key="5" tab="表头操作按钮">
+      <a-tab-pane key="5" tab="操作按钮组">
         <Ybuttongroup />
       </a-tab-pane>
       <a-tab-pane key="3" tab="提示按钮">

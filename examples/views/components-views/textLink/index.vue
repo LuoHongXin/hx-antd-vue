@@ -6,7 +6,7 @@
     <h3 class="fun-title">代码演示</h3>
     <!-- 组件展示 -->
     <funTitleDetail
-      title="常规"
+      title="常规 default"
       detail="不引导用户点击的场景，比如查看条款、查看任务；当链接内容新页面打开时，需使用图标。"
     ></funTitleDetail>
     <com-show>
@@ -20,17 +20,24 @@
         </code>
     </pre>
     <funTitleDetail
-      title="强调"
+      title="强调 light"
       detail="需要用户注意，引导用户点击的场景，比如任务创建成功后点击查看任务详情；当链接内容新页面打开时，需使用图标。"
     ></funTitleDetail>
     <com-show>
       <y-text-link @click="openNew" type="light">文字链接</y-text-link>
       <y-text-link @click="openNew" icon type="light">文字链接</y-text-link>
     </com-show>
+    <funTitleDetail title="无下划线 link" detail="自定义使用矢量图标。type 为 link 不会有下划线"></funTitleDetail>
+    <com-show>
+      <y-text-link @click="openNew" icon="copy" type="link">文字链接</y-text-link>
+      <br />
+      <y-text-link @click="openNew" icon="copy" type="link"></y-text-link>
+    </com-show>
     <!-- 代码展示 -->
     <pre class="line-numbers">
-        <code class="language-html" v-text="`<y-text-link @click='openNew' type='light'>文字链接</y-text-link>
-        <y-text-link @click='openNew' icon type='light'>文字链接</y-text-link>`">
+        <code class="language-html" v-text="`<y-text-link @click='openNew' icon='copy' type='link'>文字链接</y-text-link>
+          <br />
+        <y-text-link @click='openNew' icon='copy' type='link'></y-text-link>`">
         </code>
     </pre>
     <api-table :data="tableData"></api-table>
@@ -48,14 +55,14 @@ export default {
       tableData: [
         {
           params: 'type',
-          explain: '默认常规类型，设为light为强调类型',
+          explain: '默认常规类型，设为light为强调类型，link 无下划线',
           type: 'String',
           default: 'default',
         },
         {
           params: 'icon',
-          explain: '是否显示固定图标（图标不可改）',
-          type: 'Boolean',
+          explain: '是否显示固定图标（支持自定义图标）',
+          type: 'Boolean | string',
           default: 'false',
         },
       ],

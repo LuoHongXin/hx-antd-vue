@@ -16,19 +16,5 @@ export default {
       return this.$refs.ruleForm._props || {};
     },
   },
-  methods: {
-    validate(callback) {
-      this.$refs.ruleForm.validate(callback);
-    },
-    validateField(callback) {
-      this.$refs.ruleForm.validateField(callback);
-    },
-    resetFields(callback) {
-      this.$refs.ruleForm.resetFields(callback);
-    },
-    clearValidate(callback) {
-      this.$refs.ruleForm.clearValidate(callback);
-    },
-  },
 };
 </script>

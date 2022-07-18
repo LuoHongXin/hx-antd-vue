@@ -19,6 +19,30 @@ export function deepCopy(obj) {
   }
   return newObj;
 }
+/**
+ * @description 数组扁平化
+ * @author luohongxin
+ * @date 2/05/2022
+ * @param {*} {
+ *  带child为引用对象类型数组，不带child为普通数组扁平化
+ * }
+ * @return {*}
+ */
+export const flatArr = {
+  get(arr = [], child) {
+    if (child) {
+      return arr.reduce((t, v) => {
+        t.push(v);
+        if (Array.isArray(v[child])) {
+          t = t.concat(this.get(v[child], child));
+        }
+        return t;
+      }, []);
+    } else {
+      return arr.reduce((t, v) => t.concat(Array.isArray(v) ? this.get(v) : v), []);
+    }
+  },
+};
 
 // 支持移动类
 export const dragClass = function({ trigerArr, drageBox, eventTarget } = {}) {
@@ -90,3 +114,27 @@ export function unLetter() {
   });
   return newNumArr.join('');
 }
+/**
+ * @description 递归树并返回目标节点的经历节点
+ * @author luohongxin
+ * @date 27/05/2022
+ * @param treeData - Array,
+ * @param targetKey - 目标值,
+ * @return {*} Array
+ */
+export const getTreeParentKeys = {
+  get(treeData, targetKey, key = 'key', children = 'children') {
+    return treeData.reduce((t, v) => {
+      if (t.includes(targetKey)) return t;
+      if (v[key] === targetKey) {
+        t.push(v[key]);
+        return t;
+      }
+      if ((!v[children] || !v[children].length === 0) && v[key] !== targetKey) return [];
+      t.push(v[key]);
+      let childKeys = this.get(v[children], targetKey, key, children);
+      if (childKeys.length > 0) return t.concat(childKeys);
+      return [];
+    }, []);
+  },
+};

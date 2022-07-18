@@ -49,7 +49,7 @@
 </template>
 <script>
 const accAdd = (arg1, arg2) => {
-  let r1, r2, m;
+  let r1, r2, m, n;
   try {
     r1 = arg1.toString().split('.')[1].length;
   } catch (e) {
@@ -61,23 +61,31 @@ const accAdd = (arg1, arg2) => {
     r2 = 0;
   }
   m = Math.pow(10, Math.max(r1, r2));
-  return (arg1 * m + arg2 * m) / m;
+  n = r1 >= r2 ? r1 : r2;
+  return +((arg1 * m + arg2 * m) / m).toFixed(n);
 };
-const calcFn = {
-  add() {
-    let arg = Array.from(arguments);
-    return arg.reduce((total, num) => accAdd(total, num));
-  },
-  sub() {
-    let arg = Array.from(arguments);
-    return arg.reduce((total, num) => accAdd(total, -num));
-  },
+const accSub = (arg1, arg2) => {
+  let r1, r2, m, n;
+  try {
+    r1 = arg1.toString().split('.')[1].length;
+  } catch (e) {
+    r1 = 0;
+  }
+  try {
+    r2 = arg2.toString().split('.')[1].length;
+  } catch (e) {
+    r2 = 0;
+  }
+  m = Math.pow(10, Math.max(r1, r2));
+  n = r1 >= r2 ? r1 : r2;
+  return +((arg1 * m - arg2 * m) / m).toFixed(n);
 };
 export default {
   name: 'YInputNumber',
   props: {
     value: {
       type: [String, Number],
+      default: undefined,
     },
     calculator: {
       type: Boolean,
@@ -105,17 +113,20 @@ export default {
   },
   data() {
     return {
-      val: this.value ?? this.defaultValue,
+      val: this.defaultValue,
     };
   },
   watch: {
     value(value) {
-      this.inValue = value;
+      this.val = value;
     },
   },
   computed: {
     inValue: {
       get: function() {
+        if (this.value !== undefined) {
+          return this.value;
+        }
         return this.val;
       },
       set: function(newValue) {
@@ -156,25 +167,25 @@ export default {
       if (!this.inValue) {
         this.inValue = 0;
       }
+      let num = this.$attrs.step || 1;
+      this.inValue = accSub(this.inValue, num);
       let min = this.$attrs.min ?? undefined;
       if (min !== undefined && this.inValue <= min) {
         this.inValue = min;
         return;
       }
-      let num = this.$attrs.step || 1;
-      this.inValue = calcFn.sub(this.inValue, num);
     },
     plus() {
       if (!this.inValue) {
         this.inValue = 0;
       }
+      let num = this.$attrs.step || 1;
+      this.inValue = accAdd(this.inValue, num);
       let max = this.$attrs.max ?? undefined;
       if (max !== undefined && this.inValue >= max) {
         this.inValue = max;
         return;
       }
-      let num = this.$attrs.step || 1;
-      this.inValue = calcFn.add(this.inValue, num);
     },
   },
 };

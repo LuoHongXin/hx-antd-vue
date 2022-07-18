@@ -18,6 +18,30 @@
         <code class="language-html" v-text="html1">
         </code>
     </pre>
+    <funTitleDetail title="点状步骤条 " detail="包含步骤点的进度条" />
+    <!-- 组件展示 -->
+    <com-show>
+      <div>
+        <y-steps progress-dot :current="1">
+          <y-step title="Finished" description="This is a description." />
+          <y-step title="In Progress" description="This is a description." />
+          <y-step title="Waiting" description="This is a description." />
+        </y-steps>
+        <a-divider />
+        <y-steps progress-dot :current="1" direction="vertical">
+          <y-step title="Finished" description="This is a description. This is a description." />
+          <y-step title="Finished" description="This is a description. This is a description." />
+          <y-step title="In Progress" description="This is a description. This is a description." />
+          <y-step title="Waiting" description="This is a description." />
+          <y-step title="Waiting" description="This is a description." />
+        </y-steps>
+      </div>
+    </com-show>
+    <!-- 代码展示 -->
+    <pre class="line-numbers">
+        <code class="language-html" v-text="html3">
+        </code>
+    </pre>
     <com-show>
       <y-steps :current="1" status="error">
         <y-step>
@@ -42,6 +66,19 @@ export default {
   name: 'Horizontal',
   data() {
     return {
+      html3: `<y-steps progress-dot :current="1">
+      <y-step title="Finished" description="This is a description." />
+      <y-step title="In Progress" description="This is a description." />
+      <y-step title="Waiting" description="This is a description." />
+    </y-steps>
+    <a-divider />
+    <y-steps progress-dot :current="1" direction="vertical">
+      <y-step title="Finished" description="This is a description. This is a description." />
+      <y-step title="Finished" description="This is a description. This is a description." />
+      <y-step title="In Progress" description="This is a description. This is a description." />
+      <y-step title="Waiting" description="This is a description." />
+      <y-step title="Waiting" description="This is a description." />
+    </y-steps>`,
       html1: `<y-steps :current="1">
         <y-step>
           <template slot="title">

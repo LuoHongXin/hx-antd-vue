@@ -4,6 +4,7 @@
     display: none !important;
   }
 }
+.ant-table {
 .ant-table-bordered .ant-table-fixed-right table {
   border-left: 0;
 }
@@ -12,56 +13,59 @@
     max-height: 240px;
 }
 // 表格过滤弹窗中的按钮
-.ant-table-filter-dropdown-link{
-    line-height: 1.9;
-    position: relative;
-    display: inline-block;
-    font-weight: @y-font-weight-regular;
-    white-space: nowrap;
-    text-align: center;
-    background-image: none;
-    border: @y-border-width-default @y-border-style-default transparent;
-    // box-shadow: 0 2px 0 rgb(0 0 0 / 2%);
-    cursor: pointer;
-    transition: all .3s cubic-bezier(.645,.045,.355,1);
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    touch-action: manipulation;
-    height: 24px;
-    padding: 0 22px;
-    font-size: @y-font-size-s;
-    border-radius: @y-radius-default;
-    // 表格过滤中的确定按钮
-    &.confirm {
-        float: right;
-        color: @y-color-fill-bg-white;
-        background-color: @y-color-primary;
-        border-color: @y-color-primary;
-        &:hover{
-            background-color: @y-color-primary-hover;
-            border-color: @y-color-primary-hover;
-        }
-        &:active{
-            background-color: @y-color-primary-active;
-            border-color: @y-color-primary-active;
-        }
-    }
-    // 表格过滤中的重置按钮
-    &.clear {
-        float: left;
-        border: @y-border-width-default @y-border-style-default @y-color-border-dark;
-        color: @y-color-text-regular;
-        background-color: @y-color-fill-normal-btn;
-        margin-right: @y-spacing-xs;
-        &:hover{
-            border-color:  @y-color-border-dark-hover;
-        }
-        &:active{
-            box-shadow: 0px 0px 0px 2px rgb(0 0 0 / 10%);
-        }
-    }
+.ant-table-filter-dropdown{
+  min-width: 164px;
+  .ant-table-filter-dropdown-link{
+      line-height: 1.9;
+      position: relative;
+      display: inline-block;
+      font-weight: @y-font-weight-regular;
+      white-space: nowrap;
+      text-align: center;
+      background-image: none;
+      border: @y-border-width-default @y-border-style-default transparent;
+      // box-shadow: 0 2px 0 rgb(0 0 0 / 2%);
+      cursor: pointer;
+      transition: all .3s cubic-bezier(.645,.045,.355,1);
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      touch-action: manipulation;
+      height: 24px;
+      padding: 0 22px;
+      font-size: @y-font-size-s;
+      border-radius: @y-radius-default;
+      // 表格过滤中的确定按钮
+      &.confirm {
+          float: right;
+          color: @y-color-fill-bg-white;
+          background-color: @y-color-primary;
+          border-color: @y-color-primary;
+          &:hover{
+              background-color: @y-color-primary-hover;
+              border-color: @y-color-primary-hover;
+          }
+          &:active{
+              background-color: @y-color-primary-active;
+              border-color: @y-color-primary-active;
+          }
+      }
+      // 表格过滤中的重置按钮
+      &.clear {
+          float: left;
+          border: @y-border-width-default @y-border-style-default @y-color-border-dark;
+          color: @y-color-text-regular;
+          background-color: @y-color-fill-normal-btn;
+          margin-right: @y-spacing-xs;
+          &:hover{
+              border-color:  @y-color-border-dark-hover;
+          }
+          &:active{
+              box-shadow: 0px 0px 0px 2px rgb(0 0 0 / 10%);
+          }
+      }
+  }
 }
 
 // 带有排序的表头划过
@@ -87,8 +91,8 @@
   }
   .ant-table-bordered .ant-table-tbody > tr > td {
     border-right: 1px solid @y-color-border-light;
-}
-.ant-table-tbody > tr > td {
+  }
+  .ant-table-tbody > tr > td {
     background-color: @y-color-fill-bg-white;
     border-bottom: 1px solid @y-color-border-light;
   }
@@ -128,7 +132,11 @@
       }
     }
   }
+}
   .y-model-table-container {
+    // .ant-table-fixed-left, .ant-table-fixed-right{
+    //   overflow: unset;
+    // }
     .text-ellipsis {
       display: inline-block;
       line-height: 19px;
@@ -140,8 +148,11 @@
       justify-content: space-between;
       .right {
         display: flex;
-        .ant-input {
-          width: @y-form-width-s;
+        .y-input-search-group {
+          width: auto;
+          .y-input {
+            width: @y-form-width-s;
+          }
         }
         .icon-btn-group {
           display: flex;

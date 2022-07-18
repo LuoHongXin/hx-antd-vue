@@ -25,6 +25,11 @@ export default {
               <y-button-group reversed omitType="ellipsis" :buttonList="buttonList"></y-button-group>
             </div>
           </div>
+          <!-- 了解更多 -->
+          <div class="knowMore">
+            这里是一段简要描述。
+            <y-text-link type="light">了解更多</y-text-link>
+          </div>
           <!-- 自定义标签 -->
           <div class="tags">
             <y-tag-action v-model="tagData" />
@@ -71,6 +76,11 @@ export default {
                 </y-tips-button>
                 <y-button-group reversed omitType="ellipsis" :buttonList="buttonList"></y-button-group>
               </div>
+            </div>
+            <!-- 了解更多 -->
+            <div class="knowMore">
+              这里是一段简要描述。
+              <y-text-link type="light">了解更多</y-text-link>
             </div>
             <!-- 自定义标签 -->
             <div class="tags">
@@ -123,7 +133,7 @@ export default {
                 <span slot="label"
                   >表单标题
                   <y-tooltip title="提示信息">
-                    <a-icon type="exclamation-circle" />
+                    <a-icon type="info-circle" />
                   </y-tooltip>
                 </span>
                 <y-input placeholder="请输入" />
@@ -215,6 +225,7 @@ export default {
                 :affixTarget="affixTarget"
                 :selectOptions="selectOptions"
                 :api="getTableData"
+                :search="false"
                 :columns="columns"
                 :buttonList="buttonList"
                 :handleResponse="handleResponse"
@@ -308,9 +319,9 @@ export default {
           </y-form-model>
         </y-drawer>
       </div>`,
-        formPage: `<template>
+        formPageA: `<template>
       <div>
-        <div class="y-page-header-b">
+        <div class="y-page-header-a">
           <div class="content">
             <!-- 标题操作 -->
             <div class="title">
@@ -341,6 +352,39 @@ export default {
         </div>
       </div>
     </template>`,
+        formPageB: `<template>
+        <div>
+          <div class="y-page-header-b">
+            <div class="content">
+              <!-- 标题操作 -->
+              <div class="title">
+                <div class="title-left">
+                  <h3 class="page-title">创建XXX</h3>
+                </div>
+                <div class="title-right">
+                  <y-steps :current="1" size="small">
+                    <y-step title="处理完成"> </y-step>
+                    <y-step title="正在处理" />
+                    <y-step title="等待处理" />
+                    <y-step title="等待处理" />
+                  </y-steps>
+                </div>
+              </div>
+              <!-- Tab选项卡 -->
+              <div class="tabs">
+                <y-tabs default-active-key="1">
+                  <a-tab-pane key="1" tab="快速配置" />
+                  <a-tab-pane key="2" tab="自定义配置" />
+                </y-tabs>
+              </div>
+            </div>
+          </div>
+          <div class="y-form-page-b">
+            <box1 ref="box1" />
+            <box2 />
+          </div>
+        </div>
+      </template>`,
         box1: `<template>
         <div class="box">
           <y-sign-title><span slot="title">标题</span></y-sign-title>
@@ -358,7 +402,13 @@ export default {
             <y-form-model-item label="数字输入框" prop="number">
               <y-input-number :min="0" :max="99" v-model="form.number" /> 天
             </y-form-model-item>
-            <y-form-model-item label="选择器" prop="region">
+            <y-form-model-item  prop="region">
+              <span slot="label"
+                >选择器
+                <y-tooltip title="提示信息">
+                  <a-icon type="info-circle" />
+                </y-tooltip>
+              </span>
               <y-select v-model="form.region" placeholder="请选择">
                 <y-select-option value="shanghai">Zone one</y-select-option>
                 <y-select-option value="beijing">Zone two</y-select-option>
@@ -449,8 +499,280 @@ export default {
         </y-form-model>
       </div>
     </template>`,
+        menuswitch: `<template>
+        <div class="menu-container">
+          <div class="menu-container-sidebar">
+            <y-model-menu
+              title="访问控制"
+              relevanTitle="关联功能"
+              :relevanMenuData="relevanMenuData"
+              :menuData="menuData"
+              @click="modelMenuClick"
+            />
+          </div>
+          <section class="menu-container-section">
+            <tablePage />
+          </section>
+        </div>
+      </template>`,
+        modulePageA: `<template>
+      <div>
+        <div class="y-page-header-a">
+          <!-- 标题 -->
+          <div class="title">
+            <div class="title-left">
+              <h3 class="page-title">页面标题</h3>
+            </div>
+            <div class="title-right">
+              <y-tips-button :tooltip="true" title="说明信息">
+                <div class="guide"><a-icon type="question-circle" />指引说明</div>
+              </y-tips-button>
+              <y-button-group reversed omitType="ellipsis" :buttonList="buttonList"></y-button-group>
+            </div>
+          </div>
+          <!-- Tab选项卡 -->
+          <div class="tabs">
+            <y-tabs default-active-key="1">
+              <a-tab-pane key="1" tab="选项卡" />
+              <a-tab-pane key="2" tab="选项卡" />
+              <a-tab-pane key="3" tab="选项卡" />
+            </y-tabs>
+          </div>
+        </div>
+        <div class="y-module-page-a">
+          <div class="contanier">
+            <!-- 三列布局 -->
+            <div class="list">
+              <y-card size="small" title="Small size card">
+                <p v-for="i in 16" :key="i">card content</p>
+              </y-card>
+            </div>
+            <div class="list">
+              <y-card size="small" title="Small size card">
+                <p v-for="i in 20" :key="i">card content</p>
+              </y-card>
+            </div>
+            <div class="list">
+              <y-card size="small" v-for="i in 3" :key="i" style="margin-bottom:16px" title="Small size card">
+                <p>card content</p>
+                <p>card content</p>
+                <p>card content</p>
+              </y-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>`,
+        modulePageB: `<template>
+        <div>
+          <div class="y-page-header-a">
+            <!-- 标题 -->
+            <div class="title">
+              <div class="title-left">
+                <h3 class="page-title">页面标题</h3>
+              </div>
+              <div class="title-right">
+                <y-tips-button :tooltip="true" title="说明信息">
+                  <div class="guide"><a-icon type="question-circle" />指引说明</div>
+                </y-tips-button>
+                <y-button-group reversed omitType="ellipsis" :buttonList="buttonList"></y-button-group>
+              </div>
+            </div>
+            <!-- Tab选项卡 -->
+            <div class="tabs">
+              <y-tabs default-active-key="1">
+                <a-tab-pane key="1" tab="选项卡" />
+                <a-tab-pane key="2" tab="选项卡" />
+                <a-tab-pane key="3" tab="选项卡" />
+              </y-tabs>
+            </div>
+          </div>
+          <div class="y-module-page-a">
+            <div class="test">
+              <a-row type="flex" :gutter="[16, { xs: 8, sm: 16, md: 24, lg: 32 }]">
+                <a-col :span="8">
+                  <y-card :hoverable="true">
+                    <div slot="title" href="#">我是插槽分发的标题</div>
+                    <!-- 如要给高度，建议给内容设置高度让其撑开card不给，则默认由里面的内容撑开 -->
+                    <div style="height:300px">
+                      <div>卡片内容1</div>
+                    </div>
+                  </y-card>
+                </a-col>
+                <a-col :span="8">
+                  <y-card :hoverable="true">
+                    <div slot="title" href="#">我是插槽分发的标题</div>
+                    <div style="height:300px">
+                      <div>卡片内容2</div>
+                    </div>
+                  </y-card>
+                </a-col>
+                <a-col :span="8">
+                  <y-card :hoverable="true">
+                    <div slot="title" href="#">我是插槽分发的标题</div>
+                    <div style="height:200px">
+                      <div>卡片内容3</div>
+                    </div>
+                  </y-card>
+                </a-col>
+                <a-col :span="16">
+                  <y-card :hoverable="true">
+                    <div slot="title" href="#">我是插槽分发的标题</div>
+                    <div style="height:300px">
+                      <div>卡片内容4</div>
+                    </div>
+                  </y-card>
+                </a-col>
+              </a-row>
+            </div>
+          </div>
+        </div>
+      </template>`,
+        pageFooterA: `
+      <template>
+      <div class="y-footer-pageA">
+        <formPageA class="y-footer-page-content" />
+        <div class="y-page-footerA">
+          <y-button-group reversed :buttonList="buttonList"></y-button-group>
+        </div>
+      </div>
+      </template>`,
+        pageFooterB: `
+      <template>
+      <div class="y-footer-pageB">
+        <formPageB class="y-footer-page-content"/>
+          <div class="y-page-footerB">
+            <div class="footer-content">
+              <y-button-group reversed :buttonList="buttonList"></y-button-group>
+            </div>
+          </div>
+      </div>
+      </template>`,
       },
+
       jsObj: {
+        pageFooterA: `<script>
+        import formPageA from './formPageA';
+        export default {
+          name: 'pageFooterA',
+          components: {
+            formPageA,
+          },
+          data() {
+            return {
+              buttonList: [
+                {
+                  text: '新增',
+                  tips: {
+                    text: '数据添加',
+                    placement: 'left',
+                  },
+                  type: 'primary',
+                  icon: 'plus',
+                  click: () => {
+                    this.action('新增');
+                  },
+                },
+                {
+                  text: '修改',
+                  click: () => {
+                    this.action('修改');
+                  },
+                  tips: '请先选择数据',
+                  disable: true,
+                },
+                {
+                  text: '复制',
+                  click: () => {
+                    this.action('复制');
+                  },
+                },
+                {
+                  text: '粘贴操作操作操作',
+                },
+                {
+                  text: '删除',
+                  tips: '危险操作',
+                  click: () => {
+                    this.action('删除');
+                  },
+                  disable: true,
+                },
+              ],
+            };
+          },
+          methods: {
+            add() {
+              alert('新增');
+            },
+            action(val) {
+              alert(val);
+            },
+          },
+        };
+        </script>`,
+        pageFooterB: `
+        <script>
+        import formPageB from './formPageB';
+        export default {
+          name: 'pageFooterB',
+          components: {
+            formPageB,
+          },
+          data() {
+            return {
+              buttonList: [
+                {
+                  text: '新增',
+                  tips: {
+                    text: '数据添加',
+                    placement: 'left',
+                  },
+                  type: 'primary',
+                  icon: 'plus',
+                  click: () => {
+                    this.action('新增');
+                  },
+                },
+                {
+                  text: '修改',
+                  click: () => {
+                    this.action('修改');
+                  },
+                  tips: '请先选择数据',
+                  disable: true,
+                },
+                {
+                  text: '复制',
+                  click: () => {
+                    this.action('复制');
+                  },
+                },
+                {
+                  text: '粘贴操作操作操作',
+                },
+                {
+                  text: '删除',
+                  tips: '危险操作',
+                  click: () => {
+                    this.action('删除');
+                  },
+                  disable: true,
+                },
+              ],
+            };
+          },
+          methods: {
+            add() {
+              alert('新增');
+            },
+            action(val) {
+              alert(val);
+            },
+          },
+        };
+        </script>
+        `,
         pageHeaderA: `<script>
         export default {
           name: 'pageHeaderA',
@@ -760,11 +1082,37 @@ export default {
           },
         };
         </script>`,
-        formPage: `<script>
+        formPageA: `<script>
         import box1 from './box1.vue';
         import box2 from './box2.vue';
         export default {
-          name: 'formPage',
+          name: 'formPageA',
+          components: {
+            box1,
+            box2,
+          },
+          methods: {
+            onSubmit() {
+              this.$refs.box1.onSubmit(valid => {
+                if (valid) {
+                  alert('submit!');
+                } else {
+                  console.log('error submit!!');
+                  return false;
+                }
+              });
+            },
+            resetForm() {
+              this.$refs.box1.resetForm();
+            },
+          },
+        };
+        </script>`,
+        formPageB: `<script>
+        import box1 from './box1.vue';
+        import box2 from './box2.vue';
+        export default {
+          name: 'formPageB',
           components: {
             box1,
             box2,
@@ -1025,6 +1373,154 @@ export default {
             },
           };
           </script>`,
+        menuswitch: `<script>
+      import tablePage from '../tablePage'; //tablePage 表格页 组件
+      export default {
+        name: 'menuswitch',
+        data() {
+          return {
+            menuData: [
+              {
+                title: '主机管理',
+                key: '/aa',
+                antIcon: 'windows',
+              },
+              {
+                title: '存储管理',
+                antIcon: 'ie',
+                link: true,
+              },
+              {
+                title: '对象用户管理超长的超长的',
+                antIcon: 'chrome',
+              },
+              {
+                title: '系统管理',
+                icon: 'eyes_visible',
+                link: true,
+              },
+              {
+                title: '弹性伸缩1超长的超长的',
+                icon: 'eyes_visible',
+                children: [
+                  {
+                    title: '对象用户管理1',
+                    link: true,
+                  },
+                  {
+                    title: '系统管理1',
+                    antIcon: 'weibo',
+                  },
+                ],
+              },
+              {
+                title: '弹性伸缩2',
+                children: [
+                  {
+                    title: '超长的超长的对象用户管理2',
+                    antIcon: 'qq',
+                    link: true,
+                  },
+                  {
+                    title: '系统管理2',
+                  },
+                ],
+              },
+            ],
+            relevanMenuData: [
+              {
+                title: '系统设置',
+                key: '/aa',
+                antIcon: 'windows',
+                link: true,
+              },
+              {
+                title: 'VDC管理',
+                antIcon: 'ie',
+                link: true,
+              },
+              {
+                title: '业务系统',
+                antIcon: 'chrome',
+                link: true,
+              },
+              {
+                title: '系统管理',
+                icon: 'eyes_visible',
+                link: true,
+              },
+            ],
+          };
+        },
+        components: { tablePage },
+        methods: {
+          modelMenuClick({ item, key, keyPath }) {
+            console.log({ item, key, keyPath });
+          },
+        },
+      };
+      </script>`,
+        modulePageA: `<script>
+      export default {
+        name: 'ModulePageA',
+        data() {
+          return {
+            buttonList: [
+              {
+                text: '主要操作',
+                type: 'primary',
+              },
+              {
+                text: '次要操作1',
+              },
+              {
+                text: '次要操作2',
+              },
+              {
+                text: '次要操作3',
+              },
+              {
+                text: '次要操作4',
+              },
+            ],
+          };
+        },
+      };
+      </script>`,
+        modulePageB: `<script>
+        export default {
+          name: 'ModulePageB',
+          data() {
+            return {
+              buttonList: [
+                {
+                  text: '主要操作',
+                  type: 'primary',
+                },
+                {
+                  text: '次要操作1',
+                },
+                {
+                  text: '次要操作2',
+                },
+                {
+                  text: '次要操作3',
+                },
+                {
+                  text: '次要操作4',
+                },
+              ],
+            };
+          },
+        };
+        </script>`,
+      },
+      styleObj: {
+        menuswitch: ``,
+      },
+      desObj: {
+        formPageA: '注意自适应宽度如页面只有单个组件内容时请使用formPageB',
+        formPageB: '固定宽度如页面只有其他组件内容时请使用formPageA',
       },
     };
   },

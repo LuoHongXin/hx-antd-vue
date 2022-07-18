@@ -32,6 +32,7 @@
         <div v-else-if="item.key === 'link'">
           <y-button type="link">{{ item.text }}</y-button>
           <y-button type="link" icon="plus">{{ item.text }}</y-button>
+          <y-button type="link" icon-class="copy"></y-button>
           <y-button type="link">展开<a-icon type="down"/></y-button>
           <y-button type="link">收起<a-icon type="up"/></y-button>
           <y-button type="link" disabled>{{ item.text }}</y-button>
@@ -46,6 +47,7 @@
           <y-button icon="fresh"></y-button>
           <y-button icon="setting"></y-button>
           <y-button icon="fresh" class="no-bg"></y-button>
+          <y-button icon-class="copy" class="no-bg"></y-button>
         </div>
       </com-show>
       <!-- 代码展示 -->
@@ -117,7 +119,8 @@ export default {
           html: `<y-button type="primary" icon="plus"></y-button>
       <y-button icon="fresh"></y-button>
       <y-button icon="setting"></y-button>
-      <y-button icon="fresh" class="no-bg"></y-button>`,
+      <y-button icon="fresh" class="no-bg"></y-button>
+      <y-button icon-class="copy" class="no-bg"></y-button>`,
           explain: '视觉上占位空间少；可独立使用，也仅可与同类搭配使用；必须有 Tooltip 提示按钮含义；',
         },
       ],
@@ -130,6 +133,7 @@ export default {
       tableData: [
         { params: 'disabled', explain: '按钮失效状态', type: 'boolean', default: 'false' },
         { params: 'icon', explain: '设置按钮的图标类型', type: 'string', default: '' },
+        { params: 'icon-class', explain: '使用自定义的矢量图标', type: 'string', default: '' },
         { params: 'size', explain: '设置按钮大小，可选值为 small default large 或者不设', type: 'string', default: 'default' },
         { params: 'type', explain: '设置按钮类型，可选值为 primary dashed danger link 或者不设', type: 'string', default: 'default' },
         { params: 'block', explain: '将按钮宽度调整为其父宽度的选项', type: 'boolean', default: 'false' },

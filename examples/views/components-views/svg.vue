@@ -3,7 +3,7 @@
     <!-- 组件标题和说明 -->
     <title-detail
       title="矢量图标"
-      detail="用于自定义的icon图标，也可以用于矢量图片。在使用公司的项目模板，svg的配置已设置好，只需将使用的svg图片放入 src/icons 文件夹即可使用这些svg图片。"
+      detail="用于自定义的icon图标，也可以用于矢量图片。在使用公司的项目模板，svg的配置已设置好，只需将使用的svg图片放入 src/icons/svg 文件夹即可使用这些svg图片。"
     />
     <h3 class="fun-title">代码演示</h3>
     <!-- 组件展示 -->

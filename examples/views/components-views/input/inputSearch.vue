@@ -14,7 +14,6 @@
           v-model="value"
           @search="onSearch"
           :selectValue.sync="selectValue"
-          loading
         >
         </y-input-search>
         <br /><br />
@@ -107,7 +106,7 @@ export default {
         { params: 'selectClassName', explain: 'select class类名' },
         { params: 'selectStyle', explain: 'select Style样式' },
         { params: 'disabled', explain: '置灰', type: 'boolean', default: 'false' },
-        { params: 'selectOption', explain: '设置selectOption数组， 显示左边下拉框数据', type: 'array' },
+        { params: 'selectOption', explain: '设置selectOption数组， 显示左边下拉框数据 详细见select', type: 'array' },
         { params: 'selectValue', explain: '显示左边下拉框数据绑定的数据,注意配合语法糖.sync使用', type: 'string | Number', default: '' },
         { params: 'loading', explain: '搜索 loading', type: 'boolean', default: 'false' },
         { params: 'search', explain: '点击搜索或按下回车键时的回调', type: 'function(value, event)' },

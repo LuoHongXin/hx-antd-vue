@@ -37,11 +37,11 @@ export default {
                 const _this = this;
                 this.$copyText(this.text).then(
                     function(e) {
-                        _this.$message.success('文本已复制');
+                        _this.$YMessage.success('文本已复制');
                         console.log('复制成功', e);
                     },
                     function(e) {
-                        _this.$message.error('文本复制失败，请手动尝试复制');
+                        _this.$YMessage.error('文本复制失败，请手动尝试复制');
                         console.log('复制失败', e);
                     }
                 );
@@ -55,11 +55,11 @@ export default {
       const _this = this;
       this.$copyText(this.text).then(
         function(e) {
-          _this.$message.success('文本已复制');
+          _this.$YMessage.success('文本已复制');
           console.log('复制成功', e);
         },
         function(e) {
-          _this.$message.error('文本复制失败，请手动尝试复制');
+          _this.$YMessage.error('文本复制失败，请手动尝试复制');
           console.log('复制失败', e);
         }
       );

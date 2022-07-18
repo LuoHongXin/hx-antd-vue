@@ -9,6 +9,26 @@
       <div style="position: relative;">
         <y-select :options="options" disabled />
         <br /><br />
+        <div>不使用v-model</div>
+        <y-select defaultValue="jack">
+          <y-select-option value="jack">
+            Jack
+          </y-select-option>
+          <y-select-option value="lucy">
+            Lucy
+          </y-select-option>
+        </y-select>
+        <br /><br />
+        <y-select :value="value1">
+          <y-select-option value="jack">
+            Jack
+          </y-select-option>
+          <y-select-option value="lucy">
+            Lucy
+          </y-select-option>
+        </y-select>
+        <br /><br />
+        <div>使用v-model</div>
         <y-select v-model="value1">
           <y-select-option value="jack">
             Jack
@@ -26,24 +46,41 @@
     </com-show>
     <!-- 代码展示 -->
     <pre class="line-numbers">
-        <code class="language-html" v-text='`<div style="position: relative;">
-          <y-select :options="options" />
-          <br /><br />
-          <y-select v-model="value1">
-            <y-select-option value="jack">
-              Jack
-            </y-select-option>
-            <y-select-option value="lucy">
-              Lucy
-            </y-select-option>
-            <y-select-option value="disabled" disabled>
-              Disabled
-            </y-select-option>
-          </y-select>
-          <br /><br />
-          <y-select mode="multiple" :options="options" />
-          <br /><br />
-          <y-select checkbox :options="options"> </y-select>
+        <code class="language-html" v-text='`<y-select :options="options" disabled />
+        <br /><br />
+        <div>不使用v-model</div>
+        <y-select defaultValue="jack">
+          <y-select-option value="jack">
+            Jack
+          </y-select-option>
+          <y-select-option value="lucy">
+            Lucy
+          </y-select-option>
+        </y-select>
+        <br /><br />
+        <y-select :value="value1">
+          <y-select-option value="jack">
+            Jack
+          </y-select-option>
+          <y-select-option value="lucy">
+            Lucy
+          </y-select-option>
+        </y-select>
+        <br /><br />
+        <div>使用v-model</div>
+        <y-select v-model="value1">
+          <y-select-option value="jack">
+            Jack
+          </y-select-option>
+          <y-select-option value="lucy">
+            Lucy
+          </y-select-option>
+          <y-select-option value="disabled" disabled>
+            Disabled
+          </y-select-option>
+        </y-select>
+        <br /><br />
+        <y-select mode="multiple" :options="options"></y-select>
         </div>`'/>
     </pre>
     <pre class="line-numbers">

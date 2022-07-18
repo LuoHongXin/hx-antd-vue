@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
-// import Demo from '../views/Demo.vue';
 Vue.use(VueRouter);
 
 const routes = [
@@ -63,6 +62,14 @@ const routes = [
         component: () => import(/*webpackChunkName:"textLink"*/ '../views/components-views/textLink/index'),
         meta: {
           title: 'Link 文字链接',
+        },
+      },
+      {
+        path: 'describe',
+        name: 'describe',
+        component: () => import(/*webpackChunkName:"describe"*/ '../views/components-views/describe/index'),
+        meta: {
+          title: 'Describe 描述省略',
         },
       },
       {
@@ -213,6 +220,14 @@ const routes = [
           title: 'TimePicker 时间选择框',
         },
       },
+      {
+        path: 'upload',
+        name: 'upload',
+        component: () => import(/*webpackChunkName:"upload"*/ '../views/components-views/upload/index'),
+        meta: {
+          title: 'Upload 上传',
+        },
+      },
     ],
   },
   {
@@ -294,6 +309,24 @@ const routes = [
         meta: {
           title: 'Menu 菜单',
         },
+        children: [
+          {
+            path: 'aa',
+            name: 'aa',
+          },
+          {
+            path: 'bb',
+            name: 'bb',
+          },
+          {
+            path: 'cc',
+            name: 'cc',
+          },
+          {
+            path: 'dd',
+            name: 'dd',
+          },
+        ],
       },
       {
         path: 'card',
@@ -309,6 +342,14 @@ const routes = [
         component: () => import(/*webpackChunkName:"tree"*/ '../views/components-views/tree/index'),
         meta: {
           title: 'Tree 树形控件',
+        },
+      },
+      {
+        path: 'treeCustom',
+        name: 'treeCustom',
+        component: () => import(/*webpackChunkName:"treeCustom"*/ '../views/components-views/treeCustom/index'),
+        meta: {
+          title: 'customTree 自定义树形控件',
         },
       },
     ],
@@ -444,6 +485,22 @@ const routes = [
         },
       },
       {
+        path: 'modulePageA',
+        name: 'modulePageA',
+        component: () => import(/*webpackChunkName:"modulePageA "*/ '../views/page-views/modulePageA'),
+        meta: {
+          title: 'modulePageA 模块页A',
+        },
+      },
+      {
+        path: 'modulePageB',
+        name: 'modulePageB',
+        component: () => import(/*webpackChunkName:"modulePageA "*/ '../views/page-views/modulePageB'),
+        meta: {
+          title: 'modulePageB 模块页B',
+        },
+      },
+      {
         path: 'modalForm',
         name: 'modalForm',
         component: () => import(/*webpackChunkName:"modalForm "*/ '../views/page-views/modalForm'),
@@ -460,11 +517,43 @@ const routes = [
         },
       },
       {
-        path: 'formPage',
-        name: 'formPage',
-        component: () => import(/*webpackChunkName:"formPage "*/ '../views/page-views/formPage'),
+        path: 'formPageA',
+        name: 'formPageA',
+        component: () => import(/*webpackChunkName:"formPageA "*/ '../views/page-views/formPageA'),
         meta: {
-          title: 'formPage 表单页',
+          title: 'formPageA 表单页',
+        },
+      },
+      {
+        path: 'formPageB',
+        name: 'formPageB',
+        component: () => import(/*webpackChunkName:"formPageB "*/ '../views/page-views/formPageB'),
+        meta: {
+          title: 'formPageB 表单页',
+        },
+      },
+      {
+        path: 'pageFooterA',
+        name: 'pageFooterA',
+        component: () => import(/*webpackChunkName:"pageFooterA "*/ '../views/page-views/pageFooterA'),
+        meta: {
+          title: 'pageFooterA 页脚A',
+        },
+      },
+      {
+        path: 'pageFooterB',
+        name: 'pageFooterB',
+        component: () => import(/*webpackChunkName:"pageFooterB "*/ '../views/page-views/pageFooterB'),
+        meta: {
+          title: 'pageFooterB 页脚B',
+        },
+      },
+      {
+        path: 'menuswitch',
+        name: 'menuswitch',
+        component: () => import(/*webpackChunkName:"menuswitch "*/ '../views/page-views/menuswitch'),
+        meta: {
+          title: 'menuContainer 菜单左右布局',
         },
       },
     ],
@@ -494,6 +583,22 @@ const routes = [
         },
       },
       {
+        path: 'editor',
+        name: 'editor',
+        component: () => import(/*webpackChunkName:"editor "*/ '../views/components-views/editor'),
+        meta: {
+          title: 'editor 富文本编辑器',
+        },
+      },
+      {
+        path: 'jsonViewer',
+        name: 'jsonViewer',
+        component: () => import(/*webpackChunkName:"jsonViewer "*/ '../views/components-views/jsonViewer'),
+        meta: {
+          title: 'jsonViewer 数据高亮',
+        },
+      },
+      {
         path: 'ConfigProvider',
         name: 'ConfigProvider',
         component: () => import(/*webpackChunkName:"ConfigProvider "*/ '../views/components-views/configProvider'),
@@ -507,6 +612,7 @@ const routes = [
     path: '/log',
     name: 'log',
     component: () => import(/*webpackChunkName:"log"*/ '../views/log'),
+    // component: () => import(/*webpackChunkName:"log"*/ '../../README.md'),
     meta: {
       title: '更新日志',
     },
@@ -520,22 +626,16 @@ const routes = [
   //     title: "拓扑图"
   //   }
   // },
-
+  // {
+  //   path: '/test',
+  //   name: 'test',
+  //   component: () => import('../views/editorDemo'),
+  // },
   {
     path: '/Home',
     name: 'Home',
     component: Home,
   },
-  // {
-  //   path: '/',
-  //   name: 'Home',
-  //   component: Home,
-  // },
-  // {
-  //   path: '/demo',
-  //   name: 'Demo',
-  //   component: Demo,
-  // },
   // {
   //   path: '/permission',
   //   component: Home,

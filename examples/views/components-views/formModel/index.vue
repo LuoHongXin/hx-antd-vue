@@ -3,6 +3,7 @@
     <a-tabs type="card">
       <a-tab-pane key="1" tab="表单验证">
         <rules-from />
+        <RulesFrom2 />
       </a-tab-pane>
       <a-tab-pane key="2" tab="动态增减表单项">
         <dynamic-validate-form />
@@ -39,10 +40,11 @@
 </template>
 <script>
 import RulesFrom from './rulesFrom';
+import RulesFrom2 from './rulesFrom2';
 import DynamicValidateForm from './dynamicValidateForm';
 export default {
   name: 'myFormModel',
-  components: { RulesFrom, DynamicValidateForm },
+  components: { RulesFrom, DynamicValidateForm, RulesFrom2 },
   data() {
     return {
       tableData: [

@@ -8,7 +8,10 @@
       :total="total"
       :show-quick-jumper="true"
       :show-size-changer="true"
-      :show-total="(total, range) => `${range[0]}-${range[1]}项 共${total} 项`"
+      :show-total="
+        (total, range) =>
+          `${range[0]}-${range[1]}${$wci18n.t('wh.pagination.item')} ${$wci18n.t('wh.pagination.total').replace('$', total)}`
+      "
       @change="handleCurrentChange"
       @showSizeChange="handleSizeChange"
     />
@@ -85,6 +88,7 @@ export default {
 </script>
 
 <style lang="less">
+@import '~/src/styles/variables/index.less';
 .y-pagination {
   padding-top: @y-spacing-m;
   display: flex;

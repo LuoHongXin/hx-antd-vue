@@ -3,6 +3,10 @@
     <y-svg-icon class="anticon" icon-class="fresh"/>
     <slot
   /></a-button>
+  <a-button :class="className" :type="type" v-else-if="iconClass" v-bind="$attrs" v-on="$listeners">
+    <y-svg-icon class="anticon" :icon-class="iconClass"/>
+    <slot
+  /></a-button>
   <a-button v-else :class="className" :icon="icon" :type="type" v-bind="$attrs" v-on="$listeners"><slot /></a-button>
 </template>
 <script>
@@ -17,6 +21,9 @@ export default {
     },
   },
   props: {
+    iconClass: {
+      type: String,
+    },
     icon: {
       type: String,
     },

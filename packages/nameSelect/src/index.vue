@@ -10,12 +10,12 @@
     <a-popover v-if="isSearch" placement="bottom" v-model="visible" trigger="click">
       <template slot="content">
         <div class="y-name-select-content">
-          <y-input placeholder="请输入关键字搜索" @change="filterInput">
+          <y-input autoWidth :placeholder="$wci18n.t('wh.nameSelect.placeholder')" @change="filterInput">
             <a-icon slot="prefix" type="search" />
           </y-input>
           <div class="tips" v-if="checkValue.length >= maxNum">
             <a-icon type="info-circle" />
-            一次最多能查看{{ maxNum }}台资源的性能数据
+            {{ maxAlarmTips.replace('$', maxNum) }}
           </div>
           <div class="list">
             <a-checkbox-group v-model="checkValue" @change="checkChange">
@@ -31,8 +31,10 @@
             </a-checkbox-group>
           </div>
           <div class="btn-group">
-            <y-button class="handle-btn" style="margin-right:8px" @click="visible = false">取消</y-button>
-            <y-button class="handle-btn" type="primary" @click="checkSubmit">确定</y-button>
+            <y-button class="handle-btn" style="margin-right:8px" @click="visible = false">{{
+              $wci18n.t('wh.nameSelect.cancel')
+            }}</y-button>
+            <y-button class="handle-btn" type="primary" @click="checkSubmit">{{ $wci18n.t('wh.nameSelect.confirm') }}</y-button>
           </div>
         </div>
       </template>
@@ -42,7 +44,7 @@
         }"
         v-model="selectValue3"
         :open="false"
-        :placeholder="'请选择' + title"
+        :placeholder="$wci18n.t('wh.nameSelect.pleaseSelect') + title"
       ></y-select>
     </a-popover>
     <!-- 简单选择 -->
@@ -50,7 +52,7 @@
       v-else
       v-model="selectValue2"
       show-search
-      :placeholder="'请选择' + title"
+      :placeholder="$wci18n.t('wh.nameSelect.pleaseSelect') + title"
       option-filter-prop="children"
       :style="{
         width: width + 'px',
@@ -69,6 +71,12 @@ export default {
     event: 'update-selectValue',
   },
   props: {
+    maxAlarmTips: {
+      type: String,
+      default: function() {
+        return this.$wci18n.t('wh.nameSelect.defaultMaxAlarmTips');
+      },
+    },
     width: {
       type: [Number, String],
       default: function() {

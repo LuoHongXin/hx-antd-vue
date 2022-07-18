@@ -5,6 +5,8 @@
     :maskClosable="maskClosable"
     v-on="$listeners"
     :width="sizeWidth"
+    :title="title"
+    :centered="centered"
     v-bind="$attrs"
     class="y-modal"
   >
@@ -12,7 +14,16 @@
       <slot :name="key"></slot>
     </template>
   </a-modal>
-  <a-modal v-else :maskClosable="maskClosable" v-on="$listeners" :width="sizeWidth" v-bind="$attrs" class="y-modal">
+  <a-modal
+    v-else
+    :title="title"
+    :centered="centered"
+    :maskClosable="maskClosable"
+    v-on="$listeners"
+    :width="sizeWidth"
+    v-bind="$attrs"
+    class="y-modal"
+  >
     <template v-for="(val, key) in $slots" :slot="key">
       <slot :name="key"></slot>
     </template>
@@ -33,6 +44,10 @@ export default {
     value: {
       type: Boolean,
       default: null,
+    },
+    centered: {
+      type: Boolean,
+      default: true,
     },
     // 是否支持移动窗口，默认为 true 支持移动
     move: {
@@ -57,6 +72,9 @@ export default {
       type: String,
       default: 'm',
     },
+    title: {
+      type: String,
+    },
   },
   computed: {
     sizeWidth: {
@@ -75,7 +93,7 @@ export default {
     },
   },
   mounted() {
-    if (this.$attrs.visible) {
+    if (this.visible) {
       // 打开弹窗添加移动事件
       this.setMove();
       return;
@@ -84,7 +102,7 @@ export default {
     this.relMove();
   },
   watch: {
-    '$attrs.visible': function(val) {
+    visible: function(val) {
       // 打开弹窗添加移动事件
       if (val && this.move) {
         this.setMove();
@@ -160,40 +178,43 @@ export default {
 };
 </script>
 <style lang="less">
-.ant-modal-header {
-  padding: @y-spacing-s @y-spacing-xl;
-  .ant-modal-title {
-    color: @y-color-text-primary;
-  }
-}
-.ant-modal-body {
-  min-height: 200px;
-  max-height: calc(85vh - 100px);
-  overflow-y: auto;
-}
-.ant-modal-footer {
-  padding: 10px @y-spacing-xl;
-  .foot-left {
-    float: left;
-  }
-  .ant-btn {
-    line-height: 1.5;
-  }
-  .ant-btn:not([disabled], .ant-btn-primary, .ant-btn-link) {
-    border: @y-border-width-default @y-border-style-default @y-color-border-dark;
-    color: @y-color-text-regular;
-    &:hover {
-      border: @y-border-width-default @y-border-style-default @y-color-border-dark-hover;
-    }
-    &:focus,
-    &:active {
-      border: @y-border-width-default @y-border-style-default @y-color-border-dark-hover;
-      box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.1);
+@import '~/src/styles/variables/index.less';
+.y-modal {
+  .ant-modal-header {
+    padding: @y-spacing-s @y-spacing-xl;
+    .ant-modal-title {
+      color: @y-color-text-primary;
     }
   }
-  .ant-btn-primary:not([disabled]) {
-    text-shadow: unset;
-    box-shadow: unset;
+  .ant-modal-header + .ant-modal-body {
+    min-height: 200px;
+    max-height: calc(85vh - 100px);
+    overflow-y: auto;
+  }
+  .ant-modal-footer {
+    padding: 10px @y-spacing-xl;
+    .foot-left {
+      float: left;
+    }
+    .ant-btn {
+      line-height: 1.5;
+    }
+    .ant-btn:not([disabled], .ant-btn-primary, .ant-btn-link) {
+      border: @y-border-width-default @y-border-style-default @y-color-border-dark;
+      color: @y-color-text-regular;
+      &:hover {
+        border: @y-border-width-default @y-border-style-default @y-color-border-dark-hover;
+      }
+      &:focus,
+      &:active {
+        border: @y-border-width-default @y-border-style-default @y-color-border-dark-hover;
+        box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.1);
+      }
+    }
+    .ant-btn-primary:not([disabled]) {
+      text-shadow: unset;
+      box-shadow: unset;
+    }
   }
 }
 </style>

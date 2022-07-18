@@ -13,7 +13,7 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .y-sign-title {
   color: #1f2229;
   font-size: 16px;

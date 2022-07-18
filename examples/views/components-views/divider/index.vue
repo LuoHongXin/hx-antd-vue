@@ -25,19 +25,19 @@
       <p>
         在 ES6 中为我们新增了两个数据结构 WeakMap、WeakSet，就是为了解决内存泄漏的问题。
       </p>
-      <a-divider />
+      <y-divider />
       <p>
         它的键名所引用的对象都是弱引用，就是垃圾回收机制遍历的时候不考虑该引用。
       </p>
-      <a-divider>加入的文字</a-divider>
+      <y-divider>加入的文字</y-divider>
       <p>
         只要所引用的对象的其他引用都被清除，垃圾回收机制就会释放该对象所占用的内存。
       </p>
-      <a-divider dashed />
+      <y-divider dashed />
       <p>
         也就是说，一旦不再需要，WeakMap 里面的键名对象和所对应的键值对会自动消失，不用手动删除引用。
       </p>
-      <a-divider orientation="right">加入的文字</a-divider>
+      <y-divider orientation="right">加入的文字</y-divider>
     </com-show>
     <!-- 代码展示 -->
     <pre class="line-numbers">
@@ -63,19 +63,19 @@ export default {
       html2: `<p>
         在 ES6 中为我们新增了两个数据结构 WeakMap、WeakSet，就是为了解决内存泄漏的问题。
       </p>
-      <a-divider />
+      <y-divider />
       <p>
         它的键名所引用的对象都是弱引用，就是垃圾回收机制遍历的时候不考虑该引用。
       </p>
-      <a-divider>加入的文字</a-divider>
+      <y-divider>加入的文字</y-divider>
       <p>
         只要所引用的对象的其他引用都被清除，垃圾回收机制就会释放该对象所占用的内存。
       </p>
-      <a-divider dashed />
+      <y-divider dashed />
       <p>
         也就是说，一旦不再需要，WeakMap 里面的键名对象和所对应的键值对会自动消失，不用手动删除引用。
       </p>
-      <a-divider orientation="right">加入的文字</a-divider>`,
+      <y-divider orientation="right">加入的文字</y-divider>`,
       tableData: [
         {
           params: 'dashed',

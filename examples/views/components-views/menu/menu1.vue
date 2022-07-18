@@ -3,17 +3,17 @@
     <funTitleDetail title="内嵌菜单" detail="垂直菜单，子菜单内嵌在菜单区域。"></funTitleDetail>
     <!-- 组件展示 -->
     <com-show>
-      <a-menu mode="inline" style="width: 200px" @click="handleClick">
+      <y-menu mode="inline" style="width: 200px" @click="handleClick">
         <template v-for="item in menuData">
-          <a-sub-menu v-if="item.children" :key="item.title" @titleClick="titleClick">
+          <y-sub-menu v-if="item.children" :key="item.title" @titleClick="titleClick">
             <span slot="title"><a-icon :type="item.icon" />{{ item.title }}</span>
-            <a-menu-item :key="child.title" v-for="child in item.children">
+            <y-menu-item :key="child.title" v-for="child in item.children">
               {{ child.title }}
-            </a-menu-item>
-          </a-sub-menu>
-          <a-menu-item v-else :key="item.title"> <a-icon :type="item.icon" />{{ item.title }}</a-menu-item>
+            </y-menu-item>
+          </y-sub-menu>
+          <y-menu-item v-else :key="item.title"> <a-icon :type="item.icon" />{{ item.title }}</y-menu-item>
         </template>
-      </a-menu>
+      </y-menu>
     </com-show>
     <pre class="line-numbers">
         <code class="language-html" v-text="html">
@@ -70,17 +70,17 @@ export default {
   name: 'myMenu1',
   data() {
     return {
-      html: `<a-menu mode="inline" style="width: 200px" @click="handleClick">
+      html: `<y-menu mode="inline" style="width: 200px" @click="handleClick">
         <template v-for="item in menuData">
-          <a-sub-menu v-if="item.children" :key="item.title" @titleClick="titleClick">
+          <y-sub-menu v-if="item.children" :key="item.title" @titleClick="titleClick">
             <span slot="title"><a-icon :type="item.icon" />{{ item.title }}</span>
-            <a-menu-item :key="child.title" v-for="child in item.children">
+            <y-menu-item :key="child.title" v-for="child in item.children">
               {{ child.title }}
-            </a-menu-item>
-          </a-sub-menu>
-          <a-menu-item v-else :key="item.title"> <a-icon :type="item.icon" />{{ item.title }}</a-menu-item>
+            </y-menu-item>
+          </y-sub-menu>
+          <y-menu-item v-else :key="item.title"> <a-icon :type="item.icon" />{{ item.title }}</y-menu-item>
         </template>
-      </a-menu>`,
+      </y-menu>`,
       menuData: [
         {
           title: '首页',

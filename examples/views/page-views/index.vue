@@ -1,13 +1,18 @@
 <template>
   <div>
     <router-view />
+    <h2>
+      {{ des }}
+    </h2>
     <pre class="line-numbers">
         <code class="language-html" v-text="html">
         </code>
         <code class="language-javascript" v-text="js">
         </code>
+        <code class="language-javascript" v-text="style">
+        </code>
     </pre>
-    <div v-if="$route.name === 'formPage'">
+    <div v-if="$route.name === 'formPageA' || $route.name === 'formPageB'">
       <funTitleDetail title="box1" detail="表单盒子"></funTitleDetail>
       <pre class="line-numbers">
         <code class="language-html" v-text="htmlObj.box1">
@@ -40,6 +45,17 @@ export default {
     js: {
       get() {
         return this.jsObj[this.$route.name];
+      },
+    },
+    style: {
+      get() {
+        return this.styleObj[this.$route.name];
+      },
+    },
+    des: {
+      get() {
+        console.log(this.desObj[this.$route.name]);
+        return this.desObj[this.$route.name];
       },
     },
   },

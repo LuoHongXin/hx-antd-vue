@@ -10,20 +10,20 @@
     <!-- 组件展示 -->
     <com-show>
       <div>
-        <a-button
+        <y-button
           type="primary"
           @click="$YConfirm({ title: '可以移动confirm', content: '这里是一段简要的描述性信息，尽量控制在三行以内，需要用户二次确认。' })"
-          >可以移动confirm</a-button
+          >可以移动confirm</y-button
         >
-        <a-button type="primary" @click="$YConfirm({ title: '不移动confirm', move: false })">不移动confirm</a-button>
+        <y-button type="primary" @click="$YConfirm({ title: '不移动confirm', move: false })">不移动confirm</y-button>
       </div>
     </com-show>
     <!-- 代码展示 -->
     <pre class="line-numbers">
         <code class="language-html" v-text="`
         <div>
-          <a-button type='primary' @click='$YConfirm({title:'可以移动confirm'})'>可以移动confirm</a-button>
-          <a-button type='primary' @click='$YConfirm({ title:'不移动confirm',move:false})'>不移动confirm</a-button>
+          <y-button type='primary' @click='$YConfirm({title:'可以移动confirm'})'>可以移动confirm</y-button>
+          <y-button type='primary' @click='$YConfirm({ title:'不移动confirm',move:false})'>不移动confirm</y-button>
         </div>
         `">
         </code>
@@ -31,8 +31,8 @@
     <!-- 组件展示 -->
     <com-show>
       <div>
-        <a-button type="primary" @click="confirm1">确认1</a-button>
-        <a-button type="primary" @click="confirm2">确认2</a-button>
+        <y-button type="primary" @click="confirm1">确认1</y-button>
+        <y-button type="primary" @click="confirm2">确认2</y-button>
       </div>
     </com-show>
     <!-- 代码展示 -->
@@ -52,8 +52,8 @@ export default {
       modalVisible: false,
       modalVisible2: false,
       modalMove: true,
-      html: ` <a-button type="primary" @click="confirm1">确认1</a-button>
-      <a-button type="primary" @click="confirm2">确认2</a-button>`,
+      html: ` <y-button type="primary" @click="confirm1">确认1</y-button>
+      <y-button type="primary" @click="confirm2">确认2</y-button>`,
       js: `methods: {
       confirm1() {
         this.$YConfirm({

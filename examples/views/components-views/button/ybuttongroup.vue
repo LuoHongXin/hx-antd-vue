@@ -31,6 +31,32 @@
         <code class="language-html" v-text="html3">
         </code>
     </pre>
+    <funTitleDetail title="自定义下拉菜单" detail="常用于多层级菜单情况，多层级的按钮选项尽量放入更多中，通过菜单去显示"></funTitleDetail>
+    <com-show>
+      <y-button-group reversed omitType="ellipsis" :buttonList="subButtonList">
+        <y-menu slot="dropdown" slot-scope="{ menuData }">
+          <template v-for="item in menuData">
+            <y-menu-item :key="item.text" v-if="!item.children">
+              <span>{{ item.text }}</span>
+            </y-menu-item>
+            <y-sub-menu :key="item.text" v-else>
+              <span slot="title"
+                ><span>{{ item.text }}</span></span
+              >
+              <y-menu-item v-for="child in item.children" :key="child.text">
+                {{ child.text }}
+              </y-menu-item>
+            </y-sub-menu>
+          </template>
+        </y-menu>
+      </y-button-group>
+    </com-show>
+    <pre class="line-numbers">
+        <code class="language-html" v-text="html4">
+        </code>
+        <code class="language-javascript" v-text="js2">
+        </code>
+    </pre>
     <api-table :data="tableData2"></api-table>
     <api-table title="buttonList数组中对象属性" :data="tableData3"></api-table>
   </div>
@@ -43,6 +69,23 @@ export default {
       html1: `<y-button-group :buttonList="buttonList"></y-button-group>`,
       html2: `<y-button-group reversed :buttonList="buttonList"></y-button-group>`,
       html3: `<y-button-group reversed omitType="ellipsis" :buttonList="buttonList"></y-button-group>`,
+      html4: `<y-button-group reversed omitType="ellipsis" :buttonList="subButtonList">
+        <y-menu slot="dropdown" slot-scope="{ menuData }">
+          <template v-for="item in menuData">
+            <y-menu-item :key="item.text" v-if="!item.children">
+              <span>{{ item.text }}</span>
+            </y-menu-item>
+            <y-sub-menu :key="item.text" v-else>
+              <span slot="title"
+                ><span>{{ item.text }}</span></span
+              >
+              <y-menu-item v-for="child in item.children" :key="child.text">
+                {{ child.text }}
+              </y-menu-item>
+            </y-sub-menu>
+          </template>
+        </y-menu>
+      </y-button-group>`,
       js: `export default {
           data() {
             return {
@@ -64,6 +107,7 @@ export default {
                     click: () => {
                         this.action('修改');
                     },
+                    tips: '请先选择数据',
                     disable: true,
                 },
                 {
@@ -95,6 +139,68 @@ export default {
             },
           }
         };`,
+      js2: `export default {
+          data() {
+            return {
+              subButtonList: [
+                {
+                  text: '新增',
+                  tips: {
+                    text: '数据添加',
+                    placement: 'left',
+                  },
+                  type: 'primary',
+                  icon: 'plus',
+                  click: () => {
+                    this.action('新增');
+                  },
+                },
+                {
+                  text: '修改',
+                  click: () => {
+                    this.action('修改');
+                  },
+                  tips: '请先选择数据',
+                  disable: true,
+                },
+                {
+                  text: '复制',
+                  click: () => {
+                    this.action('复制');
+                  },
+                },
+                {
+                  text: '粘贴操作操作操作',
+                  children: [
+                    {
+                      text: '粘贴操作1',
+                    },
+                    {
+                      text: '粘贴操作2',
+                    },
+                  ],
+                },
+                {
+                  text: '删除',
+                  tips: '危险操作',
+                  click: () => {
+                    this.action('删除');
+                  },
+                  disable: true,
+                },
+              ],
+            };
+          },
+          methods: {
+            add() {
+              alert('新增');
+            },
+            action(val) {
+              alert(val);
+            },
+          }
+        };`,
+
       buttonList: [
         {
           text: '新增',
@@ -113,6 +219,7 @@ export default {
           click: () => {
             this.action('修改');
           },
+          tips: '请先选择数据',
           disable: true,
         },
         {
@@ -123,6 +230,53 @@ export default {
         },
         {
           text: '粘贴操作操作操作',
+        },
+        {
+          text: '删除',
+          tips: '危险操作',
+          click: () => {
+            this.action('删除');
+          },
+          disable: true,
+        },
+      ],
+      subButtonList: [
+        {
+          text: '新增',
+          tips: {
+            text: '数据添加',
+            placement: 'left',
+          },
+          type: 'primary',
+          icon: 'plus',
+          click: () => {
+            this.action('新增');
+          },
+        },
+        {
+          text: '修改',
+          click: () => {
+            this.action('修改');
+          },
+          tips: '请先选择数据',
+          disable: true,
+        },
+        {
+          text: '复制',
+          click: () => {
+            this.action('复制');
+          },
+        },
+        {
+          text: '粘贴操作操作操作',
+          children: [
+            {
+              text: '粘贴操作1',
+            },
+            {
+              text: '粘贴操作2',
+            },
+          ],
         },
         {
           text: '删除',

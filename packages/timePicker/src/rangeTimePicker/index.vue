@@ -53,7 +53,9 @@ export default {
     },
     titles: {
       type: Array,
-      default: () => ['开始时间', '结束时间'],
+      default: function() {
+        return [this.$wci18n.t('wh.timePicker.startTime'), this.$wci18n.t('wh.timePicker.endTime')];
+      },
     },
     widthSize: {
       type: String,
@@ -106,6 +108,7 @@ export default {
 };
 </script>
 <style lang="less">
+@import '~/src/styles/variables/index.less';
 .y-range-time-picker {
   position: relative;
   border: 1px solid #d9d9d9;

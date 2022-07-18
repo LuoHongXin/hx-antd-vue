@@ -44,10 +44,12 @@ export default {
 // };
 </script>
 <style lang="less">
+@import '~/src/styles/variables/index.less';
 .ant-tree li .ant-tree-node-content-wrapper:hover {
   background-color: @y-color-fill-hover;
 }
 .ant-tree li .ant-tree-node-content-wrapper.ant-tree-node-selected {
   background-color: @y-color-primary-light;
+  color: @y-color-primary;
 }
 </style>

@@ -11,12 +11,13 @@ export default {
   data() {
     return {
       timer: null,
-      val: this.value || this.defaultValue,
+      val: this.defaultValue,
     };
   },
   props: {
     value: {
       type: [String, Number],
+      default: undefined,
     },
     defaultValue: {
       type: [String, Number],
@@ -47,7 +48,7 @@ export default {
   computed: {
     inValue: {
       get: function() {
-        return this.val;
+        return this.value === undefined ? this.val : this.value;
       },
       set: function(newValue) {
         this.$emit('update-value', newValue);
@@ -55,7 +56,7 @@ export default {
       },
     },
     widthSizeClass() {
-      return this.autoWidth ? '' : `y-form-width-${this.widthSize}`;
+      return this.autoWidth ? 'y-auto-width' : `y-form-width-${this.widthSize}`;
     },
   },
   methods: {

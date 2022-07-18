@@ -1,6 +1,6 @@
 <template>
   <div style="display:inline-block" class="tips-btn">
-    <a-tooltip v-if="tooltip" :placement="placement">
+    <a-tooltip v-if="tooltip" :placement="placement" :getPopupContainer="getPopupContainer">
       <template slot="title">
         <span>{{ title }}</span>
       </template>
@@ -35,6 +35,11 @@ export default {
       default: function() {
         return '请先选择数据';
       },
+    },
+    getPopupContainer: {
+      type: Function,
+      // default: triggerNode => triggerNode || document.body,
+      default: () => document.body,
     },
   },
 };

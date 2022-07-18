@@ -200,6 +200,12 @@ export default {
           default: 'false',
         },
         {
+          params: 'maxAlarmTips',
+          explain: '选择超出maxNum提示，其中可设置$为maxNum变量',
+          type: 'string',
+          default: '一次最多能查看$台资源的性能数据',
+        },
+        {
           params: 'titleSelect',
           explain: '搜索框前面的名称选项，默认显示数组第一个作为名称，有 titleSelect 将会替掉 title，格式为 [ { title:**, value:** } ]',
           type: 'Array',
