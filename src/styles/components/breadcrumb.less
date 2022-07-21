@@ -1,8 +1,5 @@
 @import "../variables/index.less";
-.y-breadcrumb.ant-breadcrumb {
-  display: inline-block;
-  font-size: @y-font-size-m;
-  color:  @y-color-text-secondary;
+.y-breadcrumb-container {
   .back-btn {
     cursor: pointer;
     color: @y-color-text-link;
@@ -27,12 +24,17 @@
       background-color: @y-color-border-light;
     }
   }
-  .ant-breadcrumb-link:hover {
-    cursor: pointer;
-    color: @y-color-text-link;
-  }
-  .no-redirect{
-    color: @y-color-text-regular;
-    cursor: text;
+  .y-breadcrumb.ant-breadcrumb {
+    display: inline-block;
+    font-size: @y-font-size-m;
+    color:  @y-color-text-secondary;
+    .ant-breadcrumb-link:hover {
+      cursor: pointer;
+      color: @y-color-text-link;
+    }
+    .no-redirect{
+      color: @y-color-text-regular;
+      cursor: text;
+    }
   }
 }

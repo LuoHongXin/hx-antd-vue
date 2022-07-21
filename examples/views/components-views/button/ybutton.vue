@@ -32,7 +32,6 @@
         <div v-else-if="item.key === 'link'">
           <y-button type="link">{{ item.text }}</y-button>
           <y-button type="link" icon="plus">{{ item.text }}</y-button>
-          <y-button type="link" icon-class="copy"></y-button>
           <y-button type="link">展开<a-icon type="down"/></y-button>
           <y-button type="link">收起<a-icon type="up"/></y-button>
           <y-button type="link" disabled>{{ item.text }}</y-button>

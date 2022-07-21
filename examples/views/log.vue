@@ -4,7 +4,7 @@
   </a-layout-content>
 </template>
 <script>
-// import log from '../../README.md';
+import log from '../../README.md';
 export default {
   name: 'Log',
   data() {
@@ -13,7 +13,7 @@ export default {
     };
   },
   created() {
-    // this.html = log;
+    this.html = log;
   },
 };
 </script>

@@ -6,6 +6,8 @@
     <!-- 组件展示 -->
     <com-show>
       <y-model-table
+        v-model="selectedData"
+        :modelKeys.sync="selectedDataKeys"
         :affixTarget="affixTarget"
         :selectOptions="selectOptions"
         :api="getTableData"
@@ -228,6 +230,8 @@ export default {
   name: 'BETable',
   data() {
     return {
+      selectedData: [],
+      selectedDataKeys: [],
       js,
       affixTarget: () => document.querySelector('.ant-layout-content'),
       columns,
@@ -244,6 +248,8 @@ export default {
         '代表事件的状态，让用户提前知道事件的进展情况',
       ],
       html: `<y-model-table
+        v-model="selectedData"
+        :modelKeys.sync="selectedDataKeys"
         :affixTarget="affixTarget"
         :selectOptions="selectOptions"
         :api="getTableData"
@@ -267,8 +273,8 @@ export default {
     freshCallback() {
       this.$refs.tableRef.onSearch();
     },
-    check(a, b) {
-      console.log(a, b);
+    check() {
+      console.log(this.selectedDataKeys, this.selectedData);
     },
     handleResponse(res, type) {
       if (type === 'total') {

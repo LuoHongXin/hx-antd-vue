@@ -3,6 +3,16 @@ export default {
     return {
       tableData: [
         {
+          params: 'selectedData(v-model)',
+          explain: '选中的 row 数据',
+          type: 'Array',
+        },
+        {
+          params: 'modelKeys',
+          explain: '选中的 rowKey',
+          type: 'Array',
+        },
+        {
           params: 'freshCallback',
           explain: '重置按钮的点击回调，若有传，表格不会主动请求，而需要在该回调里面开发自己调用请求',
           type: 'function',

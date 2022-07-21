@@ -13,6 +13,9 @@
       <a-tab-pane key="3" tab="nameSelect具名选择器">
         <NameSelect />
       </a-tab-pane>
+      <a-tab-pane key="4" tab="SearchSelect">
+        <SearchSelect />
+      </a-tab-pane>
     </a-tabs>
   </div>
 </template>
@@ -20,12 +23,14 @@
 import NormalSelect from './normalSelect.vue';
 import CheckboxSelect from './checkboxSelect';
 import NameSelect from './nameSelect.vue';
+import SearchSelect from './searchSelect';
 export default {
   name: 'Select',
   components: {
     NormalSelect,
     CheckboxSelect,
     NameSelect,
+    SearchSelect,
   },
   data() {
     return {

@@ -17,6 +17,9 @@
       <y-tab-pane key="4" tab="严格关系">
         <tree4 />
       </y-tab-pane>
+      <y-tab-pane key="5" tab="不带图标右键操作">
+        <tree5 />
+      </y-tab-pane>
     </y-tabs>
 
     <api-table :data="tableData"></api-table>
@@ -35,9 +38,10 @@ import tree1 from './tree1.vue';
 import tree2 from './tree2.vue';
 import tree3 from './tree3.vue';
 import tree4 from './tree4.vue';
+import tree5 from './tree5.vue';
 export default {
   name: 'MyCustomTree',
-  components: { tree1, tree2, tree3, tree4 },
+  components: { tree1, tree2, tree3, tree4, tree5 },
   data() {
     return {
       declareList: [
@@ -46,6 +50,12 @@ export default {
         '默认节点高度为40px，如需要修改对应的高度可自行通过css穿透进行修改',
       ],
       tableData: [
+        {
+          params: 'noIconOperate',
+          explain: '当设置右键操作时,设置为false则有有操作图标，为true则没有操作图标可直接右键触发',
+          type: 'Boolean',
+          default: 'false',
+        },
         {
           params: 'showTooltip',
           explain: '鼠标经过是否启用tooptip提示默认为true,设置为false则不生效',
