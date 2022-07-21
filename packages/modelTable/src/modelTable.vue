@@ -62,7 +62,7 @@
         ref="FixedtableRef"
         :scroll="scroll ? scroll : {}"
         :getPopupContainer="getPopupContainer"
-        v-model="selectedData"
+        v-model="selectedData1"
         :row-key="rowKey"
         bordered
         @change="handleTableChange"
@@ -105,7 +105,7 @@
         ref="tableRef"
         :scroll="scroll ? scroll : {}"
         :getPopupContainer="getPopupContainer"
-        v-model="selectedData"
+        v-model="selectedData1"
         :row-key="rowKey"
         bordered
         @change="handleTableChange"
@@ -318,6 +318,18 @@ export default {
       type: Boolean,
       default: true,
     },
+    selectedData: {
+      type: Array,
+      default: () => [],
+    },
+    modelKeys: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  model: {
+    prop: 'selectedData',
+    event: 'update-selectedData',
   },
   data() {
     return {
@@ -326,8 +338,6 @@ export default {
       fixedTableShow: false, // 控制固定表头的显示隐藏
       loading: false,
       columns2: [...this.columns], // 列数据中间转换值
-      selectedData: [],
-      selectedDataKeys: [],
       filters: null,
       sorter: null,
       queryParams: null, // 上次请求参数
@@ -343,6 +353,26 @@ export default {
     };
   },
   computed: {
+    //选中的row 数据
+    selectedData1: {
+      get() {
+        const selectedData = this.selectedData;
+        return selectedData;
+      },
+      set(newVal) {
+        this.$emit('update-selectedData', newVal);
+      },
+    },
+    //选中的rowKey
+    selectedDataKeys: {
+      get() {
+        const modelKeys = this.modelKeys;
+        return modelKeys;
+      },
+      set(newVal) {
+        this.$emit('update:modelKeys', newVal);
+      },
+    },
     tableHeader2: {
       get() {
         const th = this.tableHeader;
@@ -497,9 +527,10 @@ export default {
       },
       deep: true,
     },
-    selectedData: {
-      handler: function() {
-        this.$emit('check', this.selectedDataKeys, this.selectedData);
+    selectedData1: {
+      handler: function(newVal, oldVal) {
+        if (JSON.stringify(newVal) === JSON.stringify(oldVal)) return;
+        this.$emit('check', this.selectedDataKeys, this.selectedData1);
       },
       deep: true,
     },

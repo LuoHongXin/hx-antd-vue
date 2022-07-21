@@ -46,7 +46,7 @@ export default {
     height: @y-icon-s;
     position: absolute;
     top: 50%;
-    transform: translateY(-38%);
+    transform: translateY(-48%);
     right: calc(-@y-spacing-xxs - @y-icon-s);
   }
   &:hover {

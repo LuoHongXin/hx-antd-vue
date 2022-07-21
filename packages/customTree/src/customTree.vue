@@ -20,23 +20,35 @@
             :placement="operatePlacement"
             v-if="getOperates(item).length > 0 && !item.operateHidden"
           >
+            <div class="tree-operate" v-if="noIconOperate"></div>
             <y-svg-icon
-              v-if="item.disabled"
+              v-else
               icon-class="more-vertical"
               class="y-custom-tree-operate"
-              style="pointer-events: none"
-              @click.stop="e => e.preventDefault()"
-            />
-            <y-svg-icon
-              v-if="!item.disabled"
-              icon-class="more-vertical"
-              class="y-custom-tree-operate"
+              :class="item.disabled ? 'disable-pointer-event' : ''"
               @click.stop="e => e.preventDefault()"
             />
             <a-menu slot="overlay">
-              <a-menu-item v-for="(obj, index) in getOperates(item)" :key="index">
-                <a href="javascript:;" @click="obj.click(item)">{{ obj.title }}</a>
-              </a-menu-item>
+              <template v-for="(parentObj, index) in getOperates(item)">
+                <a-sub-menu
+                  :key="index"
+                  :title="parentObj.title"
+                  :disabled="parentObj.disabled"
+                  v-if="parentObj.children && parentObj.children.length > 0"
+                >
+                  <a-menu-item v-for="(sonObj, index) in parentObj.children" :key="index">
+                    <a @click="sonObj.click(item)" class="my-button">
+                      <y-button type="text" :disabled="sonObj.disabled">{{ sonObj.title }}</y-button>
+                    </a>
+                  </a-menu-item>
+                </a-sub-menu>
+                <a-menu-item v-else :key="index">
+                  <a @click="parentObj.click(item)" class="my-button">
+                    <y-button type="text" :disabled="parentObj.disabled">{{ parentObj.title }}</y-button>
+                  </a>
+                </a-menu-item>
+                <y-menu-divider v-if="parentObj.line" :key="index + 'line'" />
+              </template>
             </a-menu>
           </a-dropdown>
         </span>
@@ -112,6 +124,11 @@ export default {
       type: String,
       default: 'm',
     },
+    //不带图标操作
+    noIconOperate: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     modelVal: {
@@ -127,12 +144,12 @@ export default {
   methods: {
     //判断是否带操作按钮 带有的话给个padding-right:38px
     showOperaterIcon(item) {
-      if (this.getOperates(item).length > 0 && !item.operateHidden) {
+      if (this.noIconOperate) {
+        this.haveOperateIcon = 'noIcon';
+      } else if (this.getOperates(item).length > 0 && !item.operateHidden) {
         this.haveOperateIcon = 'operate-icon'; //只有有一个符合条件即赋值
-        return '';
-      } else {
-        return '';
       }
+      return '';
     },
     treeCheck(checkedKeys, e) {
       if (e.checked) {
@@ -256,13 +273,13 @@ export default {
   .ant-tree li span.ant-tree-switcher,
   .ant-tree li span .ant-tree-iconEle {
     width: 16px;
-    height: 20px;
+    height: 16px;
     line-height: 16px;
   }
   .ant-tree li.ant-tree-treenode-loading span.ant-tree-switcher.ant-tree-switcher_open .ant-tree-switcher-loading-icon,
   .ant-tree li.ant-tree-treenode-loading span.ant-tree-switcher.ant-tree-switcher_close .ant-tree-switcher-loading-icon {
     width: 16px;
-    height: 20px;
+    height: 16px;
   }
   .ant-tree li span.ant-tree-switcher,
   .ant-tree li span .ant-tree-iconEle {
@@ -283,6 +300,25 @@ export default {
   .ant-tree li span[draggable='true'] {
     border-top: none;
     border-bottom: none;
+  }
+}
+.tree-operate {
+  box-sizing: content-box;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  outline: none;
+}
+.disable-pointer-event {
+  pointer-events: none;
+}
+
+.my-button {
+  .ant-btn {
+    padding: 0 !important;
   }
 }
 </style>

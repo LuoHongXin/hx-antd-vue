@@ -133,8 +133,5 @@ export default {
   .y-editor-toolbar {
     border-bottom: 1px solid #dcdfe6;
   }
-  .y-editor-container {
-    overflow-y: hidden;
-  }
 }
 </style>

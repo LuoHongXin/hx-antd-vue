@@ -1,5 +1,5 @@
 <template>
-  <div class="breadcrumb-container">
+  <div class="y-breadcrumb-container">
     <div class="back-btn" v-if="back" @click="goBack">
       <a-icon type="left" />
       <span>{{ $wci18n.t('wh.breadcrumb.back') }}</span>

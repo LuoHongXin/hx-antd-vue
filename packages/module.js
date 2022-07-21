@@ -15,6 +15,7 @@ import YtipsButton from './tipsButton';
 import YTagInput from './tagInput';
 import YDropdownCheckButton from './dropdownCheckButton';
 import YSelect from './select';
+import YSearchSelect from './searchSelect';
 import YCheckbox from './checkbox';
 import YCheckboxGroup from './checkboxGroup';
 import YtextLink from './textLink';
@@ -81,6 +82,7 @@ export {
   YTagInput,
   YDropdownCheckButton,
   YSelect,
+  YSearchSelect,
   YCheckbox,
   YCheckboxGroup,
   YtextLink,
