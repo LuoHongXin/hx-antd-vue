@@ -85,6 +85,16 @@ module.exports = {
       .set('@src', path.resolve('src'))
       .set('hx-antd-vue', path.resolve('packages/index'));
 
+    config.module
+      .rule('md')
+      .test(/\.md$/)
+      .use('html-loader')
+      .loader('html-loader')
+      .end()
+      .use('markdown-loader')
+      .loader('markdown-loader')
+      .end();
+
     // 把 packages 和 examples 加入编译，因为新增的文件默认是不被 webpack 处理的
     config.module
       .rule('js')
