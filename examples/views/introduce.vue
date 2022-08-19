@@ -14,7 +14,7 @@
     <h3 class="fun-title">快速使用</h3>
     <funTitleDetail
       title="安装"
-      detail="目前 hx-antd-vue 只发布在公司内网，所以无法通过外网的 npm 进行安装，需要先设置代理"
+      detail=""
     ></funTitleDetail>
     <!-- 代码展示 -->
     <pre class="line-numbers">
