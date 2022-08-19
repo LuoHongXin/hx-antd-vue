@@ -8,6 +8,7 @@ import YtableBox from './tableBox';
 import YsvgIcon from './svgIcon';
 import Ybreadcrumb from './breadcrumb';
 import Ytag from './tag';
+import YtabSwitch from './tabSwitch';
 import Ymodal from './modal';
 import YtableActionButton from './tableActionButton';
 import Ytable from './table';
@@ -64,6 +65,9 @@ import YDescribe from './describe';
 import YEditor from './editor';
 import YUpload from './upload';
 import YJsonViewer from './jsonViewer';
+import YAnchor from './anchor';
+import YColumnCheck from './columnCheck';
+
 export {
   Ybutton,
   Ypagination,
@@ -75,6 +79,7 @@ export {
   YsvgIcon,
   Ybreadcrumb,
   Ytag,
+  YtabSwitch,
   Ymodal,
   YtableActionButton,
   Ytable,
@@ -133,4 +138,6 @@ export {
   YEditor,
   YUpload,
   YJsonViewer,
+  YAnchor,
+  YColumnCheck,
 };

@@ -58,33 +58,29 @@ export default {
   },
   computed: {
     inValue: {
-      get: function() {
-        return this.radioVal;
+      get: function({ radioVal }) {
+        return radioVal;
       },
       set: function(newValue) {
         this.$emit('update-value', newValue);
         this.radioVal = newValue;
       },
     },
-    activeRadio() {
+    activeRadio({ disabled, radioVal, bodered }) {
       let title = 'radio-wrapper';
-      let disabled = this.disabled;
-      if (this.radioVal) title += ' radio-wrapper-active';
+      if (radioVal) title += ' radio-wrapper-active';
       if (disabled) title += ' radio-wrapper-disabled';
-      if (this.bodered) {
+      if (bodered) {
         return title;
       } else {
         return '';
       }
     },
-    disabled() {
-      let disabled = Object.prototype.hasOwnProperty.call(this.$attrs, 'disabled');
+    disabled({ $attrs }) {
+      let disabled = Object.prototype.hasOwnProperty.call($attrs, 'disabled');
       return disabled || false;
     },
-    classActive() {
-      let disabled = this.disabled;
-      let radioVal = this.radioVal;
-      let classHover = this.classHover;
+    classActive({ disabled, radioVal, classHover }) {
       if (disabled) return 'y-radio-group-disabled';
       if (radioVal) return 'y-radio-group-active';
       if (classHover) return 'y-radio-wrapper-hover';
@@ -93,6 +89,3 @@ export default {
   },
 };
 </script>
-<style lang="less">
-@import '~/src/styles/components/radio.less';
-</style>

@@ -16,8 +16,8 @@ export default {
   name: 'YTag',
   computed: {
     iconObject: {
-      get() {
-        return this.statusFilter(this.$attrs);
+      get({ $attrs }) {
+        return this.statusFilter($attrs);
       },
     },
   },
@@ -59,7 +59,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less">
-@import '~/src/styles/components/tag.less';
-</style>

@@ -29,7 +29,7 @@ export default {
       ok: '我知道了',
     },
     modalTables: {
-      reset: '重置',
+      reset: '刷新',
       advancedSearch: '高级搜索',
       export: '导出',
       columnSetting: '列设置',
@@ -64,6 +64,14 @@ export default {
     timePicker: {
       startTime: '开始时间',
       endTime: '结束时间',
+    },
+    columnCheck: {
+      title: '列设置',
+      selectedColumn: '已选列',
+      allColumn: '全部列',
+      cancel: '取消',
+      reset: '重置',
+      confirm: '确定',
     },
   },
 };

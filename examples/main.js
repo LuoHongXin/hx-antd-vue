@@ -5,15 +5,32 @@ import store from '../src/store';
 import mixins from './mixins';
 import '@src/icons';
 import '@src/styles/index.less'; // global css
+import '@src/styles/antd.js';
 Vue.config.productionTip = false;
+
 import whComponents from '../packages/index';
 Vue.use(whComponents);
+
+// 表单设计器
+import FormMaking from 'wh-form-making';
+import 'wh-form-making/dist/FormMaking.css';
+Vue.use(FormMaking, { i18n: window.wci18n });
+
+/** 表单设计器需要 element */
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI, { zIndex: 300 });
+
+import VueEditor from 'vue2-editor';
+Vue.use(VueEditor);
+
 import * as viewTemplate from './views/view-template';
 for (let name of Object.keys(viewTemplate)) {
   Vue.component(viewTemplate[name].name, viewTemplate[name]);
 }
 import lottie from 'vue-lottie';
 Vue.component('lottie', lottie);
+
 // import YButton from '~/button/src/button.vue';
 // import YPagination from '~/pagination/src/pagination.vue';
 // import YButtonAction from '~/buttonAction/src/buttonAction.vue';
@@ -56,5 +73,6 @@ Vue.mixin(mixins);
 new Vue({
   router,
   store,
+  i18n: window.wci18n,
   render: h => h(App),
 }).$mount('#app');

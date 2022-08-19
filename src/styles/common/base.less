@@ -7,15 +7,20 @@
 }
 /*滚动条整体样式*/
 ::-webkit-scrollbar {
-  width: 4px; /*高宽分别对应横竖滚动条的尺寸*/
-  height: 4px;
+  width: 8px; /*高宽分别对应横竖滚动条的尺寸*/
+  height: 8px;
 }
-.scroll-zoom,.ant-table-body{
-  &:hover::-webkit-scrollbar {
-    width: 8px; /*高宽分别对应横竖滚动条的尺寸*/
-    height: 8px;
-  }
- }
+// .scroll-zoom{
+//   &:hover::-webkit-scrollbar {
+//     width: 8px; /*高宽分别对应横竖滚动条的尺寸*/
+//     height: 8px;
+//   }
+//  }
+//  .ant-table-body {
+//    &:hover::-webkit-scrollbar {
+//     height: 8px;
+//   }
+//  }
  .ant-table-fixed-left {
    .ant-table-body-outer {
      margin-bottom: -8px !important;
@@ -24,20 +29,20 @@
     height: 0px;
   }
  }
- .ant-table-fixed-right{
-  .ant-table-body-outer {
-    margin-bottom: -8px !important;
-  }
+//  .ant-table-fixed-right{
+//   .ant-table-body-outer {
+//     margin-bottom: -8px !important;
+//   }
   // &:hover {
   //   .ant-table-body-inner::-webkit-scrollbar {
   //     width: 8px; /*高宽分别对应横竖滚动条的尺寸*/
   //   }
   //  }
- }
+//  }
 // 留给滚动条8px位置，避免高度发生变化
- .ant-table-fixed-header > .ant-table-content > .ant-table-scroll > .ant-table-body {
-  padding-bottom: 8px;
- }
+//  .ant-table-fixed-header > .ant-table-content > .ant-table-scroll > .ant-table-body {
+//   padding-bottom: 8px;
+//  }
 ::-webkit-scrollbar-thumb {
   /*滚动条里面小方块*/
   border-radius: 10px;

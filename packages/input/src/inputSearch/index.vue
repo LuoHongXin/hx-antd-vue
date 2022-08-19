@@ -110,8 +110,8 @@ export default {
   },
   computed: {
     inValue: {
-      get: function() {
-        return this.value === undefined ? this.inValue2 : this.value;
+      get: function({ value, inValue2 }) {
+        return value === undefined ? inValue2 : value;
       },
       set: function(newValue) {
         this.$emit('update-value', newValue);
@@ -119,19 +119,16 @@ export default {
       },
     },
     selectValue1: {
-      get: function() {
-        return this.selectValue;
+      get: function({ selectValue }) {
+        return selectValue;
       },
       set: function(newValue) {
         this.$emit('update:selectValue', newValue);
       },
     },
-    widthSizeClass() {
-      return this.autoWidth ? '' : `y-form-width-${this.widthSize}`;
+    widthSizeClass({ autoWidth, widthSize }) {
+      return autoWidth ? '' : `y-form-width-${widthSize}`;
     },
   },
 };
 </script>
-<style lang="less">
-@import '~/src/styles/components/inputSearch.less';
-</style>

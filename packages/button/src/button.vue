@@ -13,10 +13,10 @@
 export default {
   name: 'YButton',
   computed: {
-    className: function() {
+    className: function({ type, $slots }) {
       let name = 'y-btn ';
-      if (Object.keys(this.$slots).length === 0) name += 'ant-btn-icon-only';
-      if (this.type === 'text') name += 'text-btn';
+      if (Object.keys($slots).length === 0) name += 'ant-btn-icon-only';
+      if (type === 'text') name += 'text-btn';
       return name;
     },
   },
@@ -34,7 +34,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less">
-@import '~/src/styles/components/button.less';
-</style>

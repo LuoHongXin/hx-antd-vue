@@ -18,13 +18,3 @@ export default {
   },
 };
 </script>
-<style lang="less">
-@import '~/src/styles/variables/index.less';
-.ant-popover-buttons {
-  border-radius: 2px;
-  .ant-btn:not(.ant-btn-primary):hover {
-    border: @y-border-width-default @y-border-style-default @y-color-border-dark-hover;
-    color: @y-color-text-regular;
-  }
-}
-</style>

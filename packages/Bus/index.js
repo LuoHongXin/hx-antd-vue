@@ -84,6 +84,14 @@ const Bus = new Vue({
       return {
         header: {
           cell: resizeable,
+          // wrapper: {
+          //   render() {
+          //     return (
+          //       // <a-affix style="display: table-caption;" offsetTop={0} target={() => document.querySelector('.ant-layout-content')}>
+          //       <thead class="ant-table-thead">{this.$slots.default}</thead>
+          //     );
+          //   },
+          // },
         },
       };
     },

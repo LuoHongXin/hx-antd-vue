@@ -31,8 +31,8 @@ export default {
   },
   computed: {
     inValue: {
-      get: function() {
-        return this.value === null ? this.val : this.value;
+      get: function({ value, val }) {
+        return value === null ? val : value;
       },
       set: function(newValue) {
         this.$emit('update-value', newValue);

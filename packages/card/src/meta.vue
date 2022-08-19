@@ -6,5 +6,3 @@ export default {
   extends: Card.Meta,
 };
 </script>
-
-<style lang="less"></style>

@@ -105,8 +105,8 @@ export default {
     },
   },
   computed: {
-    myValue() {
-      return this.value ? this.value.split(',') : [];
+    myValue({ value }) {
+      return value ? value.split(',') : [];
     },
   },
   created() {
@@ -186,7 +186,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less">
-@import '~/src/styles/components/linkTag.less';
-</style>

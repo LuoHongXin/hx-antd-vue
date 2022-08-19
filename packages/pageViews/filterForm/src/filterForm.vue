@@ -66,11 +66,11 @@ export default {
       },
     },
     span: {
-      get() {
-        let length = this.$slots.default.length;
-        if (this.$slots.default) {
+      get({ $slots }) {
+        let length = $slots.default.length;
+        if ($slots.default) {
           // 计算YFilterFormItem数量
-          length = this.$slots.default.filter(i => {
+          length = $slots.default.filter(i => {
             return i.tag.includes('YFilterFormItem');
           }).length;
         }
@@ -81,5 +81,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less"></style>

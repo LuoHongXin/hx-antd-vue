@@ -2,9 +2,9 @@
   <a-layout-content style="padding: 10px 60px">
     <title-detail
       title="主题与换肤"
-      detail="hx-antd-vue 有默认的红色主题风格。执行下述 1、使用hx-antd-vue自定义主题 后即可拥有hx-antd-vue默认主题；同时，我们也提供了更换主题的方法，配置好 2.1配置主题替换 后，根据 2.2调用换肤方法 即可实现换肤功能。"
+      detail="hx-antd-vue 有默认的红色主题风格。执行下述 1、使用wh-component自定义主题 后即可拥有wh-component默认主题；同时，我们也提供了更换主题的方法，配置好 2.1配置主题替换 后，根据 2.2调用换肤方法 即可实现换肤功能。"
     />
-    <h3 class="fun-title">1、使用hx-antd-vue自定义主题</h3>
+    <h3 class="fun-title">1、使用wh-component自定义主题</h3>
     <funTitleDetail
       title=""
       detail="在 vue-config.js 中引入 hx-antd-vue 的 modifyVars 方法，并配置css的loaderOptions，目的就是根据 hx-antd-vue 标准，修改 antd 样式变量"

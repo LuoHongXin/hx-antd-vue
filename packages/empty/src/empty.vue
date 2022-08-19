@@ -45,8 +45,8 @@ export default {
     },
   },
   computed: {
-    noImage() {
-      return !this.$attrs.image && !this.$slots.image;
+    noImage({ $attrs, $slots }) {
+      return !$attrs.image && !$slots.image;
     },
   },
   data() {
@@ -65,26 +65,3 @@ export default {
   },
 };
 </script>
-<style lang="less">
-@import '~/src/styles/variables/index.less';
-.y-empty {
-  .ant-empty-description {
-    font-size: 14px;
-    color: @y-color-text-primary;
-    .title {
-      margin-bottom: @y-spacing-xxs;
-    }
-    .content {
-      margin-bottom: @y-spacing-xs;
-      font-size: @y-font-size-s;
-      color: @y-color-text-secondary;
-    }
-    .y-btn {
-      margin-right: @y-spacing-xs;
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
-}
-</style>

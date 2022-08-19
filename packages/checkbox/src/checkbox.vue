@@ -34,8 +34,8 @@ export default {
   },
   computed: {
     inValue: {
-      get: function() {
-        return this.checked === undefined ? this.val : this.checked;
+      get: function({ checked, val }) {
+        return checked === undefined ? val : checked;
       },
       set: function(newValue) {
         this.$emit('update-value', newValue);

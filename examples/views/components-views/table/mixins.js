@@ -3,7 +3,7 @@ export default {
     return {
       tableData: [
         {
-          params: 'selectedData(v-model)',
+          params: 'selectData(v-model)',
           explain: '选中的 row 数据',
           type: 'Array',
         },
@@ -11,6 +11,11 @@ export default {
           params: 'modelKeys',
           explain: '选中的 rowKey',
           type: 'Array',
+        },
+        {
+          params: 'tableKey',
+          explain: '现用于表格列设置保存时的标识，不写则默认用路由名作为表格标识',
+          type: 'string',
         },
         {
           params: 'freshCallback',

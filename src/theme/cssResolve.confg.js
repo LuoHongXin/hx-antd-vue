@@ -45,5 +45,6 @@ const cssResolve = {
     },
   },
   '/keyframes/': false,
+  '/.ant-tag/': false,
 };
 module.exports = cssResolve;

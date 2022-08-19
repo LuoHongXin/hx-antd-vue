@@ -30,8 +30,8 @@ export default {
     },
   },
   computed: {
-    y_props() {
-      return this.$refs.YFormModelItem._props || {};
+    y_props({ $refs }) {
+      return $refs.YFormModelItem._props || {};
     },
   },
   methods: {
@@ -44,6 +44,3 @@ export default {
   },
 };
 </script>
-<style lang="less">
-@import '~/src/styles/components/formModelItem';
-</style>

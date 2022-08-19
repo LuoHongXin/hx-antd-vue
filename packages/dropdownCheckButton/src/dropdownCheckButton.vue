@@ -98,25 +98,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less">
-.y-table-column-action-button {
-  display: flex;
-  align-items: center;
-  .ant-dropdown-menu {
-    .ant-dropdown-menu-item {
-      padding: 0;
-      &:hover {
-        background: transparent;
-      }
-      .ant-checkbox-group .ant-checkbox-wrapper {
-        padding: 5px 12px;
-        &:hover,
-        &.ant-checkbox-wrapper-checked {
-          background: @y-color-fill-hover;
-        }
-      }
-    }
-  }
-}
-</style>

@@ -32,8 +32,8 @@ export default {
   },
   computed: {
     modelVal: {
-      get() {
-        return this.value2;
+      get({ value2 }) {
+        return value2;
       },
       set(val) {
         this.$emit('update-value', val);

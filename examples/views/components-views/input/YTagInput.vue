@@ -7,7 +7,7 @@
     <funTitleDetail title="基本用法" detail=""></funTitleDetail>
     <com-show>
       不显示下拉框内容
-      <y-tag-input :showDropdown="false" v-model="selectTag" @inputNewTag="inputNewTag" :data="datas" />
+      <y-tag-input :showDropdown="false" @click="inputNewTag('1212')" v-model="selectTag" @inputNewTag="inputNewTag" :data="datas" />
       显示下拉框内容
       <y-tag-input v-model="selectTag" @inputNewTag="inputNewTag" :data="datas" />
 

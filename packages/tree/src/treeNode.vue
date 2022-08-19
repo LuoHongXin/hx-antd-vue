@@ -6,5 +6,3 @@ export default {
   extends: Tree.TreeNode,
 };
 </script>
-
-<style lang="less"></style>

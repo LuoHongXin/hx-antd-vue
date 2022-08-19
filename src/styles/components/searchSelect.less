@@ -1,0 +1,16 @@
+.y-search-select {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .y-select {
+      flex: 1;
+    }
+      .ant-select-open .ant-select-arrow-icon svg {
+        transform: initial;
+      }
+    &[selectOpen] {
+        .ant-select-arrow .ant-select-arrow-icon svg {
+          transform: rotateZ(180deg);
+        }
+    }
+  }

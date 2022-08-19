@@ -4,7 +4,11 @@
     <!-- 组件展示 -->
     <com-show>
       <div style="width: 200px">
-        <y-model-menu :menuData="menuData" @click="modelMenuClick" />
+        <y-model-menu :menuData="menuData" @click="modelMenuClick">
+          <template slot="title">
+            <y-search-select autoWidth placeholder="请选择账号" inputPlaceholder="请输入账号名" @ok="ok" okText="222" />
+          </template>
+        </y-model-menu>
       </div>
     </com-show>
     <pre class="line-numbers">
@@ -191,9 +195,11 @@ export default {
   name: 'myMenu2',
   data() {
     return {
-      html: `<div style="width: 200px">
-        <y-model-menu :menuData="menuData" @click="modelMenuClick" />
-      </div>`,
+      html: `<y-model-menu :menuData="menuData" @click="modelMenuClick">
+        <template slot="title">
+          <y-search-select autoWidth placeholder="请选择账号" inputPlaceholder="请输入账号名" @ok="ok" okText="222" />
+        </template>
+      </y-model-menu>`,
       html2: `<y-model-menu
           :menuData="menuData"
           title="访问控制"
@@ -292,8 +298,8 @@ export default {
         },
         {
           params: 'title',
-          explain: '主菜单标题',
-          type: 'String',
+          explain: '主菜单标题  插槽权重优先',
+          type: 'String | slot',
           default: '',
         },
         {
@@ -375,8 +381,10 @@ export default {
     };
   },
   methods: {
+    ok() {
+      console.log(1);
+    },
     modelMenuClick({ item, key, keyPath }) {
-      this.$router.push({ name: key });
       console.log({ item, key, keyPath });
     },
   },

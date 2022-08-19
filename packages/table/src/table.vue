@@ -50,14 +50,46 @@ export default {
   watch: {
     // 通过非点击事件清空modelKeys时，selectedData要同步
     modelKeys(val) {
-      const rowKey = this.rowKey;
+      this.set();
       if (this.selectedData) {
-        const selectedData = this.selectedData.filter(item => {
+        const rowKey = this.rowKey;
+        if (this.selectedData.length === val.length) {
+          let isEqual = true;
+          for (let i = 0; i < this.selectedData.length; i++) {
+            const item = this.selectedData[i];
+            if (!val.includes(this.getRowKey(rowKey, item))) {
+              isEqual = false;
+              break;
+            }
+          }
+          if (isEqual) return;
+        }
+        const selectedData = this.dataSource.filter(item => {
           return val.includes(this.getRowKey(rowKey, item));
         });
         this.$emit('update-selectedData', selectedData);
       }
+    },
+    selectedData(val) {
       this.set();
+      if (this.modelKeys) {
+        const rowKey = this.rowKey;
+        if (this.modelKeys.length === val.length) {
+          let isEqual = true;
+          for (let i = 0; i < val.length; i++) {
+            const item = val[i];
+            if (!this.modelKeys.includes(this.getRowKey(rowKey, item))) {
+              isEqual = false;
+              break;
+            }
+          }
+          if (isEqual) return;
+        }
+        const modelKeys = val.map(item => {
+          return this.getRowKey(rowKey, item);
+        });
+        this.$emit('update:modelKeys', modelKeys);
+      }
     },
     // dataSource: function(val) {
     //   const rowKeyArr = val.map(item => {
@@ -134,12 +166,15 @@ export default {
       const _this = this;
       this.$el.onclick = function(ev) {
         const targetKey = ev.target.parentNode.getAttribute('data-row-key');
-
         if (targetKey) {
           let selectedRowKeys = [];
           let selectedData = _this.selectedData;
           const rowKey = _this.rowKey;
+          const modelKeys = _this.modelKeys;
           const getRowKey = _this.getRowKey;
+          const rowSelection = _this.rowSelection;
+          const dataSource = _this.dataSource;
+
           let isExit = false;
           if (selectedData && selectedData.length > 0) {
             selectedData = selectedData.filter(item => {
@@ -151,8 +186,8 @@ export default {
                 isExit = true;
               }
             });
-          } else if (_this.modelKeys && _this.modelKeys.length > 0) {
-            selectedRowKeys = _this.modelKeys.filter(item => {
+          } else if (modelKeys && modelKeys.length > 0) {
+            selectedRowKeys = modelKeys.filter(item => {
               if (item !== targetKey) {
                 return item;
               } else {
@@ -164,14 +199,14 @@ export default {
           // 未选中状态且选中不被禁用
           if (!isExit && !ev.target.parentNode.querySelector('[disabled]')) {
             // 若为单选，则清空，只赋值一个值
-            if (_this.rowSelection.type === 'radio') {
+            if (rowSelection.type === 'radio') {
               selectedRowKeys = [];
               selectedData = [];
             }
             selectedRowKeys.push(targetKey);
             // 有绑定 v-model
             if (selectedData) {
-              flatArr.get([..._this.dataSource], 'children').forEach(item => {
+              flatArr.get([...dataSource], 'children').forEach(item => {
                 if (getRowKey(rowKey, item) === targetKey) {
                   selectedData.push(item);
                 }
@@ -180,11 +215,11 @@ export default {
           } else if (isExit && !ev.target.parentNode.querySelector('[disabled]')) {
             //选中状态且选中不被禁用
             // 若为单选，则重新赋值
-            if (_this.rowSelection.type === 'radio') {
+            if (rowSelection.type === 'radio') {
               selectedRowKeys = [targetKey];
               // 有绑定 v-model
               if (selectedData) {
-                flatArr.get([..._this.dataSource], 'children').forEach(item => {
+                flatArr.get([...dataSource], 'children').forEach(item => {
                   if (getRowKey(rowKey, item) === targetKey) {
                     selectedData = [item];
                   }
@@ -203,23 +238,3 @@ export default {
   },
 };
 </script>
-<style lang="less">
-.resize-table-th {
-  position: relative;
-  .table-draggable-handle {
-    height: 100% !important;
-    bottom: 0;
-    left: auto !important;
-    right: -5px;
-    cursor: col-resize;
-    touch-action: none;
-  }
-}
-.table-draggable-handle {
-  transform: none !important;
-  position: absolute;
-}
-// .ant-table-empty .ant-table-body {
-//   overflow-x: hidden !important;
-// }
-</style>

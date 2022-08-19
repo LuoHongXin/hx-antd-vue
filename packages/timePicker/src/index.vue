@@ -50,20 +50,17 @@ export default {
   },
   computed: {
     inValue: {
-      get() {
-        return this.val;
+      get({ val }) {
+        return val;
       },
       set(newValue) {
         this.$emit('update-value', newValue);
         this.val = newValue;
       },
     },
-    widthSizeClass() {
-      return this.autoWidth ? '' : `y-form-width-${this.widthSize}`;
+    widthSizeClass({ autoWidth, widthSize }) {
+      return autoWidth ? '' : `y-form-width-${widthSize}`;
     },
   },
 };
 </script>
-<style lang="less">
-@import '~/src/styles/components/timePicker.less';
-</style>

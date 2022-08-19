@@ -11,6 +11,7 @@ import {
   YsvgIcon,
   Ybreadcrumb,
   Ytag,
+  YtabSwitch,
   Ymodal,
   YtableActionButton,
   Ytable,
@@ -18,6 +19,7 @@ import {
   YTagInput,
   YDropdownCheckButton,
   YSelect,
+  YAnchor,
   YSearchSelect,
   YCheckbox,
   YCheckboxGroup,
@@ -66,6 +68,7 @@ import {
   YWarning,
   YDescribe,
   YUpload,
+  YColumnCheck,
   YEditor,
   YJsonViewer,
 } from './module';
@@ -82,6 +85,7 @@ const components = [
   YsvgIcon,
   Ybreadcrumb,
   Ytag,
+  YtabSwitch,
   Ymodal,
   YtableActionButton,
   Ytable,
@@ -89,6 +93,7 @@ const components = [
   YTagInput,
   YDropdownCheckButton,
   YSelect,
+  YAnchor,
   YSearchSelect,
   YCheckbox,
   YCheckboxGroup,
@@ -130,6 +135,7 @@ const components = [
   YTree,
   YDescribe,
   YUpload,
+  YColumnCheck,
   // ...如果还有的话继续添加
 ];
 
@@ -141,7 +147,6 @@ import VueClipboard from 'vue-clipboard2';
 import '@src/icons';
 // 引入 antd
 import Antd from 'ant-design-vue';
-import 'ant-design-vue/dist/antd.less';
 // 公共的vue实例，有些方法必须得在vue实例中注册才能使用，所以Bus就是解决这个问题的公共Vue
 import Bus from './Bus';
 
@@ -203,6 +208,7 @@ export {
   YsvgIcon,
   Ybreadcrumb,
   Ytag,
+  YtabSwitch,
   Ymodal,
   YtableActionButton,
   Ytable,
@@ -210,6 +216,7 @@ export {
   YTagInput,
   YDropdownCheckButton,
   YSelect,
+  YAnchor,
   YSearchSelect,
   YCheckbox,
   YCheckboxGroup,
@@ -258,6 +265,7 @@ export {
   YWarning,
   YDescribe,
   YUpload,
+  YColumnCheck,
   YEditor,
   YJsonViewer,
 };
@@ -274,6 +282,7 @@ export default {
   YsvgIcon,
   Ybreadcrumb,
   Ytag,
+  YtabSwitch,
   Ymodal,
   YtableActionButton,
   Ytable,
@@ -281,6 +290,7 @@ export default {
   YTagInput,
   YDropdownCheckButton,
   YSelect,
+  YAnchor,
   YSearchSelect,
   YCheckbox,
   YCheckboxGroup,
@@ -329,6 +339,7 @@ export default {
   YWarning,
   YDescribe,
   YUpload,
+  YColumnCheck,
   YEditor,
   YJsonViewer,
 };

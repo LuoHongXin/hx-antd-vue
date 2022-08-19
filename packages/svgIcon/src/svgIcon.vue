@@ -22,29 +22,25 @@ export default {
     },
   },
   computed: {
-    isExternal() {
-      return isExternal(this.iconClass);
+    isExternal({ iconClass }) {
+      return isExternal(iconClass);
     },
-    iconName() {
-      return `#icon-${this.iconClass}`;
+    iconName({ iconClass }) {
+      return `#icon-${iconClass}`;
     },
-    svgClass() {
-      if (this.className) {
-        return 'y-svg-icon-' + this.className;
+    svgClass({ className }) {
+      if (className) {
+        return 'y-svg-icon-' + className;
       } else {
         return 'y-svg-icon';
       }
     },
-    styleExternalIcon() {
+    styleExternalIcon({ iconClass }) {
       return {
-        mask: `url(${this.iconClass}) no-repeat 50% 50%`,
-        '-webkit-mask': `url(${this.iconClass}) no-repeat 50% 50%`,
+        mask: `url(${iconClass}) no-repeat 50% 50%`,
+        '-webkit-mask': `url(${iconClass}) no-repeat 50% 50%`,
       };
     },
   },
 };
 </script>
-
-<style lang="less">
-@import '~/src/styles/components/svgIcon.less';
-</style>

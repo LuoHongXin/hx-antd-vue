@@ -8,10 +8,3 @@ export default {
   name: 'YUpload',
 };
 </script>
-<style lang="less">
-.y-upload {
-  .ant-upload-list-item-name {
-    color: #454852;
-  }
-}
-</style>

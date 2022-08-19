@@ -38,9 +38,9 @@ export default {
   },
   computed: {
     visible: {
-      get() {
-        if (this.value !== null) return this.value;
-        return this.$attrs.visible;
+      get({ value, $attrs }) {
+        if (value !== null) return value;
+        return $attrs.visible;
       },
       set(val) {
         this.$emit('update-value', val);
@@ -49,10 +49,3 @@ export default {
   },
 };
 </script>
-<style lang="less">
-.y-tooltip {
-  .ant-tooltip-inner {
-    border-radius: 2px;
-  }
-}
-</style>

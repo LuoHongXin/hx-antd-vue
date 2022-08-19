@@ -43,14 +43,14 @@ export default {
     };
   },
   computed: {
-    classes() {
+    classes({ size, fix, showText, fullscreen }) {
       return [
         `${prefixCls}`,
         {
-          [`${prefixCls}-${this.size}`]: !!this.size,
-          [`${prefixCls}-fix`]: this.fix,
-          [`${prefixCls}-show-text`]: this.showText,
-          [`${prefixCls}-fullscreen`]: this.fullscreen,
+          [`${prefixCls}-${size}`]: !!size,
+          [`${prefixCls}-fix`]: fix,
+          [`${prefixCls}-show-text`]: showText,
+          [`${prefixCls}-fullscreen`]: fullscreen,
         },
       ];
     },
@@ -63,9 +63,9 @@ export default {
     textClasses() {
       return `${prefixCls}-text`;
     },
-    fullscreenVisible() {
-      if (this.fullscreen) {
-        return this.visible;
+    fullscreenVisible({ fullscreen, visible }) {
+      if (fullscreen) {
+        return visible;
       } else {
         return true;
       }
@@ -85,7 +85,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less">
-@import '~/src/styles/components/spin.less';
-</style>

@@ -6,5 +6,3 @@ export default {
   extends: Menu.ItemGroup,
 };
 </script>
-
-<style lang="less"></style>

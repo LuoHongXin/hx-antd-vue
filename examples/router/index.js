@@ -567,6 +567,14 @@ const routes = [
     },
     children: [
       {
+        path: 'anchor',
+        name: 'anchor',
+        component: () => import(/*webpackChunkName:"anchor "*/ '../views/components-views/anchor'),
+        meta: {
+          title: 'anchor 锚点',
+        },
+      },
+      {
         path: 'divider',
         name: 'divider',
         component: () => import(/*webpackChunkName:"divider "*/ '../views/components-views/divider'),
@@ -606,6 +614,14 @@ const routes = [
           title: 'ConfigProvider 全局配置',
         },
       },
+      {
+        path: 'formMaking',
+        name: 'formMaking',
+        component: () => import(/*webpackChunkName:"formMaking "*/ '../views/formMaking'),
+        meta: {
+          title: '低代码表单设计器',
+        },
+      },
     ],
   },
   {
@@ -626,11 +642,16 @@ const routes = [
   //     title: "拓扑图"
   //   }
   // },
-  // {
-  //   path: '/test',
-  //   name: 'test',
-  //   component: () => import('../views/editorDemo'),
-  // },
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import('../views/editorDemo'),
+  },
+  {
+    path: '/MakingForm',
+    name: 'MakingForm',
+    component: () => import('../views/MakingForm'),
+  },
   {
     path: '/Home',
     name: 'Home',

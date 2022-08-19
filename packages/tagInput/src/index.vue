@@ -67,23 +67,23 @@ export default {
     event: 'update-value',
   },
   computed: {
-    inputWidth() {
-      return this.inputVal.length * 9 + 12 + 'px';
+    inputWidth({ inputVal }) {
+      return inputVal.length * 9 + 12 + 'px';
     },
     selectValue: {
-      get() {
-        let arr = this.linkTagValue.split(',');
+      get({ linkTagValue, dataSource, $refs }) {
+        let arr = linkTagValue.split(',');
         let labelArr = [];
         let newArr = [];
-        this.dataSource.forEach(item => {
+        dataSource.forEach(item => {
           if (arr.includes(item.value) && !labelArr.includes(item.label)) {
             labelArr.push(item.label);
             newArr.push(item);
           }
         });
-        if (this.$refs.select) {
+        if ($refs.select) {
           // 解决选择tag时失去焦点问题
-          this.$refs.select.focus();
+          $refs.select.focus();
         }
         return newArr;
       },
@@ -99,16 +99,16 @@ export default {
       },
     },
     linkTagValue: {
-      get() {
-        return this.value.join(',');
+      get({ value }) {
+        return value.join(',');
       },
       set(val) {
         this.$emit('update-value', val ? val.split(',') : []);
       },
     },
 
-    widthSizeClass() {
-      return this.autoWidth ? '' : `y-form-width-${this.widthSize}`;
+    widthSizeClass({ autoWidth, widthSize }) {
+      return autoWidth ? '' : `y-form-width-${widthSize}`;
     },
   },
   data() {
@@ -234,6 +234,7 @@ export default {
       if (this.$refs.myTagInput) {
         this.$refs.myTagInput.$el.focus();
       }
+      this.$emit('click');
       this.dropdownView = !this.dropdownView;
     },
     closeTag(obj) {
@@ -256,87 +257,3 @@ export default {
   },
 };
 </script>
-<style lang="less">
-@import '~/src/styles/variables/index.less';
-.tagInput {
-  // display: inline-block;
-  // width: 100%;
-  cursor: text;
-  text-align: start;
-  vertical-align: top;
-  position: relative;
-  border-radius: 2px;
-  line-height: 100%;
-
-  .self-input {
-    box-sizing: border-box;
-    margin: 0;
-    font-variant: tabular-nums;
-    list-style: none;
-    font-feature-settings: 'tnum';
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    min-height: @y-height-m;
-    padding: @y-spacing-xxs @y-spacing-s;
-    color: @y-color-text-regular;
-    font-size: @y-font-size-m;
-    line-height: 1.5;
-    background-color: #fff;
-    background-image: none;
-    border: 1px solid @y-color-border-dark;
-    border-radius: @y-radius-default;
-    transition: all 0.3s;
-    .y-tag {
-      max-width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      position: relative;
-      margin-top: 2px;
-      margin-bottom: 2px;
-      border-radius: 2px;
-      &[closable] {
-        padding-right: 24px;
-      }
-      .anticon-close {
-        position: absolute;
-        right: 7px;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-    }
-  }
-  .dropdown {
-    top: 110%;
-    margin: 0;
-    padding: 8px;
-    color: @y-color-text-regular;
-    position: absolute;
-    z-index: 1050;
-    box-sizing: border-box;
-    font-size: 14px;
-    font-variant: initial;
-    background-color: #fff;
-    border-radius: 4px;
-    outline: none;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  }
-}
-.addTag {
-  touch-action: manipulation;
-  overflow: visible;
-  width: 100px;
-  list-style-type: none;
-  height: 32px;
-  line-height: 32px;
-  opacity: 1;
-  background: #fff;
-  padding: 0 10px;
-  border: 1px solid #dcdfe6;
-  border-radius: 3px;
-  margin-right: 16px;
-  margin-bottom: 5px;
-  cursor: pointer;
-  position: relative;
-}
-</style>

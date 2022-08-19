@@ -11,5 +11,3 @@ export default {
   name: 'YLoading',
 };
 </script>
-
-<style lang="less"></style>

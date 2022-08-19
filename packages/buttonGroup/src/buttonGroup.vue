@@ -162,8 +162,8 @@ export default {
     },
   },
   computed: {
-    activeButtonList: function() {
-      const arr = this.buttonList.filter(item => {
+    activeButtonList: function({ buttonList }) {
+      const arr = buttonList.filter(item => {
         return item.show || item.show === undefined;
       });
       return arr;
@@ -179,41 +179,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less">
-.y-action-button-group {
-  display: flex;
-  align-items: center;
-  .y-act-btn {
-    margin-right: 8px;
-    .ant-dropdown-trigger {
-      margin-right: 8px;
-      padding: 0 8px;
-      float: left;
-    }
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-  &.reversed {
-    flex-direction: row-reverse;
-    .y-act-btn {
-      margin-right: 0;
-      margin-left: 8px;
-      .ant-dropdown-trigger {
-        margin-right: 0;
-        margin-left: 8px;
-        float: right;
-      }
-      &:last-child {
-        margin-left: 0;
-      }
-    }
-  }
-  //   .spacing {
-  //     width: 0px;
-  //     margin: 0 4px;
-  //     display: inline-block;
-  //   }
-}
-</style>

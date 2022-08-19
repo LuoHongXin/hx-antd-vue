@@ -19,9 +19,9 @@ export default {
   },
   computed: {
     strokeColor2: {
-      get() {
+      get({ status, $attrs, strokeColor }) {
         let color = colorVariables.yColorInfo;
-        switch (this.status) {
+        switch (status) {
           case 'success':
             color = colorVariables.yColorSuccess;
             break;
@@ -29,22 +29,20 @@ export default {
             color = colorVariables.yColorPrimary;
             break;
         }
-        if (this.$attrs && this.$attrs.percent === 100) {
+        if ($attrs && $attrs.percent === 100) {
           color = colorVariables.yColorSuccess;
         }
-        return this.strokeColor ? this.strokeColor : color;
+        return strokeColor ? strokeColor : color;
       },
     },
     status2: {
-      get() {
-        let status = 'normal';
-        if (this.$attrs && this.$attrs.percent === 100) {
-          return (status = 'success');
+      get({ $attrs, status }) {
+        if ($attrs && $attrs.percent === 100) {
+          return 'success';
         }
-        return this.status ? this.status : status;
+        return status ? status : 'normal';
       },
     },
   },
 };
 </script>
-<style lang="less"></style>

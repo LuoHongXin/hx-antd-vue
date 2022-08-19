@@ -42,14 +42,11 @@ export default {
     };
   },
   computed: {
-    radius() {
-      let borderRadius = this.borderRadius;
+    radius({ borderRadius }) {
       if (!borderRadius) return 0;
       return borderRadius + 'px';
     },
-    classActive() {
-      let disabled = this.disabled;
-      let classHover = this.classHover;
+    classActive({ disabled, classHover }) {
       if (disabled) return 'y-radio-content-box y-radio-group-disabled';
       if (classHover) return 'y-radio-content-box y-radio-content-hover';
       return 'y-radio-content-box';
@@ -57,6 +54,3 @@ export default {
   },
 };
 </script>
-<style lang="less">
-@import '~/src/styles/components/radioContent.less';
-</style>

@@ -6,5 +6,3 @@ export default {
   extends: Card.Grid,
 };
 </script>
-
-<style lang="less"></style>

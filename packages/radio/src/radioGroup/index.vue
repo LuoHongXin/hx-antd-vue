@@ -44,17 +44,16 @@ export default {
   },
   computed: {
     inValue: {
-      get: function() {
-        return this.val;
+      get: function({ val }) {
+        return val;
       },
       set: function(newValue) {
         this.$emit('update-value', newValue);
         this.val = newValue;
       },
     },
-    classActive() {
-      let disabled = Object.prototype.hasOwnProperty.call(this.$attrs, 'disabled');
-      let bodered = this.bodered;
+    classActive({ $attrs, bodered }) {
+      let disabled = Object.prototype.hasOwnProperty.call($attrs, 'disabled');
       let classActive = 'y-radio-group';
       if (bodered) classActive += ' y-radio-group-bodered';
       if (disabled) classActive += ' y-radio-group-disabled';
@@ -63,6 +62,3 @@ export default {
   },
 };
 </script>
-<style lang="less">
-@import '~/src/styles/components/radioGroup.less';
-</style>

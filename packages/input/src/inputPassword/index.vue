@@ -52,23 +52,20 @@ export default {
   },
   computed: {
     inValue: {
-      get: function() {
-        if (this.value !== undefined) {
-          return this.value;
+      get: function({ value, val }) {
+        if (value !== undefined) {
+          return value;
         }
-        return this.val;
+        return val;
       },
       set: function(newValue) {
         this.$emit('update-value', newValue);
         this.val = newValue;
       },
     },
-    widthSizeClass() {
-      return this.autoWidth ? '' : `y-form-width-${this.widthSize}`;
+    widthSizeClass({ autoWidth, widthSize }) {
+      return autoWidth ? '' : `y-form-width-${widthSize}`;
     },
   },
 };
 </script>
-<style lang="less">
-@import '~/src/styles/components/inputAll.less';
-</style>

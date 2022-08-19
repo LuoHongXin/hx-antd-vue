@@ -17,7 +17,7 @@
       <y-tab-pane key="4" tab="严格关系">
         <tree4 />
       </y-tab-pane>
-      <y-tab-pane key="5" tab="不带图标右键操作">
+      <y-tab-pane key="5" tab="不带图标右键操作、支持操作列禁用、自定义禁用提示、带分割线">
         <tree5 />
       </y-tab-pane>
     </y-tabs>

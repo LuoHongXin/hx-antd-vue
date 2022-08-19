@@ -12,8 +12,8 @@ export default {
     };
   },
   computed: {
-    y_props() {
-      return this.$refs.ruleForm._props || {};
+    y_props({ $refs }) {
+      return $refs.ruleForm._props || {};
     },
   },
   methods: {

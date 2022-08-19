@@ -41,16 +41,16 @@ export default {
   },
   computed: {
     modelVal: {
-      get() {
-        return this.value === undefined ? this.val : this.value;
+      get({ value, val }) {
+        return value === undefined ? val : value;
       },
       set(newValue) {
         this.$emit('update-value', newValue);
         this.val = newValue;
       },
     },
-    widthSizeClass() {
-      return this.autoWidth ? '' : `y-form-width-${this.widthSize}`;
+    widthSizeClass({ autoWidth, widthSize }) {
+      return autoWidth ? '' : `y-form-width-${widthSize}`;
     },
   },
   methods: {
@@ -65,6 +65,3 @@ export default {
   },
 };
 </script>
-<style lang="less">
-@import '~/src/styles/components/datePicker.less';
-</style>

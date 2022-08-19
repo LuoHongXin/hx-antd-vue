@@ -1,19 +1,23 @@
 @import "../variables/index.less";
 .Fixedtable{
-  .ant-table-tbody,.ant-table-placeholder {
+  .ant-table-tbody ,.ant-table-placeholder {
     display: none !important;
   }
+  ::-webkit-scrollbar {width: 0;height: 0;}
+  .ant-table-body{
+    &:hover::-webkit-scrollbar {
+      width: 0; /*高宽分别对应横竖滚动条的尺寸*/
+      height: 0;
+    }
+   }
 }
-.ant-table {
-.ant-table-bordered .ant-table-fixed-right table {
-  border-left: 0;
-}
-// 表格过滤弹窗中的最高高度
-.ant-table-filter-dropdown .ant-dropdown-menu{
+.ant-dropdown {
+  // 表格过滤弹窗中的最高高度
+  .ant-table-filter-dropdown .ant-dropdown-menu{
     max-height: 240px;
-}
-// 表格过滤弹窗中的按钮
-.ant-table-filter-dropdown{
+  }
+  // 表格过滤弹窗中的按钮
+  .ant-table-filter-dropdown{
   min-width: 164px;
   .ant-table-filter-dropdown-link{
       line-height: 1.9;
@@ -66,6 +70,19 @@
           }
       }
   }
+  }
+}
+.ant-table {
+.ant-table-bordered .ant-table-fixed-right table {
+  border-left: 0;
+}
+//设置最后一个拖拽元素的right:0解决留白问题 
+.ant-table-fixed .ant-table-thead > tr >th {
+    &:last-child {
+      .table-draggable-handle {
+        right: 0;
+      }
+    }
 }
 
 // 带有排序的表头划过
@@ -121,9 +138,12 @@
     padding: @y-spacing-s;
     font-size: @y-font-size-m;
     line-height: 22px;
+    position: relative;
     &>.y-svg-icon{
       margin-left: 10px;
+      vertical-align: middle;
       cursor: pointer;
+      color: @y-color-text-secondary;
       &:focus{
         outline: none;
       }

@@ -63,12 +63,11 @@ export default {
     },
   },
   computed: {
-    levelList2: function() {
-      const levelList = [...this.levelList];
-      if (this.ellips && levelList.length > this.ellipsNum - 1) {
+    levelList2: function({ levelList, ellips, ellipsNum }) {
+      if (ellips && levelList.length > ellipsNum - 1) {
         // 需省略时，只有前面两个和后面两个显示
         let showIndex = [0, levelList.length - 1, levelList.length - 2];
-        let newLevelList = this.levelList.filter((i, index) => showIndex.includes(index));
+        let newLevelList = levelList.filter((i, index) => showIndex.includes(index));
         newLevelList.splice(1, 0, { isEllips: true });
         return newLevelList;
       }
@@ -144,7 +143,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less">
-@import '~/src/styles/components/breadcrumb.less';
-</style>

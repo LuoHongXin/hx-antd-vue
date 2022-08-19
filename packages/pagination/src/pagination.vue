@@ -49,21 +49,21 @@ export default {
   },
   computed: {
     currentPage: {
-      get() {
-        return this.page;
+      get({ page }) {
+        return page;
       },
       set(val) {
         this.$emit('update:page', val);
       },
     },
     allPage: {
-      get() {
-        return Math.ceil(this.total / this.pageSize);
+      get({ total, pageSize }) {
+        return Math.ceil(total / pageSize);
       },
     },
     pageSize: {
-      get() {
-        return this.limit;
+      get({ limit }) {
+        return limit;
       },
       set(val) {
         this.$emit('update:limit', val);
@@ -86,22 +86,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less">
-@import '~/src/styles/variables/index.less';
-.y-pagination {
-  padding-top: @y-spacing-m;
-  display: flex;
-  justify-content: flex-end;
-  .ant-pagination-item,
-  .ant-pagination-prev .ant-pagination-item-link,
-  .ant-pagination-next .ant-pagination-item-link,
-  .ant-select-selection,
-  .ant-pagination-options-quick-jumper input {
-    border-radius: @y-radius-default;
-  }
-  .ant-pagination-total-text {
-    line-height: 33px;
-  }
-}
-</style>

@@ -78,8 +78,8 @@ export default {
     };
   },
   computed: {
-    widthSizeClass() {
-      return this.autoWidth ? '' : `y-form-width-${this.widthSize}`;
+    widthSizeClass({ autoWidth, widthSize }) {
+      return autoWidth ? '' : `y-form-width-${widthSize}`;
     },
   },
   watch: {
@@ -107,85 +107,3 @@ export default {
   },
 };
 </script>
-<style lang="less">
-@import '~/src/styles/variables/index.less';
-.y-range-time-picker {
-  position: relative;
-  border: 1px solid #d9d9d9;
-  border-radius: @y-radius-default;
-  display: inline-block;
-  .y-range-time-picker-iconcolor {
-    clear: rgba(0, 0, 0, 0.25);
-  }
-  .y-range-time-picker-clock {
-    display: inline-block;
-    position: absolute;
-    top: 50%;
-    right: 11px;
-    transform: translate(0%, -50%);
-    color: rgba(0, 0, 0, 0.25);
-  }
-  .y-range-time-picker-circle {
-    display: inline-block;
-    visibility: hidden;
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    right: 11px;
-    transform: translate(0%, -50%);
-    color: rgba(0, 0, 0, 0.25);
-  }
-  &:hover {
-    border-color: @y-color-text-regular;
-    box-shadow: @y-shadow-active;
-    transition: all 0.3s;
-    .y-time-picker {
-      .ant-time-picker-icon {
-        display: none;
-      }
-    }
-    .y-range-time-picker-circle {
-      transition: all 0.3s;
-      visibility: initial;
-      transition: all 0.3s cubic-bezier(0.645, 0.04);
-      &:hover {
-        color: rgba(0, 0, 0, 0.45);
-      }
-    }
-    .y-range-time-picker-clock {
-      visibility: hidden;
-    }
-  }
-  .y-time-picker {
-    width: calc(50% - 20px);
-    .ant-time-picker-input {
-      border: 0;
-      text-align: center;
-      &:hover {
-        box-shadow: none;
-      }
-    }
-    .ant-time-picker-icon {
-      display: none;
-    }
-  }
-}
-.y-range-time-picker[disabled] {
-  background-color: @y-color-fill-hover;
-  box-shadow: none;
-  cursor: not-allowed;
-  &:hover {
-    background-color: @y-color-fill-hover;
-    box-shadow: none;
-    cursor: not-allowed;
-    border-color: #d9d9d9;
-    .y-range-time-picker-circle {
-      transition: all 0.3s;
-      visibility: hidden;
-    }
-    .y-range-time-picker-clock {
-      visibility: initial;
-    }
-  }
-}
-</style>

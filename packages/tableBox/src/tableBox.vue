@@ -12,7 +12,3 @@ export default {
   name: 'YTableBox',
 };
 </script>
-
-<style lang="less">
-@import '~/src/styles/components/tableBox.less';
-</style>

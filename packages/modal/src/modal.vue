@@ -78,14 +78,14 @@ export default {
   },
   computed: {
     sizeWidth: {
-      get() {
-        return this.$attrs.width ? this.$attrs.width : sizeWidth[this.size] || sizeWidth.m;
+      get({ size, $attrs }) {
+        return $attrs.width ? $attrs.width : sizeWidth[size] || sizeWidth.m;
       },
     },
     visible: {
-      get() {
-        if (this.value !== null) return this.value;
-        return this.$attrs.visible;
+      get({ $attrs, value }) {
+        if (value !== null) return value;
+        return $attrs.visible;
       },
       set(val) {
         this.$emit('update-value', val);
@@ -177,44 +177,3 @@ export default {
   },
 };
 </script>
-<style lang="less">
-@import '~/src/styles/variables/index.less';
-.y-modal {
-  .ant-modal-header {
-    padding: @y-spacing-s @y-spacing-xl;
-    .ant-modal-title {
-      color: @y-color-text-primary;
-    }
-  }
-  .ant-modal-header + .ant-modal-body {
-    min-height: 200px;
-    max-height: calc(85vh - 100px);
-    overflow-y: auto;
-  }
-  .ant-modal-footer {
-    padding: 10px @y-spacing-xl;
-    .foot-left {
-      float: left;
-    }
-    .ant-btn {
-      line-height: 1.5;
-    }
-    .ant-btn:not([disabled], .ant-btn-primary, .ant-btn-link) {
-      border: @y-border-width-default @y-border-style-default @y-color-border-dark;
-      color: @y-color-text-regular;
-      &:hover {
-        border: @y-border-width-default @y-border-style-default @y-color-border-dark-hover;
-      }
-      &:focus,
-      &:active {
-        border: @y-border-width-default @y-border-style-default @y-color-border-dark-hover;
-        box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.1);
-      }
-    }
-    .ant-btn-primary:not([disabled]) {
-      text-shadow: unset;
-      box-shadow: unset;
-    }
-  }
-}
-</style>

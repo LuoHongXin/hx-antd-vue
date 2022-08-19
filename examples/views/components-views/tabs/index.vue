@@ -1,24 +1,28 @@
 <template>
-  <div>
-    <!-- 组件标题和说明 -->
-    <title-detail title="Tab 选项卡" detail="选项卡是用于特定板块内，为同范畴内容提供不同类信息展示切换的组件。具有容纳、导航作用。" />
-    <h3 class="fun-title">代码演示</h3>
-    <declareList title="通用原则" :value="declareList" />
-    <normalTabs />
-    <!-- <cardTabs /> -->
-    <api-table :data="tableData"></api-table>
-    <api-table title="事件" :data="tableData2"></api-table>
-    <api-table title="Tabs.TabPane" :data="tableData3"></api-table>
-  </div>
+  <y-tabs type="card" defaultActiveKey="1">
+    <y-tab-pane key="1" tab="Tab 选项卡">
+      <!-- 组件标题和说明 -->
+      <title-detail title="Tab 选项卡" detail="选项卡是用于特定板块内，为同范畴内容提供不同类信息展示切换的组件。具有容纳、导航作用。" />
+      <h3 class="fun-title">代码演示</h3>
+      <declareList title="通用原则" :value="declareList" />
+      <normalTabs />
+      <api-table :data="tableData"></api-table>
+      <api-table title="事件" :data="tableData2"></api-table>
+      <api-table title="Tabs.TabPane" :data="tableData3"></api-table>
+    </y-tab-pane>
+    <y-tab-pane key="2" tab="Tab Switch">
+      <tabSwitch />
+    </y-tab-pane>
+  </y-tabs>
 </template>
 <script>
 import normalTabs from './normalTabs.vue';
-// import cardTabs from './cardTabs.vue';
+import tabSwitch from './tabSwitch.vue';
 export default {
   name: 'empty',
   components: {
     normalTabs,
-    // cardTabs,
+    tabSwitch,
   },
   data() {
     return {

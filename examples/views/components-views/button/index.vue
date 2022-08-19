@@ -16,6 +16,9 @@
       <a-tab-pane key="4" tab="下拉选择按钮">
         <Ydropdownbutton />
       </a-tab-pane>
+      <a-tab-pane key="6" tab="表格列设置按钮">
+        <YcolumnCheck />
+      </a-tab-pane>
     </a-tabs>
   </div>
 </template>
@@ -25,6 +28,7 @@ import Ytableactionbutton from './ytableactionbutton.vue';
 import Ytipsbutton from './Ytipsbutton.vue';
 import Ydropdownbutton from './ydropdownbutton.vue';
 import Ybuttongroup from './ybuttongroup.vue';
+import YcolumnCheck from './ycolumnCheck.vue';
 export default {
   name: 'mybutton',
   components: {
@@ -33,6 +37,7 @@ export default {
     Ytipsbutton,
     Ydropdownbutton,
     Ybuttongroup,
+    YcolumnCheck,
   },
 };
 </script>

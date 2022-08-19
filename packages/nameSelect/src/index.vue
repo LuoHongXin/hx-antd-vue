@@ -133,8 +133,8 @@ export default {
   },
   computed: {
     selectValue2: {
-      get() {
-        return this.selectValue;
+      get({ selectValue }) {
+        return selectValue;
       },
       set(val) {
         this.$emit('update-selectValue', val);
@@ -142,10 +142,10 @@ export default {
     },
     // 转换搜索下拉的显示
     selectValue3: {
-      get() {
-        const arr = (this.selectValue2 + '').split(',');
+      get({ selectValue2, option }) {
+        const arr = (selectValue2 + '').split(',');
         const titleArr = [];
-        this.option.forEach(item => {
+        option.forEach(item => {
           if (arr.includes(item.value + '')) {
             titleArr.push(item.title);
           }
@@ -223,77 +223,3 @@ export default {
   },
 };
 </script>
-<style lang="less">
-.y-name-select {
-  ::v-deep .ant-checkbox-group {
-    width: 100%;
-    .ant-checkbox-wrapper {
-      width: 100%;
-      line-height: 36px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      &:hover {
-        background: #f5f5f5;
-      }
-      .ant-col {
-        margin-bottom: 4px;
-      }
-    }
-  }
-  display: inline-flex;
-  // align-items: center;
-  .titleSelect {
-    .ant-select-selection {
-      border-radius: 2px 0px 0px 2px;
-      border-right: 0;
-    }
-  }
-  .y-select.ant-select {
-    .ant-select-selection {
-      border-radius: 0 2px 2px 0;
-    }
-  }
-  .title {
-    padding: 4.5px 12px;
-    background: #fafbfc;
-    border: 1px solid #dcdfe6;
-    font-size: 14px;
-    line-height: 21px;
-    border-right: 0;
-    color: #454852;
-    border-radius: 2px 0px 0px 2px;
-  }
-  .titleSelect {
-    ::v-deep .ant-select-selection {
-      border-radius: 2px 0px 0px 2px;
-      background: #fafbfc;
-      border-right: 0;
-      color: #454852;
-    }
-  }
-}
-.y-name-select-content {
-  width: 248px;
-  .tips {
-    color: #e69a29;
-  }
-  .list {
-    max-height: 256px;
-    overflow-y: auto;
-    margin-top: 8px;
-    .ant-col {
-      margin-bottom: 8px;
-    }
-  }
-  .ant-divider {
-    margin: 4px 0;
-  }
-  .btn-group {
-    padding-top: 16px;
-    border-top: 1px solid #dcdfe6;
-    display: flex;
-    justify-content: flex-end;
-  }
-}
-</style>

@@ -61,6 +61,9 @@ export default {
   },
   watch: {
     $route: function(val) {
+      if (['MakingForm', 'formMaking'].includes(val.name)) {
+        this.rclick();
+      }
       this.selectdRoute = [val.name];
     },
   },
@@ -135,6 +138,7 @@ export default {
   }
   .router-views {
     width: 100%;
+    position: relative;
     overflow: auto;
   }
   .ant-layout {

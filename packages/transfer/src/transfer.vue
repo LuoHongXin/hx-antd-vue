@@ -10,6 +10,3 @@ export default {
   name: 'YTransfer',
 };
 </script>
-<style lang="less">
-@import '~/src/styles/components/transfer.less';
-</style>

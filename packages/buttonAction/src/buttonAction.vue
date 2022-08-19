@@ -11,8 +11,7 @@ export default {
   name: 'YButtonAction',
   props: ['text', 'size', 'disabled'],
   computed: {
-    className() {
-      const size = this.size;
+    className({ size }) {
       let className = '';
       if (size === 'small') {
         className = 'y-button-action-small';
@@ -33,7 +32,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less">
-@import '~/src/styles/components/buttonAction.less';
-</style>

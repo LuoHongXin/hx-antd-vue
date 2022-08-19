@@ -36,7 +36,7 @@
 </template>
 <script>
 export default {
-  name: 'Ytipsbutton',
+  name: 'Ydropdownbutton',
   data() {
     return {
       checkval: [1, 2],

@@ -133,8 +133,8 @@ export default {
     },
   },
   computed: {
-    activeButtonList: function() {
-      const arr = this.buttonList.filter(item => {
+    activeButtonList: function({ buttonList }) {
+      const arr = buttonList.filter(item => {
         return item.show || item.show === undefined;
       });
       return arr;
@@ -142,17 +142,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less">
-.y-table-column-action-button {
-  display: flex;
-  align-items: center;
-  .spacing {
-    width: 1px;
-    height: 8px;
-    background-color: #ebeef5;
-    margin: 0 4px;
-    display: inline-block;
-  }
-}
-</style>

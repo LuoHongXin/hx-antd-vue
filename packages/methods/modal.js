@@ -2,21 +2,21 @@ import { Modal } from 'ant-design-vue';
 import colorVariables from '@src/styles/variables/index.less';
 import { dragClass, unLetter } from '@src/utils/common';
 export const YInfo = function(config) {
-  handleConfig.bind(this, config, 'info');
+  handleConfig.call(this, config, 'info');
   Modal.info(config);
 };
 export const YSuccess = function(config) {
-  handleConfig.bind(this, config, 'success');
+  handleConfig.call(this, config, 'success');
   Modal.success(config);
 };
 
 export const YError = function(config) {
-  handleConfig.bind(this, config, 'error');
+  handleConfig.call(this, config, 'error');
   Modal.error(config);
 };
 
 export const YWarning = function(config) {
-  handleConfig.bind(this, config, 'warning');
+  handleConfig.call(this, config, 'warning');
   Modal.warning(config);
 };
 

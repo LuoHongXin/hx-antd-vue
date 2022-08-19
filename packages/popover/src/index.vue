@@ -11,19 +11,3 @@ export default {
   inheritAttrs: false,
 };
 </script>
-<style lang="less">
-.ant-popover-title {
-  border-bottom: none;
-  color: #454852;
-  font-size: 14px;
-  line-height: 22px;
-  padding-top: 12px;
-  padding-bottom: 0;
-}
-.ant-popover-title + .ant-popover-inner-content {
-  padding-top: 8px;
-}
-.ant-popover-inner-content {
-  padding: 16px;
-}
-</style>

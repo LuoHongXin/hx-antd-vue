@@ -6,7 +6,7 @@
     </template>
     <div
       style="display:flex"
-      @mousedown="
+      @click="
         e => {
           e.preventDefault();
           this.selectOpen = !this.selectOpen;
@@ -15,7 +15,6 @@
       :selectOpen="selectOpen"
       class="y-search-select"
       :class="widthSizeClass"
-      :placeholder="placeholder"
     >
       <a-select
         class="y-select"
@@ -28,6 +27,7 @@
         :open="selectOpen"
         @select="selectOpen = false"
         @blur="blurEvent"
+        :getPopupContainer="getPopupContainer"
       >
         <div slot="dropdownRender" slot-scope="menu">
           <div style="width:100%;padding:12px;">
@@ -44,12 +44,14 @@
             </y-input>
           </div>
           <v-nodes :vnodes="menu" />
-          <a-divider style="margin: 4px 0;" />
-          <div style="padding: 4px 12px 12px;" @mousedown="e => e.preventDefault()">
-            <slot name="footer" v-if="$slots.footer"></slot>
-            <y-button style="width:100%;cursor:pointer" v-else>
-              账号管理
-            </y-button>
+          <a-divider v-if="footer" style="margin: 4px 0;" />
+          <div style="padding: 4px 12px 12px;" @click="e => e.preventDefault()">
+            <template v-if="footer">
+              <slot name="footer" v-if="$slots.footer"></slot>
+              <y-button style="width:100%;cursor:pointer" v-else @click="$emit('ok')">
+                {{ okText }}
+              </y-button>
+            </template>
           </div>
         </div>
         <slot></slot>
@@ -62,8 +64,20 @@
 export default {
   name: 'YSearchSelect',
   props: {
+    getPopupContainer: {
+      type: Function,
+      default: triggerNode => triggerNode.parentNode.parentNode || document.body,
+    },
     value: {
       type: [String, Number],
+    },
+    footer: {
+      type: Boolean,
+      default: true,
+    },
+    okText: {
+      type: [String, Number],
+      default: '账号管理',
     },
     search: {
       type: [String, Number],
@@ -111,25 +125,23 @@ export default {
   },
   computed: {
     val: {
-      get() {
-        const { value } = this;
-        return value;
+      get({ value }) {
+        return value || undefined;
       },
       set(newVal) {
         this.$emit('input', newVal);
       },
     },
     search2: {
-      get() {
-        const { search } = this;
+      get({ search }) {
         return search;
       },
       set(newVal) {
         this.$emit('update:search', newVal);
       },
     },
-    widthSizeClass() {
-      return this.autoWidth ? '' : `y-form-width-${this.widthSize}`;
+    widthSizeClass({ autoWidth, widthSize }) {
+      return autoWidth ? '' : `y-form-width-${widthSize}`;
     },
   },
   methods: {
@@ -143,26 +155,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less" scoped>
-.y-search-select {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .y-select {
-    flex: 1;
-  }
-  ::v-deep {
-    .ant-select-open .ant-select-arrow-icon svg {
-      transform: initial;
-    }
-  }
-  &[selectOpen] {
-    ::v-deep {
-      .ant-select-arrow .ant-select-arrow-icon svg {
-        transform: rotateZ(180deg);
-      }
-    }
-  }
-}
-</style>

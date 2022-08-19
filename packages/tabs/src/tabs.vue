@@ -30,8 +30,8 @@ export default {
   },
   computed: {
     activeKey2: {
-      get() {
-        return this.activeKey3;
+      get({ activeKey3 }) {
+        return activeKey3;
       },
       set(val) {
         this.$emit('update-activeKey', val);
@@ -41,30 +41,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less">
-@import '~/src/styles/variables/index.less';
-.y-tabs {
-  // default
-  .ant-tabs-nav {
-    .ant-tabs-tab {
-      padding: 0;
-      line-height: @y-height-l;
-    }
-  }
-  // small
-  .ant-tabs-small-bar {
-    .ant-tabs-nav {
-      .ant-tabs-tab {
-        line-height: @y-height-m;
-      }
-    }
-  }
-  .ant-tabs-left-bar,
-  .ant-tabs-right-bar {
-    .ant-tabs-tab {
-      padding: 0px @y-spacing-m;
-    }
-  }
-}
-</style>

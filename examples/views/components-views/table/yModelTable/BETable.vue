@@ -12,6 +12,7 @@
         :selectOptions="selectOptions"
         :api="getTableData"
         :columns="columns"
+        :scroll="{ x: '100%' }"
         ref="tableRef"
         @check="check"
         @freshCallback="freshCallback"
@@ -136,8 +137,8 @@ const js = `const columns = [
       freshCallback() {
         this.$refs.tableRef.onSearch();
       },
-      check(a, b) {
-        console.log(a, b);
+      check(selectedData, selectedDataKeys) {
+        console.log(selectedData, selectedDataKeys);
       },
       handleResponse(res, type) {
         if (type === 'total') {
@@ -148,7 +149,17 @@ const js = `const columns = [
         }
       },
     },
-  };`;
+  };
+  <style lang="less" scoped>
+  .y-button-link {
+    max-width: 80%; // 自己固定宽度
+    vertical-align: middle;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  </style>`;
 const columns = [
   {
     columnSetTitle: '标题',
@@ -156,7 +167,7 @@ const columns = [
     columnsCheckDisabled: true,
     slots: { title: 'customTitle' },
     scopedSlots: { customRender: 'name' },
-    width: 200,
+    width: 500,
     filters: [
       {
         text: '虚拟机',
@@ -254,7 +265,10 @@ export default {
         :selectOptions="selectOptions"
         :api="getTableData"
         :columns="columns"
-        @freshCallback="freshCallback
+        :scroll="{ x: '100%' }"
+        ref="tableRef"
+        @check="check"
+        @freshCallback="freshCallback"
         :buttonList="buttonList"
         :handleResponse="handleResponse"
         :defaultCheckColumsValue="defaultCheckColumsValue"
@@ -273,8 +287,8 @@ export default {
     freshCallback() {
       this.$refs.tableRef.onSearch();
     },
-    check() {
-      console.log(this.selectedDataKeys, this.selectedData);
+    check(selectedData, selectedDataKeys) {
+      console.log(selectedData, selectedDataKeys);
     },
     handleResponse(res, type) {
       if (type === 'total') {
@@ -287,4 +301,13 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.y-button-link {
+  max-width: 80%; // 自己固定宽度
+  vertical-align: middle;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>

@@ -1,0 +1,25 @@
+@import '../variables/index.less';
+.y-tabs.ant-tabs {
+  // default
+  .ant-tabs-nav {
+    .ant-tabs-tab {
+      padding: 0;
+      line-height: @y-height-l;
+    }
+  }
+  // small
+  .ant-tabs-small-bar {
+    .ant-tabs-nav {
+      .ant-tabs-tab {
+        line-height: @y-height-m;
+      }
+    }
+  }
+  .ant-tabs-left-bar,
+  .ant-tabs-right-bar {
+    .ant-tabs-tab {
+      padding: 0px @y-spacing-m;
+      margin: 0 0 @y-spacing-xs 0;
+    }
+  }
+}

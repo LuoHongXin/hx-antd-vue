@@ -19,24 +19,44 @@
     <!-- 代码展示 -->
     <pre class="line-numbers">
         <code class="language-JavaScript">
-          // 公司内网需设置内网 npm 代理
-          npm config set registry http://192.168.101.160:8081/repository/npm-group/
           // 开始安装 hx-antd-vue
           npm i --save hx-antd-vue
         </code>
     </pre>
-    <funTitleDetail title="使用组件" detail="在安装好的项目中找到 main.js 文件并注册组件 hx-antd-vue"></funTitleDetail>
+    <funTitleDetail
+      title="2.0.64 版本之前使用组件"
+      detail="注册 hx-antd-vue 组件和引用其样式，组件样式和antd样式不分离，且不能修改样式变量"
+    ></funTitleDetail>
     <pre class="line-numbers">
         <code class="language-JavaScript">
-          import whComponents from "hx-antd-vue";
+          // 2.0.64 版本之前样式引用
           // 组件样式
           import "hx-antd-vue/lib/hx-antd-vue.css";
           // 典型页面布局样式
           import "hx-antd-vue/src/styles/index.less";
+          
+          import whComponents from "hx-antd-vue";
+          Vue.use(whComponents);
+
+        </code>
+    </pre>
+    <funTitleDetail
+      title="2.0.64 版本及其之后使用组件"
+      detail="注册 hx-antd-vue 组件和引用其样式，组件样式和antd样式分离，支持通过 modifyVars 修改样式变量"
+    ></funTitleDetail>
+    <pre class="line-numbers">
+        <code class="language-JavaScript">
+          // 2.0.64 版本及其之后样式引用
+          // antd 样式
+          import "hx-antd-vue/src/styles/antd.js";
+          // 组件样式
+          import "hx-antd-vue/src/styles/index.less";
+
+          import whComponents from "hx-antd-vue";
           Vue.use(whComponents);
         </code>
     </pre>
-    <h3 class="fun-title">使用hx-antd-vue样式变量</h3>
+    <h3 class="fun-title">使用wh-component样式变量</h3>
     <funTitleDetail
       title=""
       detail="安装 style-resource-loader 和 vue-template-compiler 后，并在 vue-config.js 中配置好后，可直接全局使用 hx-antd-vue 的 less 变量；根据规范，我们在写编写页面样式时，尽量使用 hx-antd-vue 的样式变量，因为样式变量都是根据 UI 设计出的，所以在开发过程，避免因随意编写样式导致的样式不可控情况。若根据UI设计稿，在样式变量中未发现相关变量，请联系UI进行变量补充或设计稿修改。"

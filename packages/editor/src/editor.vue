@@ -60,8 +60,8 @@ export default {
   },
   computed: {
     editorHtml: {
-      get() {
-        return this.Html;
+      get({ Html }) {
+        return Html;
       },
       set(val) {
         this.$emit('update-Html', val);
@@ -127,11 +127,3 @@ export default {
   },
 };
 </script>
-<style lang="less">
-.y-editor {
-  border: 1px solid #dcdfe6;
-  .y-editor-toolbar {
-    border-bottom: 1px solid #dcdfe6;
-  }
-}
-</style>

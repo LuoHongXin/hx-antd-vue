@@ -1,6 +1,6 @@
 {
   "name": "hx-antd-vue",
-  "version": "2.0.48",
+  "version": "2.0.64",
   "description": "基于 vue-cli4 的组件库",
   "main": "lib/hx-antd-vue.common.js",
   "style": "lib/hx-antd-vue.css",
@@ -75,6 +75,7 @@
     "vue-clipboard2": "^0.3.3",
     "vue-router": "^3.5.2",
     "vue-template-compiler": "^2.6.11",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "wh-form-making": "^1.3.0"
   }
 }

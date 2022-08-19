@@ -5,8 +5,9 @@
     <!-- 组件展示 -->
     <com-show>
       <y-model-table
+        tableKey="fetable"
         :rowSelection="false"
-        :scroll="{ x: true,y:445 }"
+        :scroll="{ x: '100%' }"
         :paramsKeyFilter="paramsKeyFilter"
         :dataSource="tableData"
         :columns="columns"
@@ -209,7 +210,7 @@ export default {
         search: 'name',
       },
       buttonList,
-      html: `<y-model-table :rowSelection="false" :scroll="{ x: true }" :dataSource="tableData" :columns="columns">
+      html: `<y-model-table :rowSelection="false" :scroll="{ x: '100%' }" :dataSource="tableData" :columns="columns">
         <template v-slot:name="{ text }">
           <a class="y-button-link">{{ text }}</a>
         </template>

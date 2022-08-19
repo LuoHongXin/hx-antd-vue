@@ -6,5 +6,3 @@ export default {
   extends: Tree.DirectoryTree,
 };
 </script>
-
-<style lang="less"></style>

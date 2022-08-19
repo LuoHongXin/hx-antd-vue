@@ -114,29 +114,24 @@ export default {
   },
   computed: {
     modelVal: {
-      get() {
-        return this.value !== undefined ? this.value : this.val;
+      get({ value, val }) {
+        return value !== undefined ? value : val;
       },
       set(newValue) {
         this.$emit('update-value', newValue);
         this.val = newValue;
       },
     },
-    widthSizeType() {
-      const mode = this.$attrs.mode || 'default';
+    widthSizeType({ $attrs, checkbox }) {
+      const mode = $attrs.mode || 'default';
       const types = ['multiple', 'tags'];
-      if (this.checkbox || types.includes(mode)) return 'l';
+      if (checkbox || types.includes(mode)) return 'l';
       return 's';
     },
-    widthSizeClass() {
-      const widthSize = this.widthSize;
-      const widthSizeType = this.widthSizeType;
+    widthSizeClass({ widthSize, widthSizeType, autoWidth }) {
       const size = widthSize === 's' ? widthSizeType : widthSize;
-      return this.autoWidth ? '' : `y-form-width-${size}`;
+      return autoWidth ? '' : `y-form-width-${size}`;
     },
   },
 };
 </script>
-<style lang="less">
-@import '~/src/styles/components/select.less';
-</style>

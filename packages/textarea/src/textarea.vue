@@ -62,29 +62,24 @@ export default {
   },
   computed: {
     inValue: {
-      get: function() {
-        if (this.value !== null) {
-          return this.value;
+      get: function({ value, val }) {
+        if (value !== null) {
+          return value;
         }
-        return this.val;
+        return val;
       },
       set: function(newValue) {
         this.$emit('update-value', newValue);
         this.val = newValue;
       },
     },
-    valueLength() {
-      let inValue = this.inValue;
+    valueLength({ inValue }) {
       if (!inValue) return 0;
       return inValue.length;
     },
-    widthSizeClass() {
-      return this.autoWidth ? '' : `y-form-width-${this.widthSize}`;
+    widthSizeClass({ autoWidth, widthSize }) {
+      return autoWidth ? '' : `y-form-width-${widthSize}`;
     },
   },
 };
 </script>
-<style lang="less">
-@import '~/src/styles/components/textarea.less';
-// @import '~/src/styles/components/inputAll.less';
-</style>

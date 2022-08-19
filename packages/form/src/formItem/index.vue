@@ -39,6 +39,3 @@ export default {
   },
 };
 </script>
-<style lang="less">
-@import '~/src/styles/components/formModelItem';
-</style>

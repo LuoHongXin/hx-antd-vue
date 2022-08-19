@@ -10,8 +10,3 @@ export default {
   name: 'YDivider',
 };
 </script>
-<style lang="less">
-.y-divider {
-  margin: 16px 0;
-}
-</style>

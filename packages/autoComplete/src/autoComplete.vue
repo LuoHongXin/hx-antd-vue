@@ -47,16 +47,16 @@ export default {
   },
   computed: {
     inValue: {
-      get: function() {
-        return this.value === undefined ? this.val : this.value;
+      get: function({ value, val }) {
+        return value === undefined ? val : value;
       },
       set: function(newValue) {
         this.$emit('update-value', newValue);
         this.val = newValue;
       },
     },
-    widthSizeClass() {
-      return this.autoWidth ? 'y-auto-width' : `y-form-width-${this.widthSize}`;
+    widthSizeClass({ autoWidth, widthSize }) {
+      return autoWidth ? 'y-auto-width' : `y-form-width-${widthSize}`;
     },
   },
   methods: {
@@ -77,6 +77,3 @@ export default {
   },
 };
 </script>
-<style lang="less">
-@import '~/src/styles/components/autoComplete.less';
-</style>

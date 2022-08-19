@@ -11,18 +11,26 @@
       </template>
       <template slot="dropdown" slot-scope="item">
         <span class="y-custom-tree-node " :class="showOperaterIcon(item)">
-          <a-tooltip placement="topLeft" :title="item[getReplaceFieldFiled('title')]" v-if="showTooltip">
+          <a-tooltip placement="topLeft" :title="item[getReplaceFieldFiled('title')]" v-if="showTooltip && !noIconOperate">
             <span class="y-custom-tree-title">{{ item[getReplaceFieldFiled('title')] }}</span>
           </a-tooltip>
-          <span class="y-custom-tree-title" v-if="!showTooltip">{{ item[getReplaceFieldFiled('title')] }}</span>
+          <span class="y-custom-tree-title" v-if="!showTooltip && !noIconOperate">{{ item[getReplaceFieldFiled('title')] }}</span>
           <a-dropdown
             :trigger="operateTriggerMethod"
             :placement="operatePlacement"
             v-if="getOperates(item).length > 0 && !item.operateHidden"
           >
-            <div class="tree-operate" v-if="noIconOperate"></div>
+            <a-tooltip placement="topLeft" :title="item[getReplaceFieldFiled('title')]" v-if="showTooltip && noIconOperate">
+              <span class="y-custom-tree-title">{{ item[getReplaceFieldFiled('title')] }}</span>
+              <div class="tree-operate" v-if="noIconOperate"></div>
+            </a-tooltip>
+            <span class="y-custom-tree-title" v-if="!showTooltip && noIconOperate"
+              >{{ item[getReplaceFieldFiled('title')] }}
+              <div class="tree-operate" v-if="!showTooltip && noIconOperate"></div
+            ></span>
+
             <y-svg-icon
-              v-else
+              v-if="!noIconOperate"
               icon-class="more-vertical"
               class="y-custom-tree-operate"
               :class="item.disabled ? 'disable-pointer-event' : ''"
@@ -37,15 +45,19 @@
                   v-if="parentObj.children && parentObj.children.length > 0"
                 >
                   <a-menu-item v-for="(sonObj, index) in parentObj.children" :key="index">
-                    <a @click="sonObj.click(item)" class="my-button">
-                      <y-button type="text" :disabled="sonObj.disabled">{{ sonObj.title }}</y-button>
-                    </a>
+                    <y-tips-button :tooltip="sonObj.disabled && sonObj.tips ? true : false" :title="sonObj.tips">
+                      <a @click="sonObj.click(item)" class="my-button">
+                        <y-button type="text" :disabled="sonObj.disabled">{{ sonObj.title }}</y-button>
+                      </a>
+                    </y-tips-button>
                   </a-menu-item>
                 </a-sub-menu>
                 <a-menu-item v-else :key="index">
-                  <a @click="parentObj.click(item)" class="my-button">
-                    <y-button type="text" :disabled="parentObj.disabled">{{ parentObj.title }}</y-button>
-                  </a>
+                  <y-tips-button :tooltip="parentObj.disabled && parentObj.tips ? true : false" :title="parentObj.tips">
+                    <a @click="parentObj.click(item)" class="my-button">
+                      <y-button type="text" :disabled="parentObj.disabled">{{ parentObj.title }}</y-button>
+                    </a>
+                  </y-tips-button>
                 </a-menu-item>
                 <y-menu-divider v-if="parentObj.line" :key="index + 'line'" />
               </template>
@@ -132,8 +144,8 @@ export default {
   },
   computed: {
     modelVal: {
-      get() {
-        return this.value2;
+      get({ value2 }) {
+        return value2;
       },
       set(val) {
         this.$emit('update-value', val);
@@ -178,9 +190,6 @@ export default {
       if (e.selected) {
         this.checkParent(e.node.eventKey);
       }
-      this.$nextTick(function() {
-        this.$emit('select', selectedKeys, e);
-      });
       this.modelVal = checkData;
     },
     // 有子必有父
@@ -225,100 +234,3 @@ export default {
   },
 };
 </script>
-
-<style lang="less">
-@import '~/src/styles/components/customTree.less';
-@import '~/src/styles/variables/index.less';
-.ant-tree li {
-  padding: 2px 0 !important;
-}
-.operate-icon .ant-tree li .ant-tree-node-content-wrapper {
-  padding-right: 32px;
-}
-.noIcon .ant-tree li .ant-tree-node-content-wrapper {
-  padding-right: 0 !important;
-}
-.y-custom-tree {
-  &:not([checkable]) .ant-tree .ant-tree-node-content-wrapper .ant-tree-node-selected {
-    background-color: @y-color-primary-light !important;
-    color: @y-color-primary;
-  }
-  .ant-tree .ant-tree-checkbox-checked + .ant-tree-node-content-wrapper {
-    background-color: @y-color-primary-light !important;
-    color: @y-color-primary !important;
-  }
-  .ant-tree .ant-tree-node-selected {
-    background-color: @y-color-primary-light !important;
-  }
-  .ant-tree .ant-tree-node-content-wrapper:not(.ant-tree-node-selected):hover {
-    background-color: @y-color-fill-hover;
-  }
-  &[checkable] .ant-tree .ant-tree-node-content-wrapper:hover {
-    background-color: @y-color-fill-hover;
-  }
-  .ant-dropdown-trigger {
-    text-align: center;
-    margin-right: 10px;
-    border-radius: @y-radius-default;
-  }
-  .ant-tree .ant-tree-node-selected .y-custom-tree-operate:hover {
-    background-color: @y-color-primary-border;
-  }
-  .ant-tree-node-selected .y-svg-icon:hover {
-    color: @y-color-error;
-  }
-  .ant-tree .y-custom-tree-operate:hover {
-    background-color: @y-color-fill-hover-darker;
-  }
-  .ant-tree li span.ant-tree-switcher,
-  .ant-tree li span .ant-tree-iconEle {
-    width: 16px;
-    height: 16px;
-    line-height: 16px;
-  }
-  .ant-tree li.ant-tree-treenode-loading span.ant-tree-switcher.ant-tree-switcher_open .ant-tree-switcher-loading-icon,
-  .ant-tree li.ant-tree-treenode-loading span.ant-tree-switcher.ant-tree-switcher_close .ant-tree-switcher-loading-icon {
-    width: 16px;
-    height: 16px;
-  }
-  .ant-tree li span.ant-tree-switcher,
-  .ant-tree li span .ant-tree-iconEle {
-    vertical-align: middle !important;
-  }
-  .ant-tree li span .ant-tree-iconEle .anticon,
-  .ant-tree li span .ant-tree-iconEle .y-svg-icon,
-  .ant-tree li span .ant-tree-iconEle img {
-    vertical-align: unset !important;
-  }
-  .ant-tree li span .ant-tree-iconEle {
-    margin-left: 4px;
-  }
-  .ant-tree-title {
-    margin-left: 4px;
-  }
-  .ant-tree li span[draggable],
-  .ant-tree li span[draggable='true'] {
-    border-top: none;
-    border-bottom: none;
-  }
-}
-.tree-operate {
-  box-sizing: content-box;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  outline: none;
-}
-.disable-pointer-event {
-  pointer-events: none;
-}
-
-.my-button {
-  .ant-btn {
-    padding: 0 !important;
-  }
-}
-</style>

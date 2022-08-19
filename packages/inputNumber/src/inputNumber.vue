@@ -123,11 +123,11 @@ export default {
   },
   computed: {
     inValue: {
-      get: function() {
-        if (this.value !== undefined) {
-          return this.value;
+      get: function({ value, val }) {
+        if (value !== undefined) {
+          return value;
         }
-        return this.val;
+        return val;
       },
       set: function(newValue) {
         this.$emit('update-value', newValue);
@@ -146,16 +146,16 @@ export default {
       }
       return size;
     },
-    disabledLeft() {
+    disabledLeft({ inValue }) {
       let min = this.$attrs.min;
-      return min >= this.inValue || false;
+      return min >= inValue || false;
     },
-    disabledRight() {
+    disabledRight({ inValue }) {
       let max = this.$attrs.max;
-      return max <= this.inValue || false;
+      return max <= inValue || false;
     },
-    widthSizeClass() {
-      return this.autoWidth ? '' : `y-form-width-${this.widthSize}`;
+    widthSizeClass({ autoWidth, widthSize }) {
+      return autoWidth ? '' : `y-form-width-${widthSize}`;
     },
   },
   methods: {
@@ -190,7 +190,3 @@ export default {
   },
 };
 </script>
-<style lang="less">
-// @import '~/src/styles/components/inputAll.less';
-@import '~/src/styles/components/inputNumber.less';
-</style>

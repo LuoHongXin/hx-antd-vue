@@ -26,29 +26,19 @@
           >
           </y-input-search>
           <div class="icon-btn-group">
-            <a-tooltip v-if="fresh" placement="top">
-              <template slot="title">
-                <span>{{ $wci18n.t('wh.modalTables.reset') }}</span>
-              </template>
-              <y-button icon="fresh" @click="freshTable"></y-button>
-            </a-tooltip>
-            <a-tooltip placement="top" v-if="$listeners.filter">
-              <template slot="title">
-                <span>{{ $wci18n.t('wh.modalTables.advancedSearch') }}</span>
-              </template>
-              <y-button icon="filter" @click="filter"></y-button>
-            </a-tooltip>
-            <a-tooltip placement="top" v-if="$listeners.download">
-              <template slot="title">
-                <span>{{ $wci18n.t('wh.modalTables.export') }}</span>
-              </template>
-              <y-button icon="download" @click="download"></y-button>
-            </a-tooltip>
+            <YIconButton v-if="fresh" :title="$wci18n.t('wh.modalTables.reset')" icon="fresh" @click="freshTable" />
+            <YIconButton v-if="$listeners.filter" :title="$wci18n.t('wh.modalTables.advancedSearch')" icon="filter" @click="filter" />
+            <YIconButton v-if="$listeners.download" :title="$wci18n.t('wh.modalTables.export')" icon="download" @click="download" />
             <a-tooltip placement="top" v-if="setting">
               <template slot="title">
                 <span>{{ $wci18n.t('wh.modalTables.columnSetting') }}</span>
               </template>
-              <y-dropdown-check-button v-model="columnsCheck" :checkList="columnsCheckList" />
+              <y-column-check
+                @confirm="columnCheckConfirm"
+                @reset="columnCheckReset"
+                :checkvalue="columnsCheck"
+                :checkList="columnsCheckList"
+              />
             </a-tooltip>
           </div>
         </template>
@@ -56,42 +46,24 @@
     </div>
 
     <!-- 用于显示吸顶固定的表头 -->
-    <a-affix :offset-top="0" v-if="affixTarget" v-show="fixedTableShow" :target="affixTarget">
+    <a-affix :offset-top="0" v-if="affixTarget && freshAffix" :target="affixTarget">
       <y-table
+        v-show="fixedTableShow"
         class="Fixedtable"
         ref="FixedtableRef"
         :scroll="scroll ? scroll : {}"
         :getPopupContainer="getPopupContainer"
-        v-model="selectedData1"
+        v-model="selectedData"
         :row-key="rowKey"
         bordered
         @change="handleTableChange"
         :row-selection="rowSelection2"
-        :components="$YGetTableDragHeader(columns3)"
         :columns="columns3"
-        :key="columns3.length"
+        :key="JSON.stringify(columnsCheck) + columns3.length"
         :data-source="tableData"
         :pagination="false"
         :modelKeys.sync="selectedDataKeys"
       >
-        <template
-          v-for="col in columns"
-          :slot="col.scopedSlots ? col.scopedSlots.customRender : ''"
-          slot-scope="text, record, index, column"
-        >
-          <a-tooltip :key="col.dataIndex" placement="topLeft">
-            <template slot="title">
-              <span>{{ text }}</span>
-            </template>
-            <slot
-              :name="col.scopedSlots ? col.scopedSlots.customRender : ''"
-              :text="text"
-              :record="record"
-              :index="index"
-              :column="column"
-            ></slot>
-          </a-tooltip>
-        </template>
         <template v-for="col in columns" :slot="col.slots ? col.slots.title : ''">
           <slot :name="col.slots ? col.slots.title : ''"></slot>
         </template>
@@ -105,14 +77,14 @@
         ref="tableRef"
         :scroll="scroll ? scroll : {}"
         :getPopupContainer="getPopupContainer"
-        v-model="selectedData1"
+        v-model="selectedData"
         :row-key="rowKey"
         bordered
         @change="handleTableChange"
         :row-selection="rowSelection2"
         :components="$YGetTableDragHeader(columns3)"
         :columns="columns3"
-        :key="columns3.length"
+        :key="JSON.stringify(columnsCheck) + columns3.length"
         :data-source="tableData"
         :pagination="false"
         :loading="loading"
@@ -163,6 +135,7 @@
       </y-table>
     </a-config-provider>
 
+    <!-- 表格脚部 -->
     <a-affix :offset-bottom="0" @change="tableFooterAffixChange" :target="affixTarget">
       <div class="y-table-footer" ref="tableFooter">
         <div class="left">
@@ -191,6 +164,7 @@
 </template>
 <script>
 import { deepCopy } from '@src/utils/common.js';
+import YIconButton from './iconButton.vue';
 // 查找整个表格节点
 // const findTableElement = el => {
 //   if (el.parentNode.tagName === 'TABLE') return el.parentNode;
@@ -198,7 +172,15 @@ import { deepCopy } from '@src/utils/common.js';
 // };
 export default {
   name: 'YModelTable',
+  components: {
+    YIconButton,
+  },
   props: {
+    // 表格列设置保存时的标识
+    tableKey: {
+      type: String,
+      default: '',
+    },
     rowSelection: { type: [Object, Boolean], default: true },
     scroll: {
       type: Object,
@@ -318,7 +300,7 @@ export default {
       type: Boolean,
       default: true,
     },
-    selectedData: {
+    selectData: {
       type: Array,
       default: () => [],
     },
@@ -328,16 +310,22 @@ export default {
     },
   },
   model: {
-    prop: 'selectedData',
-    event: 'update-selectedData',
+    prop: 'selectData',
+    event: 'update-selectData',
   },
   data() {
+    const selectedData = this.selectData || [];
+    const selectedDataKeys = this.modelKeys || [];
     return {
+      freshAffix: true, // 刷新吸顶表格父元素宽度
       emptyScene: 'noData',
       batchOperateShow: false,
       fixedTableShow: false, // 控制固定表头的显示隐藏
       loading: false,
+      selectedData,
+      selectedDataKeys,
       columns2: [...this.columns], // 列数据中间转换值
+      columns3: [], // 最终显示到表格的列数据
       filters: null,
       sorter: null,
       queryParams: null, // 上次请求参数
@@ -353,32 +341,14 @@ export default {
     };
   },
   computed: {
-    //选中的row 数据
-    selectedData1: {
-      get() {
-        const selectedData = this.selectedData;
-        return selectedData;
-      },
-      set(newVal) {
-        this.$emit('update-selectedData', newVal);
-      },
-    },
-    //选中的rowKey
-    selectedDataKeys: {
-      get() {
-        const modelKeys = this.modelKeys;
-        return modelKeys;
-      },
-      set(newVal) {
-        this.$emit('update:modelKeys', newVal);
-      },
+    tableKey2({ tableKey, $route }) {
+      return tableKey || $route.name;
     },
     tableHeader2: {
-      get() {
-        const th = this.tableHeader;
-        if (th) {
-          if (th instanceof Object) {
-            return Object.assign({ left: true, right: true }, th);
+      get({ tableHeader }) {
+        if (tableHeader) {
+          if (tableHeader instanceof Object) {
+            return Object.assign({ left: true, right: true }, tableHeader);
           } else {
             return { left: true, right: true };
           }
@@ -388,16 +358,16 @@ export default {
     },
     // 最终头部左侧按钮组数据
     buttonList2: {
-      get() {
-        if (this.buttonList) {
-          const buttonList = deepCopy(this.buttonList);
-          return buttonList.map(item => {
+      get({ buttonList, selectedDataKeys }) {
+        if (buttonList) {
+          const btnlist = deepCopy(buttonList);
+          return btnlist.map(item => {
             // 默认非primary，且不带disable的按钮和checkDisabled为true的按钮
             if ((item.checkDisabled !== false && item.disable === undefined && item.type !== 'primary') || item.checkDisabled) {
               // 根据表格是否选中数据判定禁用
-              item.disable = this.selectedDataKeys.length === 0;
+              item.disable = selectedDataKeys.length === 0;
               if (!item.tips) {
-                item.tips = this.selectedDataKeys.length === 0 ? this.$wci18n.t('wh.modalTables.pleaseSelectDataFirst') : '';
+                item.tips = selectedDataKeys.length === 0 ? this.$wci18n.t('wh.modalTables.pleaseSelectDataFirst') : '';
               }
             }
             return item;
@@ -406,73 +376,39 @@ export default {
         return null;
       },
     },
-    // 最终显示到表格的列数据
-    columns3: {
-      get() {
-        const { filters, sorter, columns2 } = this;
-        return columns2.map(i => {
-          // 控制过滤
-          if (i.onFilter || i.filter) {
-            i.filteredValue = filters ? filters[i.dataIndex] || null : i.filteredValue;
-            if (i.filteredValue && !filters) {
-              this.filters = {
-                [i.dataIndex]: i.filteredValue,
-              };
-            }
-          }
-          // 控制排序
-          if (i.sorter) {
-            i.sortOrder = sorter ? sorter.columnKey === i.dataIndex && sorter.order : i.sortOrder;
-            if (i.sortOrder && !sorter) {
-              this.sorter = {
-                columnKey: i.dataIndex,
-                order: i.sortOrder,
-              };
-            }
-          }
-          if (i.ellipsis && !i.scopedSlots) {
-            i.autoEllipsis = true;
-            i.scopedSlots = { customRender: i.dataIndex };
-          }
-          return i;
-        });
-      },
-    },
     // 搜索关键字的名称
-    searchTitle() {
-      const searchPlaceholder = this.searchPlaceholder;
+    searchTitle({ searchPlaceholder, selectOptions, columns, selectSearchKey }) {
       if (searchPlaceholder) {
         return searchPlaceholder;
       }
-      const selectOptions = this.selectOptions;
       if (selectOptions) {
         for (let i = 0; i < selectOptions.length; i++) {
-          if (selectOptions[i].value === this.selectSearchKey) {
+          if (selectOptions[i].value === selectSearchKey) {
             return this.$wci18n.t('wh.modalTables.pleaseInput') + `${selectOptions[i].title}`;
           }
         }
       }
-      if (this.columns.length > 0 && this.columns[0].title) {
-        return this.$wci18n.t('wh.modalTables.pleaseInput') + `${this.columns[0].title}`;
+      if (columns.length > 0 && columns[0].title) {
+        return this.$wci18n.t('wh.modalTables.pleaseInput') + `${columns[0].title}`;
       }
       return this.$wci18n.t('wh.modalTables.pleaseInput');
     },
-    rowSelection2() {
+    rowSelection2({ selectedDataKeys, rowSelection }) {
       let dfRowSelection = {
         columnWidth: 40,
-        selectedRowKeys: this.selectedDataKeys, // 控制选择
+        selectedRowKeys: selectedDataKeys, // 控制选择
       };
-      if (this.rowSelection) {
+      if (rowSelection) {
         // 选择配置为对象且不能有控制选择的配置
-        if (typeof this.rowSelection === 'object' && !this.rowSelection.selectedRowKeys) {
-          return Object.assign(dfRowSelection, this.rowSelection);
+        if (typeof rowSelection === 'object' && !rowSelection.selectedRowKeys) {
+          return Object.assign(dfRowSelection, rowSelection);
         }
         return dfRowSelection;
       }
       return null;
     },
     // 请求参数键值
-    paramsKey() {
+    paramsKey({ paramsKeyFilter }) {
       let p = {
         start: 'start', // 起始页
         size: 'size', // 分页大小
@@ -480,41 +416,103 @@ export default {
         sort: 'sort', // 排序对象
         order: 'order', // 排序顺序
       };
-      if (this.paramsKeyFilter) {
-        Object.assign(p, this.paramsKeyFilter);
+      if (paramsKeyFilter) {
+        Object.assign(p, paramsKeyFilter);
       }
       return p;
     },
     columnsCheckList: {
-      get() {
-        return this.columns.map(i => {
-          return { text: i.columnSetTitle || i.title, value: i.dataIndex, disabled: i.columnsCheckDisabled };
+      get({ columns }) {
+        return columns.map(i => {
+          return {
+            text: i.columnSetTitle || i.title,
+            value: i.dataIndex,
+            disabled: i.columnsCheckDisabled || Boolean(i.fixed),
+            fixed: i.fixed,
+          };
         });
       },
     },
+    // 选中列的dataIndex
     columnsCheck: {
-      get() {
-        return this.columns2.map(i => {
+      get({ columns2 }) {
+        return columns2.map(i => {
           return i.dataIndex;
         });
       },
       set(val) {
-        this.columns2 = this.columns.filter(i => {
-          return val.includes(i.dataIndex);
+        const arr = [];
+        const columns = this.columns;
+        val.forEach(str => {
+          for (let index = 0; index < columns.length; index++) {
+            const item = columns[index];
+            if (item.dataIndex === str) {
+              arr.push(item);
+            }
+          }
         });
+        this.columns2 = arr;
       },
     },
   },
+  created() {
+    try {
+      let tbo = localStorage.getItem('tableColumnsObject');
+      const tk = this.tableKey2;
+      if (tbo) {
+        tbo = JSON.parse(tbo);
+        if (tbo[tk]) {
+          this.columnCheckConfirm(tbo[tk]);
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  },
   mounted() {
     this.setAffix();
+    this.tableScroll();
     if (this.immediately) {
       this.getTableData();
     }
+    // 窗口大小调整时，吸顶表格宽度需更新
+    window.addEventListener('resize', this.handleFixedTableShow);
   },
   beforeDestroy() {
+    window.removeEventListener('resize', this.handleFixedTableShow);
     this.clearAffix();
   },
   watch: {
+    filters: {
+      handler(val, oldVal) {
+        let hasVal = false; // 是否有过滤值
+        if (val instanceof Object) {
+          Object.values(val).forEach(i => {
+            if (i) hasVal = true;
+          });
+        }
+        // 新旧值一致或没值不执行
+        if (!hasVal || JSON.stringify(val) === JSON.stringify(oldVal)) return;
+        this.getColumns('filters');
+      },
+    },
+    sorter: {
+      handler(val, oldVal) {
+        // 新旧值一致或没值不执行
+        if (val && ((oldVal && val.columnKey === oldVal.columnKey && val.order === oldVal.order) || !val.columnKey)) return;
+        this.getColumns('sorter');
+      },
+    },
+    columns2: {
+      handler: function(val, oldVal) {
+        // 有默认值第一次会自动加载columns3，没有默认值第一次不会加载columns3
+        if ((!oldVal && !this.defaultCheckColumsValue) || oldVal) {
+          this.getColumns(); // columns3不能作为computed属性，因为列拖拽会失效，但借助其它的计算属性更新computed
+        }
+      },
+      immediate: true,
+      deep: true,
+    },
     defaultCheckColumsValue: {
       handler: function(val) {
         if (val) this.columnsCheck = [...val];
@@ -527,15 +525,84 @@ export default {
       },
       deep: true,
     },
-    selectedData1: {
+    selectData: {
+      handler: function(newVal) {
+        this.selectedData = newVal;
+      },
+      deep: true,
+    },
+    selectedData: {
+      handler: function(newVal) {
+        this.$emit('update-selectData', newVal);
+      },
+      deep: true,
+    },
+    modelKeys: {
+      handler: function(newVal) {
+        this.selectedDataKeys = newVal;
+      },
+      deep: true,
+    },
+    selectedDataKeys: {
       handler: function(newVal, oldVal) {
+        this.$emit('update:modelKeys', newVal);
         if (JSON.stringify(newVal) === JSON.stringify(oldVal)) return;
-        this.$emit('check', this.selectedDataKeys, this.selectedData1);
+        this.$emit('check', newVal, this.selectedData);
       },
       deep: true,
     },
   },
   methods: {
+    getColumns(type) {
+      const { sorter } = this;
+      const columns2 = deepCopy(this.columns2);
+      let allWdith = true;
+      let nearFixedCloumnIndex = null;
+      const columns3 = columns2.map((i, index) => {
+        // 控制过滤
+        if ((i.onFilter || i.filter) && type !== 'sorter') {
+          i.filteredValue = this.filters
+            ? this.filters[i.dataIndex]
+              ? this.filters[i.dataIndex]
+              : i.filteredValue || null
+            : i.filteredValue || null;
+          if (i.filteredValue) {
+            if (!this.filters) {
+              this.filters = {};
+            }
+            if (!this.filters[i.dataIndex]) {
+              this.filters[i.dataIndex] = i.filteredValue;
+            }
+          }
+        }
+        // 控制排序
+        if (i.sorter && type !== 'filters') {
+          i.sortOrder = sorter ? sorter.columnKey === i.dataIndex && sorter.order : i.sortOrder;
+          if (i.sortOrder && !sorter) {
+            this.sorter = {
+              columnKey: i.dataIndex,
+              order: i.sortOrder,
+            };
+          }
+        }
+        // 判断是否有fixed列，若是且全部列都有width，则置空fixed就近列width，保证不留白
+        if ([true, 'left', 'right'].includes(i.fixed)) {
+          nearFixedCloumnIndex = i.fixed === 'right' ? index - 1 : index + 1;
+        }
+        if (!i.width) {
+          allWdith = false;
+        }
+        if (i.ellipsis && !i.scopedSlots) {
+          i.autoEllipsis = true;
+          i.scopedSlots = { customRender: i.dataIndex };
+        }
+        return i;
+      });
+      if (nearFixedCloumnIndex && allWdith) {
+        delete columns3[nearFixedCloumnIndex].width;
+      }
+      this.columns3 = columns3;
+    },
     tableFooterAffixChange(fixed) {
       this.batchOperateShow = fixed;
     },
@@ -543,11 +610,11 @@ export default {
       const _this = this;
       this.$copyText(text).then(
         function(e) {
-          _this.$YMessage.success(this.$wci18n.t('wh.modalTables.textCopied'));
+          _this.$YMessage.success(_this.$wci18n.t('wh.modalTables.textCopied'));
           console.log('复制成功', e);
         },
         function(e) {
-          _this.$YMessage.error(this.$wci18n.t('wh.modalTables.textFailed'));
+          _this.$YMessage.error(_this.$wci18n.t('wh.modalTables.textFailed'));
           console.log('复制失败', e);
         }
       );
@@ -559,36 +626,35 @@ export default {
     },
     scrollEvent: function() {
       const scrollTarget = this.affixTarget();
-      // 表格在可是范围内且滚动距离大于表格头部距离可是窗口头部的距离，则显示吸顶头部
+      const tableTarget = this.$refs.tableRef;
+      // 表格在可是范围内且滚动距离大于表格头部距离可视窗口头部的距离，则显示吸顶头部
       if (
-        this.$refs.tableRef &&
-        this.isElementInViewport(this.$refs.tableRef.$el) &&
-        scrollTarget.scrollTop >= this.$refs.tableRef.$el.offsetTop
+        tableTarget &&
+        this.isElementInViewport(tableTarget.$el) &&
+        scrollTarget.scrollTop >= tableTarget.$el.offsetTop - scrollTarget.offsetTop
       ) {
-        this.fixedTableShow = true;
+        this.handleFixedTableShow(true);
       } else {
-        this.fixedTableShow = false;
+        this.handleFixedTableShow(false);
       }
     },
-    // scrollEvent: debounce(function(_this) {
-    //   console.log(_this, '_this');
-    //   const scrollTarget = _this.affixTarget();
-    //   // 表格在可是范围内且滚动距离大于表格头部距离可是窗口头部的距离，则显示吸顶头部
-    //   if (
-    //     _this.$refs.tableRef &&
-    //     _this.isElementInViewport(_this.$refs.tableRef.$el) &&
-    //     scrollTarget.scrollTop >= _this.$refs.tableRef.$el.offsetTop
-    //   ) {
-    //     _this.fixedTableShow = true;
-    //   } else {
-    //     _this.fixedTableShow = false;
-    //   }
-    // }, 5),
+    handleFixedTableShow(bool) {
+      if (typeof bool === 'boolean') {
+        this.fixedTableShow = bool;
+        if (bool) this.syncScroll('fixed'); // 显示时同步滚动
+      } else {
+        this.freshAffix = false;
+        setTimeout(() => {
+          this.freshAffix = true;
+          this.syncScroll('fixed'); // 显示时同步滚动
+        }, 500);
+      }
+    },
     setAffix() {
       if (this.affixTarget) {
         const scrollTarget = this.affixTarget();
         if (scrollTarget) {
-          scrollTarget.addEventListener('scroll', this.scrollEvent.bind(this, this));
+          scrollTarget.addEventListener('scroll', this.scrollEvent);
         }
       }
     },
@@ -596,7 +662,7 @@ export default {
       if (this.affixTarget) {
         const scrollTarget = this.affixTarget();
         if (scrollTarget) {
-          scrollTarget.removeEventListener('scroll', this.scrollEvent.bind(this, this));
+          scrollTarget.removeEventListener('scroll', this.scrollEvent);
         }
       }
     },
@@ -711,11 +777,16 @@ export default {
       this.inputSearch = '';
       this.filters = null;
       this.sorter = null;
+      this.columns2 = [...this.columns].filter(i => {
+        return this.columnsCheck.includes(i.dataIndex);
+      });
       this.$set(this.pagination, 'page', 1);
       if (this.$listeners.freshCallback) {
         this.$emit('freshCallback');
       } else {
-        this.onSearch(this.inputSearch);
+        this.$nextTick(function() {
+          this.onSearch(this.inputSearch);
+        });
       }
     },
     download() {
@@ -723,6 +794,44 @@ export default {
     },
     filter() {
       this.$emit('filter');
+    },
+    // 吸顶表格和显示表格滚动同步
+    tableScroll() {
+      if (!this.affixTarget) return; // 没有吸顶不需同步
+      setTimeout(() => {
+        if (!this.$refs.FixedtableRef) return; //外部在加key渲染比setTimeout先执行时候会导致拿不到上一次实例
+        this.firstTable = this.$refs.FixedtableRef.$el.getElementsByClassName('ant-table-body')[0];
+        this.secondTable = this.$refs.tableRef.$el.getElementsByClassName('ant-table-body')[0];
+        let firstchange = true;
+        let secondchange = true;
+        this.firstTable.onscroll = () => {
+          if (firstchange) {
+            this.syncScroll();
+            secondchange = false;
+          } else {
+            firstchange = true;
+          }
+        };
+        this.secondTable.onscroll = () => {
+          if (secondchange) {
+            this.syncScroll('fixed');
+            firstchange = false;
+          } else {
+            secondchange = true;
+          }
+        };
+      }, 0);
+    },
+    // 同步滚动 type - fixed 同步吸顶表格，其它为同步表格
+    syncScroll(type) {
+      const first = this.firstTable;
+      const second = this.secondTable;
+      if (!first || !second) return;
+      if (type === 'fixed') {
+        first.scrollLeft = (second.scrollLeft / (second.scrollWidth - second.clientWidth)) * (first.scrollWidth - first.clientWidth);
+      } else {
+        second.scrollLeft = (first.scrollLeft / (first.scrollWidth - first.clientWidth)) * (second.scrollWidth - second.clientWidth);
+      }
     },
     // 专门规范给表格赋值
     assignTableData(data) {
@@ -739,9 +848,27 @@ export default {
         }
       }
     },
+    // 列设置确认
+    columnCheckConfirm(val) {
+      let tbo = localStorage.getItem('tableColumnsObject');
+      if (tbo) {
+        tbo = JSON.parse(tbo);
+      } else {
+        tbo = {};
+      }
+      tbo[this.tableKey2] = val;
+      localStorage.setItem('tableColumnsObject', JSON.stringify(tbo));
+      this.columnsCheck = val;
+    },
+    // 列设置重置
+    columnCheckReset() {
+      // 有默认选中则使用默认选中，否则按column全部
+      if (this.defaultCheckColumsValue) {
+        this.columnCheckConfirm(this.defaultCheckColumsValue);
+      } else {
+        this.columnCheckConfirm(this.columns.map(i => i.dataIndex));
+      }
+    },
   },
 };
 </script>
-<style lang="less">
-@import '~/src/styles/components/modelTable.less';
-</style>

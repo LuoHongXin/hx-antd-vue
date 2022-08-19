@@ -13,29 +13,3 @@ export default {
   },
 };
 </script>
-<style lang="less">
-.y-sign-title {
-  color: #1f2229;
-  font-size: 16px;
-  line-height: 24px;
-  display: flex;
-  align-items: center;
-  .sign {
-    margin-right: 8px;
-    &::before {
-      content: '';
-      display: block;
-      width: 4px;
-      height: 8px;
-      background-color: #d93934;
-    }
-    &::after {
-      content: '';
-      display: block;
-      width: 4px;
-      height: 8px;
-      background-color: #3d3c3c;
-    }
-  }
-}
-</style>

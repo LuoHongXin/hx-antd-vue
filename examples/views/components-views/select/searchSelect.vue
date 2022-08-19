@@ -60,6 +60,7 @@
       </code>
     </pre>
     <api-table :data="tableData"></api-table>
+    <api-table :data="tableDataApi"></api-table>
   </div>
 </template>
 <script>
@@ -99,6 +100,24 @@ export default {
       <div>selectData: {{ selectData }}</div>
       <div>search: {{ search }}</div>`,
       tableData: [
+        {
+          params: 'getPopupContainer',
+          explain: '默认渲染父节点的父节点上（parentNode），可修改渲染body上',
+          type: 'Function(triggerNode)',
+          default: 'triggerNode => triggerNode.parentNode.parentNode || document.body（注意需要渲染在这个组件外）',
+        },
+        {
+          params: 'footer',
+          explain: '如不需要底部设置false',
+          type: 'slot | Boolean',
+          default: 'true',
+        },
+        {
+          params: 'okText',
+          explain: '默认底部按钮的文字, 自定义插槽则不生效',
+          type: 'string|number',
+          default: '账号管理',
+        },
         {
           params: 'value(v-model)',
           type: 'String',
@@ -151,6 +170,18 @@ export default {
           explain: '下拉菜单的 className 属性',
           type: 'String',
           default: '',
+        },
+      ],
+      tableDataApi: [
+        {
+          params: 'input-change',
+          explain: 'input的change回调',
+          type: 'Function(value))',
+        },
+        {
+          params: 'ok',
+          explain: '默认底部按钮的点击事件',
+          type: 'Function()',
         },
       ],
     };

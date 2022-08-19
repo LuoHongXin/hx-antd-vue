@@ -112,3 +112,98 @@
   
 }
 
+.ant-tree li {
+  padding: 2px 0 !important;
+}
+.operate-icon .ant-tree li .ant-tree-node-content-wrapper {
+  padding-right: 32px;
+}
+.noIcon .ant-tree li .ant-tree-node-content-wrapper {
+  padding-right: 0 !important;
+}
+.y-custom-tree {
+  &:not([checkable]) .ant-tree .ant-tree-node-content-wrapper .ant-tree-node-selected {
+    background-color: @y-color-primary-light !important;
+    color: @y-color-primary;
+  }
+  .ant-tree .ant-tree-checkbox-checked + .ant-tree-node-content-wrapper {
+    color: @y-color-primary !important;
+    background-color: @y-color-primary-light !important;
+  }
+  .ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected {
+    background-color: @y-color-primary-light;
+  }
+  .ant-tree .ant-tree-node-content-wrapper:not(.ant-tree-node-selected):hover {
+    background-color: @y-color-fill-hover;
+  }
+  &[checkable] .ant-tree .ant-tree-node-content-wrapper:hover {
+    background-color: @y-color-fill-hover;
+  }
+  .ant-dropdown-trigger {
+    text-align: center;
+    margin-right: 10px;
+    border-radius: @y-radius-default;
+  }
+  .ant-tree .ant-tree-node-selected,
+  .ant-tree .ant-tree-treenode-checkbox-checked {
+    .y-custom-tree-operate:hover {
+      background-color: @y-color-primary-border;
+    }
+    .y-svg-icon:hover {
+      color: @y-color-primary;
+    }
+  }
+  .ant-tree .y-custom-tree-operate:hover {
+    background-color: @y-color-fill-hover-darker;
+  }
+  .ant-tree li span.ant-tree-switcher,
+  .ant-tree li span .ant-tree-iconEle {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+  }
+  .ant-tree li.ant-tree-treenode-loading span.ant-tree-switcher.ant-tree-switcher_open .ant-tree-switcher-loading-icon,
+  .ant-tree li.ant-tree-treenode-loading span.ant-tree-switcher.ant-tree-switcher_close .ant-tree-switcher-loading-icon {
+    width: 16px;
+    height: 16px;
+  }
+  .ant-tree li span.ant-tree-switcher,
+  .ant-tree li span .ant-tree-iconEle {
+    vertical-align: middle !important;
+  }
+  .ant-tree li span .ant-tree-iconEle .anticon,
+  .ant-tree li span .ant-tree-iconEle .y-svg-icon,
+  .ant-tree li span .ant-tree-iconEle img {
+    vertical-align: unset !important;
+  }
+  .ant-tree li span .ant-tree-iconEle {
+    margin-left: 4px;
+  }
+  .ant-tree-title {
+    margin-left: 4px;
+  }
+  .ant-tree li span[draggable],
+  .ant-tree li span[draggable='true'] {
+    border-top: none;
+    border-bottom: none;
+  }
+}
+.tree-operate {
+  box-sizing: content-box;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  outline: none;
+}
+.disable-pointer-event {
+  pointer-events: none;
+}
+
+.my-button {
+  .ant-btn {
+    padding: 0 !important;
+  }
+}
