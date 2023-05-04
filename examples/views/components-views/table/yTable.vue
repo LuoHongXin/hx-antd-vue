@@ -311,6 +311,12 @@ export default {
           default: 'null',
         },
         {
+          params: 'onSelect',
+          explain: '点击选择表格行回调',
+          type: 'function(record,key)',
+          default: 'null',
+        },
+        {
           params: 'scroll',
           explain:
             '设置横向或纵向滚动，也可用于指定滚动区域的宽和高，建议为 x 设置一个数字，如果要设置为 true，需要配合样式 .ant-table td { white-space: nowrap; }',

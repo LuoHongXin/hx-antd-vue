@@ -6,6 +6,7 @@
     v-model="inValue"
     v-if="value !== false"
     :class="widthSizeClass"
+    :allowClear="allowClear"
   >
     <!-- <slot /> -->
     <slot :name="slot" :slot="slot" v-for="(val, slot) in $scopedSlots" />
@@ -34,6 +35,10 @@ export default {
     autoWidth: {
       type: Boolean,
       default: false,
+    },
+    allowClear: {
+      type: Boolean,
+      default: true,
     },
   },
   model: {

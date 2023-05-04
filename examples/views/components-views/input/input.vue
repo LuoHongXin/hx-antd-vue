@@ -146,7 +146,7 @@ export default {
   data() {
     return {
       inputPrefix: `<div class="components-input-demo-presuffix">
-        <y-input ref="userNameInput" :value="userName" placeholder="Basic usage">
+        <y-input ref="userNameInput" :value="userName" placeholder="Basic usage" allowClear>
           <a-icon slot="prefix" type="user" />
           <a-tooltip slot="suffix" title="Extra information">
             <a-icon type="info-circle" style="color: rgba(0,0,0,.45)" />

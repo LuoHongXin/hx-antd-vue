@@ -25,6 +25,7 @@
         v-model="inputVal"
         @pressEnter="tagInputPressEnter"
         placeholder=""
+        :allowClear="false"
         :style="{
           minWidth: '8px',
           border: 'none',
@@ -241,6 +242,7 @@ export default {
       this.selectValue = this.selectValue.filter(item => {
         return item.label !== obj.label;
       });
+      this.$emit('close', obj);
     },
     tagClickEvent(e) {
       if (

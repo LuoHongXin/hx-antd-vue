@@ -30,9 +30,9 @@ export default {
     },
     svgClass({ className }) {
       if (className) {
-        return 'y-svg-icon-' + className;
+        return 'y-svg-icon-' + className + ' y-icon';
       } else {
-        return 'y-svg-icon';
+        return 'y-svg-icon y-icon';
       }
     },
     styleExternalIcon({ iconClass }) {

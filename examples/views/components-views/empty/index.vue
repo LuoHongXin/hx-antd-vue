@@ -11,6 +11,8 @@
       <y-empty scene="systemError"></y-empty>
       <y-empty scene="noMessage"></y-empty>
       <y-empty scene="noAccess"></y-empty>
+      <y-empty scene="dataLoading"></y-empty>
+      <y-empty scene="canNotGet"></y-empty>
     </com-show>
     <!-- 代码展示 -->
     <pre class="line-numbers">
@@ -64,7 +66,9 @@ export default {
       <y-empty scene="networkError"></y-empty>
       <y-empty scene="systemError"></y-empty>
       <y-empty scene="noMessage"></y-empty>
-      <y-empty scene="noAccess"></y-empty>`,
+      <y-empty scene="noAccess"></y-empty>
+      <y-empty scene="dataLoading"></y-empty>
+      <y-empty scene="canNotGet"></y-empty>`,
       html2: `<h2>素雅</h2>
       <y-empty>
         <div slot="description">

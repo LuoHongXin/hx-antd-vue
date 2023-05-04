@@ -1,44 +1,53 @@
-.y-tab-switch {
-  display: flex;
-  min-height: 56px;
-  .ant-tabs {
-    display: inline-flex;
-    flex-direction: column;
-    .ant-tabs-bar {
-      border: none;
-      margin: 0;
-      display: flex;
-    .ant-tabs-nav-container {
-      margin: 0;
-      background: #f2f3f5;
+
+.y-tab-switch.ant-tabs {
+  .ant-tabs-bar {
+    border: none;
+    display: flex;
+    .ant-tabs-nav {
+      background:#f2f3f5;
       border-radius: 4px;
-      padding: 4px;
-      min-height: 40px;
-      display: inline-flex;
-    }
-    .ant-tabs-tab {
-        padding: 8px !important;
-        color: #83878f !important;
-        font-size: 12px;
-        margin: 0;
-        line-height: initial !important;
-        transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-        &:not(.ant-tabs-tab-active):hover {
-          color: #454852;
+      flex: 1;
+      > div {
+        height: 100%;
+        overflow: hidden;
+      }
+      .ant-tabs-tab {
+        margin: 3px;
+        padding: 2px 8px;
+        border-radius: @y-radius-default;
+        line-height: 100%;
+        font-size: @y-font-size-m;
+        color: @y-color-text-secondary;
+        height: 26px;
+        display: inline-flex;
+        align-items: center;
+        &.ant-tabs-tab-active {
+          background: @y-color-fill-bg-white;
+          color: @y-color-text-primary;
+          box-shadow:@y-shadow-s1-down;
+          font-weight: @y-font-weight-medium;
+        }
+        &.ant-tabs-tab-disabled {
+          background: #f2f3f5;
+          color: @y-color-text-placeholder;
         }
       }
-      .ant-tabs-tab-active {
-        background: #fff;
-        color: #454852;
-        box-shadow: 0 1px 2px -2px rgba(36, 41, 46, 0.04), 0 2px 4px 0 rgba(36, 41, 46, 0.08);
-        text-shadow: 0 0 0.25px currentColor;
+      .ant-tabs-ink-bar {
+        display: none !important;
       }
     }
-    .ant-tabs-content.ant-tabs-top-content {
-      padding: 8px 0;
-    }
-    .ant-tabs-ink-bar {
-      display: none !important;
+  }
+
+  &[size="small"] {
+    .ant-tabs-bar {
+      .ant-tabs-nav {
+        // height: 28px;
+        .ant-tabs-tab {
+          height: 24px;
+          margin: 2px;
+          font-size: @y-font-size-s;
+        }
+      }
     }
   }
 }

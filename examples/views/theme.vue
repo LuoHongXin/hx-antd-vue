@@ -19,7 +19,7 @@
               loaderOptions:{
                 less:{
                   lessOptions:{
-                    modifyVars:modifyVars(),
+                    modifyVars:modifyVars(), // 可以传主色或修改的颜色变量，如：modifyVars('#3d61cc', { '@y-color-success-6': 'red' })
                     javascriptEnabled:true
                   }
                 }
@@ -58,6 +58,7 @@
       title="2.2、调用换肤方法"
       detail="配置好 themeColorReplacer 插件后，可以直接在代码中调用 changeThemeColor 方法修改主题颜色"
     ></funTitleDetail>
+    <y-button @click="changeColor('#3d61cc')">换肤</y-button>
     <pre class="line-numbers">
         <code class="language-html" v-text="`<button @click='changeColor('#3d61cc')'>换肤</button>`">
         </code>
@@ -77,3 +78,13 @@
     </pre>
   </a-layout-content>
 </template>
+<script>
+const { changeThemeColor } = require('@src/theme');
+export default {
+  methods: {
+    changeColor() {
+      changeThemeColor('#3d61cc');
+    },
+  },
+};
+</script>

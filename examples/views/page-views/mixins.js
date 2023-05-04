@@ -239,6 +239,7 @@ export default {
                   <a class="y-button-link">{{ text }}</a>
                 </template>
                 <span slot="customTitle"><a-icon type="smile-o" /> 标题</span>
+                <!-- { text, record, index, column } -->
                 <y-tag slot="createLoginName" v-if="record.createLoginName" slot-scope="{ record }" :color="'green'">
                   {{ record.createLoginName }}
                 </y-tag>

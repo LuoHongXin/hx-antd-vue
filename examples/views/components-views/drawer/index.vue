@@ -7,17 +7,13 @@
     <funTitleDetail title="基础" detail="最常用的类型"></funTitleDetail>
     <!-- 组件展示 -->
     <com-show>
-      <y-select style="width: 100px;margin-right:24px;" v-model="placement" :options="options" />
-      <y-button type="primary" @click="visible = true">
-        打开抽屉
-      </y-button>
+      <y-select style="width: 100px; margin-right: 24px" v-model="placement" :options="options" />
+      <y-button type="primary" @click="visible = true"> 打开抽屉 </y-button>
       <y-drawer title="基础抽屉" :placement="placement" :visible="visible" @close="onClose('visible')">
         <p v-for="i in 100" :key="i">Some contents{{ i }}...</p>
-        <div slot="footer" style="text-align:right">
+        <div slot="footer" style="text-align: right">
           <y-button @click="visible = false"> 取消 </y-button>
-          <y-button type="primary" @click="visible = false">
-            确定
-          </y-button>
+          <y-button type="primary" @click="visible = false"> 确定 </y-button>
         </div>
       </y-drawer>
     </com-show>
@@ -48,21 +44,15 @@
     </pre>
     <funTitleDetail title="层级" detail="内部信息量大，结构复杂，需要进入二级抽屉。"></funTitleDetail>
     <com-show>
-      <y-button type="primary" @click="visible1 = true">
-        打开抽屉1
-      </y-button>
+      <y-button type="primary" @click="visible1 = true"> 打开抽屉1 </y-button>
       <y-drawer title="层级抽屉1" placement="right" :visible="visible1" @close="onClose('visible1')">
-        <y-button type="primary" @click="visible2 = true">
-          打开抽屉2
-        </y-button>
+        <y-button type="primary" @click="visible2 = true"> 打开抽屉2 </y-button>
         <y-drawer title="层级抽屉2" placement="right" size="s" :visible="visible2" @close="onClose('visible2')">
           <p v-for="i in 100" :key="i">Some contents{{ i }}...</p>
         </y-drawer>
-        <div slot="footer" style="text-align:right">
+        <div slot="footer" style="text-align: right">
           <y-button @click="visible1 = false"> 取消 </y-button>
-          <y-button type="primary" @click="visible1 = false">
-            确定
-          </y-button>
+          <y-button type="primary" @click="visible1 = false"> 确定 </y-button>
         </div>
       </y-drawer>
     </com-show>
@@ -162,7 +152,7 @@ export default {
           params: 'maskClosable',
           explain: '点击蒙层是否允许关闭',
           type: 'boolean',
-          default: 'true',
+          default: 'false',
         },
         {
           params: 'mask',

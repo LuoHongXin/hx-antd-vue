@@ -15,11 +15,18 @@
 <script>
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
 import '@wangeditor/editor/dist/css/style.css';
-import './lang';
+import { i18nChangeLanguage } from '@wangeditor/editor';
 import { DomEditor } from '@wangeditor/editor';
 
 export default {
   name: 'YEditor',
+  inject: {
+    configProvider: {
+      default: function () {
+        return null;
+      },
+    },
+  },
   model: {
     prop: 'Html',
     event: 'update-Html',
@@ -36,7 +43,7 @@ export default {
     // 工具栏配置
     toolbarConfig: {
       type: Object,
-      default: function() {
+      default: function () {
         return {
           // toolbarKeys: [],
         };
@@ -45,7 +52,7 @@ export default {
     // 编辑器配置
     editorConfig: {
       type: Object,
-      default: function() {
+      default: function () {
         return {};
       },
     },
@@ -68,6 +75,20 @@ export default {
       },
     },
   },
+  watch: {
+    'configProvider.locale': {
+      handler(val) {
+        const langMap = {
+          'zh-cn': 'zh-CN',
+          en: 'en',
+        };
+        if (val && val.locale) {
+          i18nChangeLanguage(langMap[val.locale] || 'zh-CN');
+        }
+      },
+      immediate: true,
+    },
+  },
   data() {
     return {
       toolbarConfig2: this.toolbarConfig,
@@ -80,7 +101,7 @@ export default {
     onCreated(editor) {
       this.$emit('onCreated', editor);
       this.editor = Object.seal(editor); // 一定要用 Object.seal() ，否则会报错
-      this.$nextTick(function() {
+      this.$nextTick(function () {
         this.toolbar = DomEditor.getToolbar(this.editor);
       });
     },

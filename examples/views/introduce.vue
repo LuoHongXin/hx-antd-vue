@@ -2,11 +2,10 @@
   <a-layout-content style="padding: 10px 60px">
     <!-- 组件标题和说明 -->
     <title-detail
-      @click.native="changeColor"
       title="介绍"
       detail="hx-antd-vue 主要是基于 Ant Design of Vue（后续简称 antd） UI组件库(1.7.8版本)，根据公司业务需求和UI设计，在 antd 原有的基础上丰富了功能和部分样式修改，而进行特定封装的UI组件库，其中较多的组件是拥有和 antd 一样的API，但功能会比 antd 更丰富。"
     />
-    <p style="font-weight:600;color:green;">
+    <p style="font-weight: 600; color: green">
       在预编译css语言上，我们选择保持和antd一致，都是采用 less 预编译语言，所以在安装我们组件库时，请保证项目已安装 less 和 less-loader
       依赖。且 less 的版本最好是 3.* 的版本，否则可能会报错
     </p>
@@ -14,11 +13,13 @@
     <h3 class="fun-title">快速使用</h3>
     <funTitleDetail
       title="安装"
-      detail=""
+      detail="目前 hx-antd-vue 只发布在公司内网，所以无法通过外网的 npm 进行安装，需要先设置代理"
     ></funTitleDetail>
     <!-- 代码展示 -->
     <pre class="line-numbers">
         <code class="language-JavaScript">
+          // 公司内网需设置内网 npm 代理
+          npm config set registry http://192.168.100.10:31445/repository/npm-group/
           // 开始安装 hx-antd-vue
           npm i --save hx-antd-vue
         </code>
@@ -51,6 +52,8 @@
           import "hx-antd-vue/src/styles/antd.js";
           // 组件样式
           import "hx-antd-vue/src/styles/index.less";
+          // 组件内联样式（第三方插件样式等）
+          import "hx-antd-vue/lib/hx-antd-vue.css";
 
           import whComponents from "hx-antd-vue";
           Vue.use(whComponents);
@@ -68,23 +71,22 @@
               "style-resources-loader":{
                 preProcessor:"less",
                 patterns:[
-                  "你的依赖(node——modules)地址/hx-antd-vue/src/styles/index.less"
+                  "你的依赖(node——modules)地址/hx-antd-vue/src/styles/variables/index.less"
                 ]
               }
             }
           }
         </code>
     </pre>
+    <importOnDemand />
   </a-layout-content>
 </template>
 <script>
-const { changeThemeColor } = require('@src/theme');
+import importOnDemand from './introduce/importOnDemand';
 export default {
   name: 'way',
-  methods: {
-    changeColor() {
-      changeThemeColor('#3d61cc');
-    },
+  components: {
+    importOnDemand,
   },
 };
 </script>

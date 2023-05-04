@@ -20,6 +20,8 @@ export default {
       noMessage: '暂无消息',
       noService: '暂无服务',
       systemError: '系统出错',
+      dataLoading: '正在搜索',
+      canNotGet: '无法获取',
     },
     confirm: {
       ok: '确定',
@@ -32,7 +34,9 @@ export default {
       reset: '刷新',
       advancedSearch: '高级搜索',
       export: '导出',
+      search: '搜索',
       columnSetting: '列设置',
+      tableHeight: '表格高度',
       copy: '复制',
       batchOperation: '批量操作',
       selected: '已选：',
@@ -42,6 +46,9 @@ export default {
       pleaseInput: '请输入',
       textCopied: '文本已复制',
       textFailed: '文本复制失败，请手动尝试复制',
+      looseHeight: '宽松',
+      defaultHeight: '默认',
+      compactHeight: '紧凑',
     },
     nameSelect: {
       placeholder: '请输入关键字搜索',

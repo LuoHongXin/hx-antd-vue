@@ -36,6 +36,7 @@ export default {
   data() {
     return {
       tableDataInput: [
+        { params: 'trim', explain: '开启trim去除前后空格', type: 'Boolean', default: 'true' },
         {
           params: 'autoWidth',
           explain: '默认宽度, 父盒子撑开',

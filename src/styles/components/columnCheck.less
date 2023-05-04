@@ -36,7 +36,7 @@
 
   .y-column-check-select-item {
     width: 100%;
-    padding: 4px 24px;
+    padding: 4px 32px;
     height: 32px;
     line-height: 24px;
     cursor: grab;
@@ -45,18 +45,23 @@
     white-space: nowrap;
     color: #454852;
     position: relative;
-    .y-svg-icon-line,
-    .y-svg-icon-close {
-      width: 16px;
-      height: 16px;
-      top: 8px;
+    &:hover {
+      background-color: @y-color-fill-hover;
+    }
+    .icon-line,
+    .icon-close {
       position: absolute;
+      width: 24px;
+      height: 24px;
+      &.y-btn.ant-btn-icon-only.no-bg:not([disabled]):hover {
+        background: @y-color-fill-hover-darker;
+      }
     }
-    .y-svg-icon-line {
-      left: 0;
+    .icon-line {
+      left: 4px;
     }
-    .y-svg-icon-close {
-      right: 0;
+    .icon-close {
+      right: 4px;
       color: #c4c6cc;
       cursor: pointer;
       &:hover {

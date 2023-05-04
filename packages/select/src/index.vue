@@ -6,13 +6,14 @@
     v-bind="$attrs"
     v-on="$listeners"
     :treeData="options"
-    :getPopupContainer="getPopupContainer"
+    :getPopupContainer="getProps('getPopupContainer')"
     tree-checkable
     v-if="checkbox"
     :class="widthSizeClass"
     :dropdownMatchSelectWidth="dropdownMatchSelectWidth"
+    :allowClear="getProps('allowClear')"
   >
-    <a-tooltip :placement="placement" v-if="tooltip" slot-scope="{ label }" slot="title">
+    <a-tooltip :placement="placement" v-if="getProps('tooltip')" slot-scope="{ label }" slot="title">
       <template slot="title">
         {{ label }}
       </template>
@@ -22,25 +23,32 @@
   </a-tree-select>
   <a-select
     class="y-select"
-    dropdownClassName="y-select"
     v-model="modelVal"
     v-bind="$attrs"
     v-on="$listeners"
-    :getPopupContainer="getPopupContainer"
+    :getPopupContainer="getProps('getPopupContainer')"
     v-else
+    :filterOption="filterOption"
     :class="widthSizeClass"
     :dropdownMatchSelectWidth="dropdownMatchSelectWidth"
     :defaultActiveFirstOption="defaultActiveFirstOption"
+    :allowClear="getProps('allowClear')"
   >
     <template v-if="options && options.length">
-      <a-select-option v-for="item in options" :key="item.value" :value="item.value" :disabled="item.disabled" class="y-select-option">
-        <a-tooltip :placement="placement" v-if="tooltip">
+      <a-select-option
+        v-for="item in options"
+        :key="item[optionsKey]"
+        :value="item.value"
+        :disabled="item.disabled"
+        class="y-select-option"
+      >
+        <a-tooltip :placement="placement" v-if="getProps('tooltip')">
           <template slot="title">
-            {{ item.label || item.title }}
+            {{ item.label || item.title || item.value }}
           </template>
-          <div class="y-select-ellipsis">{{ item.label || item.title }}</div>
+          <div class="y-select-ellipsis">{{ item.label || item.title || item.value }}</div>
         </a-tooltip>
-        <template v-else>{{ item.label || item.title }}</template>
+        <template v-else>{{ item.label || item.title || item.value }}</template>
       </a-select-option>
     </template>
     <slot v-else />
@@ -50,8 +58,10 @@
   </a-select>
 </template>
 <script>
+import injectConfigMixins from '../../../src/utils/injectConfigMixins.js';
 export default {
   name: 'YSelect',
+  mixins: [injectConfigMixins],
   model: {
     prop: 'value',
     event: 'update-value',
@@ -59,7 +69,7 @@ export default {
   props: {
     getPopupContainer: {
       type: Function,
-      default: triggerNode => triggerNode.parentNode || document.body,
+      default: (triggerNode) => triggerNode.parentNode || document.body,
     },
     dropdownMatchSelectWidth: {
       type: Boolean,
@@ -81,6 +91,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    optionsKey: {
+      type: String,
+      default: 'value',
+    },
     tooltip: {
       type: Boolean,
       default: true,
@@ -101,6 +115,18 @@ export default {
       type: Boolean,
       default: false,
     },
+    allowClear: {
+      type: Boolean,
+      default: true,
+    },
+    filterOption: {
+      type: Function,
+      default: (input, option) => {
+        const text =
+          option.componentOptions.children[0]?.componentOptions?.children[0]?.children[0]?.text || option.componentOptions.children[0].text;
+        return text.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+      },
+    },
   },
   data() {
     return {
@@ -114,8 +140,11 @@ export default {
   },
   computed: {
     modelVal: {
-      get({ value, val }) {
-        return value !== undefined ? value : val;
+      get({ value, val, $attrs, checkbox }) {
+        const selectData = value !== undefined ? value : val;
+        const mode = $attrs.mode || 'default';
+        const isMultiple = !!(checkbox || ['multiple', 'tags'].includes(mode));
+        return isMultiple ? selectData || [] : selectData;
       },
       set(newValue) {
         this.$emit('update-value', newValue);

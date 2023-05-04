@@ -1,6 +1,6 @@
 import { Modal } from 'ant-design-vue';
-import colorVariables from '@src/styles/variables/index.less';
-import { dragClass, unLetter } from '@src/utils/common';
+import colorVariables from '../../src/styles/variables/index.less';
+import { dragClass, unLetter } from '../../src/utils/common';
 export const YInfo = function(config) {
   handleConfig.call(this, config, 'info');
   Modal.info(config);
@@ -22,6 +22,7 @@ export const YWarning = function(config) {
 
 function handleConfig(config, type) {
   let iconColor, iconType, icon;
+  config.autoFocusButton = config.autoFocusButton || null;
   config.centered = 'centered' in config ? config.centered : true;
   switch (type) {
     case 'info':
@@ -36,7 +37,7 @@ function handleConfig(config, type) {
             float: 'left',
           },
           props: {
-            iconClass: 'info',
+            iconClass: 'fill-info',
           },
           class: {
             anticon: true,
@@ -80,6 +81,7 @@ function handleConfig(config, type) {
   const unClassName = unLetter();
   config.class = (config.class ? config.class + ' ' + unClassName : unClassName) + ' y-confirm';
   let onOk = config.onOk;
+  if (!config.width) config.width = 480;
   config.onOk = function() {
     if (onOk) onOk();
     if (config.move !== false) drag.relMove();

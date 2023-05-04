@@ -8,41 +8,9 @@
         <div class="menu-title" v-if="title">{{ title }}</div>
       </template>
     </template>
-    <y-menu mode="inline" v-model="selectedKeys2" :openKeys.sync="openKeys2" @click="menuClick" :inline-collapsed="collapsed">
-      <template v-for="menu in menuData">
-        <y-sub-menu :key="menu.key || menu.title" v-if="menu.children">
-          <span slot="title">
-            <div class="title-content">
-              <a-icon v-if="menu.antIcon" :type="menu.antIcon" />
-              <y-svg-icon v-if="menu.icon" :icon-class="menu.icon" />
-              <span class="menuTitle" :title="menu.title">{{ menu.title }}</span>
-            </div>
-          </span>
-          <y-menu-item :key="childMenu.key || childMenu.title" v-for="childMenu in menu.children">
-            <div class="title-content">
-              <a-icon v-if="childMenu.antIcon" :type="childMenu.antIcon" />
-              <y-svg-icon v-if="childMenu.icon" :icon-class="childMenu.icon" />
-              <span class="menuTitle" :title="childMenu.title"> {{ childMenu.title }} </span>
-            </div>
-            <y-svg-icon v-if="childMenu.link" icon-class="link" class-name="text-link" />
-          </y-menu-item>
-        </y-sub-menu>
-        <y-menu-item :key="menu.key || menu.title" v-else>
-          <div class="title-content">
-            <a-icon v-if="menu.antIcon" :type="menu.antIcon" />
-            <y-svg-icon v-if="menu.icon" :icon-class="menu.icon" />
-            <span class="menuTitle" :title="menu.title"> {{ menu.title }} </span>
-          </div>
-          <y-svg-icon v-if="menu.link" icon-class="link" class-name="text-link" />
-        </y-menu-item>
-      </template>
-    </y-menu>
-    <div class="line" v-if="relevanTitle"></div>
-    <!-- 关联功能菜单 -->
-    <div class="relevan-menu">
-      <div class="menu-title" v-if="!collapsed && relevanTitle">{{ relevanTitle }}</div>
+    <div class="y-model-menu-content">
       <y-menu mode="inline" v-model="selectedKeys2" :openKeys.sync="openKeys2" @click="menuClick" :inline-collapsed="collapsed">
-        <template v-for="menu in relevanMenuData">
+        <template v-for="menu in menuData">
           <y-sub-menu :key="menu.key || menu.title" v-if="menu.children">
             <span slot="title">
               <div class="title-content">
@@ -70,6 +38,40 @@
           </y-menu-item>
         </template>
       </y-menu>
+      <div class="line" v-if="relevanTitle"></div>
+      <!-- 关联功能菜单 -->
+      <div class="relevan-menu">
+        <div class="menu-title" v-if="!collapsed && relevanTitle">{{ relevanTitle }}</div>
+        <y-menu mode="inline" v-model="selectedKeys2" :openKeys.sync="openKeys2" @click="menuClick" :inline-collapsed="collapsed">
+          <template v-for="menu in relevanMenuData">
+            <y-sub-menu :key="menu.key || menu.title" v-if="menu.children">
+              <span slot="title">
+                <div class="title-content">
+                  <a-icon v-if="menu.antIcon" :type="menu.antIcon" />
+                  <y-svg-icon v-if="menu.icon" :icon-class="menu.icon" />
+                  <span class="menuTitle" :title="menu.title">{{ menu.title }}</span>
+                </div>
+              </span>
+              <y-menu-item :key="childMenu.key || childMenu.title" v-for="childMenu in menu.children">
+                <div class="title-content">
+                  <a-icon v-if="childMenu.antIcon" :type="childMenu.antIcon" />
+                  <y-svg-icon v-if="childMenu.icon" :icon-class="childMenu.icon" />
+                  <span class="menuTitle" :title="childMenu.title"> {{ childMenu.title }} </span>
+                </div>
+                <y-svg-icon v-if="childMenu.link" icon-class="link" class-name="text-link" />
+              </y-menu-item>
+            </y-sub-menu>
+            <y-menu-item :key="menu.key || menu.title" v-else>
+              <div class="title-content">
+                <a-icon v-if="menu.antIcon" :type="menu.antIcon" />
+                <y-svg-icon v-if="menu.icon" :icon-class="menu.icon" />
+                <span class="menuTitle" :title="menu.title"> {{ menu.title }} </span>
+              </div>
+              <y-svg-icon v-if="menu.link" icon-class="link" class-name="text-link" />
+            </y-menu-item>
+          </template>
+        </y-menu>
+      </div>
     </div>
     <div class="collapsed-btn" @click="toggleCollapsed">
       <a-icon :type="collapsed ? 'menu-unfold' : 'menu-fold'" />
@@ -77,7 +79,7 @@
   </div>
 </template>
 <script>
-import { getTreeParentKeys } from '@src/utils/common';
+import { getTreeParentKeys, flatArr } from '../../../src/utils/common';
 export default {
   name: 'YModelMenu',
   model: {
@@ -118,13 +120,13 @@ export default {
     menuData: {
       type: Array,
       // default: null,
-      default: function() {
+      default: function () {
         return [];
       },
     },
     relevanMenuData: {
       type: Array,
-      default: function() {
+      default: function () {
         return [];
       },
     },
@@ -137,9 +139,9 @@ export default {
   },
   watch: {
     $route: {
-      handler: function(val) {
+      handler: function (val) {
         if (this.routerLight) {
-          const menuData = [...this.menuData, ...this.relevanMenuData];
+          const menuData = [...flatArr.get(this.menuData, 'children'), ...this.relevanMenuData];
           let selectKey = '';
           for (let i = 0; i < menuData.length; i++) {
             if (val.name && val.name.includes(menuData[i].key)) {

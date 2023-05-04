@@ -16,6 +16,9 @@
       <a-tab-pane key="4" tab="SearchSelect">
         <SearchSelect />
       </a-tab-pane>
+      <a-tab-pane key="5" tab="InfiniteSelect大数据下拉框">
+        <InfiniteSelect />
+      </a-tab-pane>
     </a-tabs>
   </div>
 </template>
@@ -24,6 +27,7 @@ import NormalSelect from './normalSelect.vue';
 import CheckboxSelect from './checkboxSelect';
 import NameSelect from './nameSelect.vue';
 import SearchSelect from './searchSelect';
+import InfiniteSelect from './InfiniteSelect';
 export default {
   name: 'Select',
   components: {
@@ -31,6 +35,7 @@ export default {
     CheckboxSelect,
     NameSelect,
     SearchSelect,
+    InfiniteSelect,
   },
   data() {
     return {
@@ -76,6 +81,7 @@ export default {
           explain: '自定义的选择框后缀图标',
           type: 'VNode | slot',
         },
+        { params: 'allowClear', explain: '支持清除', type: 'boolean', default: 'true' },
         {
           params: 'removeIcon',
           explain: '自定义的多选框清除图标',
@@ -111,6 +117,12 @@ export default {
           params: 'options',
           explain: 'options 数据，如果设置则不需要手动构造 selectOption 节点',
           type: 'array',
+        },
+        {
+          params: 'optionsKey',
+          explain: '设置选项的key，默认为value，若有同value，却需要根据对象其它属性作key可进行设置',
+          type: 'String',
+          default: 'value',
         },
         {
           params: 'mode',

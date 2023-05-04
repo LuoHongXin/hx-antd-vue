@@ -7,7 +7,7 @@
   </a-popconfirm>
 </template>
 <script>
-import colorVariables from '@src/styles/variables/index.less';
+import colorVariables from '../../../src/styles/variables/index.less';
 export default {
   name: 'YPopconfirm',
   inheritAttrs: false,

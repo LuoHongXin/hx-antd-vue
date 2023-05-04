@@ -1,6 +1,6 @@
 <template>
-  <div style="display:inline-block" class="tips-btn">
-    <a-tooltip v-if="tooltip" :placement="placement" :getPopupContainer="getPopupContainer">
+  <div style="display: inline-block" class="tips-btn">
+    <a-tooltip v-if="tooltip" :placement="placement" :getPopupContainer="getProps('getPopupContainer')">
       <template slot="title">
         <span>{{ title }}</span>
       </template>
@@ -12,8 +12,10 @@
   </div>
 </template>
 <script>
+import injectConfigMixins from '../../../src/utils/injectConfigMixins.js';
 export default {
   name: 'YTipsButton',
+  mixins: [injectConfigMixins],
   props: {
     tooltip: {
       // 是否显示提示

@@ -1,0 +1,58 @@
+@import "../variables/index.less";
+
+
+.y-checkbox-tag {
+  list-style-type: none;
+  height: @y-height-m;
+  line-height: 22px;
+  opacity: 1;
+  background: @y-color-fill-normal-btn;
+  padding: @y-spacing-xxs @y-spacing-m;
+  border: @y-border-width-default @y-border-style-default @y-color-border-dark;
+  border-radius: @y-radius-default;
+  color: @y-color-text-regular ;
+  cursor: pointer;
+  position: relative;
+
+  .y-checkbox-tag-mark {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+
+  &[checked]:not([disabled]) {
+    border-color: @y-color-primary;
+    color: @y-color-primary;
+    background-color: @y-color-fill-bg-white;
+  }
+
+  &[disabled] {
+    color: #ccc !important;
+
+    &:hover {
+      color: #c0c4cc;
+      cursor: not-allowed;
+      background-image: none;
+    }
+  }
+
+  .y-ul-is-disabled {
+    color: @y-color-fill-disable  !important;
+
+    li {
+      color: @y-color-text-placeholder;
+      cursor: not-allowed;
+      background-image: none;
+    }
+  }
+
+}
+.y-checkbox-tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: @y-spacing-xs;
+//   .y-checkbox-tag:not(:last-child) {
+//     margin-right: @y-spacing-xs;
+//   margin-bottom: @y-spacing-xs;
+// }
+}

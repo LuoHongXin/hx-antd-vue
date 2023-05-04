@@ -24,6 +24,7 @@
           <a class="y-button-link">{{ text }}</a>
         </template>
         <span slot="customTitle"><a-icon type="smile-o" /> 标题</span>
+        <!-- { text, record, index, column } -->
         <y-tag slot="createLoginName" v-if="record.createLoginName" slot-scope="{ record }" :color="'green'">
           {{ record.createLoginName }}
         </y-tag>
@@ -69,6 +70,7 @@ const js = `const columns = [
       title: '任务创建人',
       dataIndex: 'createLoginName',
       scopedSlots: { customRender: 'createLoginName' },
+      tips: '123',
       sorter: true,
       width: 200,
     },
@@ -188,6 +190,7 @@ const columns = [
     dataIndex: 'createLoginName',
     scopedSlots: { customRender: 'createLoginName' },
     sorter: true,
+    tips: '123',
     width: 200,
   },
   {
@@ -200,7 +203,6 @@ const columns = [
   {
     title: '标签',
     dataIndex: 'stepDesc',
-
     width: 200,
     ellipsis: true,
   },

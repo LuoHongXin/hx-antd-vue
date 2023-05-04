@@ -4,22 +4,24 @@
     v-if="value !== null"
     v-on="$listeners"
     v-bind="$attrs"
-    :getPopupContainer="getPopupContainer"
+    :getPopupContainer="getProps('getPopupContainer')"
     class="y-tooltip"
   >
     <template v-for="(val, key) in $slots" :slot="key">
       <slot :name="key"></slot>
     </template>
   </a-tooltip>
-  <a-tooltip v-else v-on="$listeners" v-bind="$attrs" :getPopupContainer="getPopupContainer" class="y-tooltip">
+  <a-tooltip v-else v-on="$listeners" v-bind="$attrs" :getPopupContainer="getProps('getPopupContainer')" class="y-tooltip">
     <template v-for="(val, key) in $slots" :slot="key">
       <slot :name="key"></slot>
     </template>
   </a-tooltip>
 </template>
 <script>
+import injectConfigMixins from '../../../src/utils/injectConfigMixins.js';
 export default {
   name: 'YTooltip',
+  mixins: [injectConfigMixins],
   inheritAttrs: false,
   model: {
     prop: 'value',

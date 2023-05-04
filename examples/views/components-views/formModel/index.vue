@@ -8,6 +8,9 @@
       <a-tab-pane key="2" tab="动态增减表单项">
         <dynamic-validate-form />
       </a-tab-pane>
+      <a-tab-pane key="3" tab="动态增减表单(上/下/加/减)">
+        <dynamic-validate-form2 />
+      </a-tab-pane>
     </a-tabs>
     <title-detail title="FormModel" detail=""></title-detail>
     <api-table :data="tableData"></api-table>
@@ -42,15 +45,17 @@
 import RulesFrom from './rulesFrom';
 import RulesFrom2 from './rulesFrom2';
 import DynamicValidateForm from './dynamicValidateForm';
+import DynamicValidateForm2 from './dynamicValidateForm2';
 export default {
   name: 'myFormModel',
-  components: { RulesFrom, DynamicValidateForm, RulesFrom2 },
+  components: { RulesFrom, DynamicValidateForm, RulesFrom2, DynamicValidateForm2 },
   data() {
     return {
       tableData: [
         { params: 'model', explain: '表单数据对象', type: 'object', default: '' },
         { params: 'rules', explain: '表单验证规则', type: 'object', default: '' },
         { params: 'hideRequiredMark', explain: '隐藏所有表单项的必选标记', type: 'Boolean', default: 'false' },
+        { params: 'failedValidScroll', explain: '校验不通过滚动到对应错误位置', type: 'Boolean', default: 'true' },
         { params: 'labelAlign', explain: 'label 标签的文本对齐方式', type: "'left' | 'right'", default: "'right'" },
         { params: 'layout', explain: '表单布局', type: "'horizontal'|'vertical'|'inline'", default: "'horizontal'" },
         {

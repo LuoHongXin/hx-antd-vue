@@ -44,7 +44,7 @@
 </template>
 <script>
 export default {
-  name: 'Ybutton',
+  name: 'YButton',
   data() {
     return {
       html: `<fm-generate-antd-form :data="formDesignData" ref="generateForm"> </fm-generate-antd-form>`,

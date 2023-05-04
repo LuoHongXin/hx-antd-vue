@@ -91,7 +91,7 @@
     <funTitleDetail title="显示省略号" detail="默认层级超过5个，保留前第一个和最后两个，中间显示省略号"></funTitleDetail>
     <!-- 组件展示 -->
     <com-show>
-      <y-breadcrumb back id="breadcrumb-container" :data="bcdata2" />
+      <y-breadcrumb @goRoute="goRoute" back id="breadcrumb-container" :data="bcdata2" />
     </com-show>
     <!-- 代码展示 -->
     <pre class="line-numbers">
@@ -173,7 +173,7 @@ export default {
         '当用户浏览不同页面时，面包屑的位置不应移动。',
       ],
       tableData: [
-        { params: 'separator', explain: '面包屑菜单之间的分割符', type: 'string', default: '/' },
+        { params: 'separator', explain: '面包屑菜单之间的分割符', type: 'string | sloit', default: '/' },
         { params: 'data', explain: '自定义面包屑数据，否则默认采用当前页面路由', type: 'Array', default: 'route' },
         {
           params: 'ellipsNum',
@@ -186,6 +186,12 @@ export default {
           explain: '是否显示返回按钮',
           type: 'Boolean',
           default: 'false',
+        },
+        {
+          params: 'goRoute',
+          explain: '路由跳转事件，添加后不会自动跳转，而是回调里自己写代码跳转',
+          type: 'function(path,route)',
+          default: '',
         },
       ],
       tableData2: [
@@ -213,6 +219,11 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    goRoute() {
+      console.log(123123);
+    },
   },
 };
 </script>

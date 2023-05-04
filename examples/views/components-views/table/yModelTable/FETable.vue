@@ -113,6 +113,9 @@ const js = `import api from '@/api';
       return {
         columns,
         tableData: [],
+        paramsKeyFilter: {
+          search: 'name',
+        },
         buttonList
       };
     },
@@ -210,7 +213,14 @@ export default {
         search: 'name',
       },
       buttonList,
-      html: `<y-model-table :rowSelection="false" :scroll="{ x: '100%' }" :dataSource="tableData" :columns="columns">
+      html: `<y-model-table 
+        tableKey="fetable" 
+        :rowSelection="false"
+        :scroll="{ x: '100%' }"
+        :paramsKeyFilter="paramsKeyFilter"
+        :dataSource="tableData"
+        :columns="columns"
+      >
         <template v-slot:name="{ text }">
           <a class="y-button-link">{{ text }}</a>
         </template>
@@ -228,7 +238,7 @@ export default {
   },
   methods: {
     getTableData() {
-      api.getTableData({}).then(res => {
+      api.getTableData({}).then((res) => {
         this.tableData = res.data.data;
         // this.tableData = [];
       });

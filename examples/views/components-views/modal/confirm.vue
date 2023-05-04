@@ -12,9 +12,33 @@
       <div>
         <y-button
           type="primary"
-          @click="$YConfirm({ title: '可以移动confirm', content: '这里是一段简要的描述性信息，尽量控制在三行以内，需要用户二次确认。' })"
+          @click="
+            $YConfirm({
+              title: '可以移动confirm',
+              content: '这里是一段简要的描述性信息，尽量控制在三行以内，需要用户二次确认。',
+            })
+          "
           >可以移动confirm</y-button
         >
+        <y-button
+          type="primary"
+          @click="
+            $YConfirm({
+              title: '自定义图标confirm',
+              content: '这里是一段简要的描述性信息，尽量控制在三行以内，需要用户二次确认。',
+              icon: () => {
+                return $createElement('a-icon', {
+                  props: {
+                    type: 'exclamation-circle',
+                    theme: 'filled',
+                  },
+                });
+              },
+            })
+          "
+        >
+          自定义图标confirm
+        </y-button>
         <y-button type="primary" @click="$YConfirm({ title: '不移动confirm', move: false })">不移动confirm</y-button>
       </div>
     </com-show>
@@ -23,6 +47,25 @@
         <code class="language-html" v-text="`
         <div>
           <y-button type='primary' @click='$YConfirm({title:'可以移动confirm'})'>可以移动confirm</y-button>
+          <y-button
+            type='primary'
+            @click='
+              $YConfirm({
+                title: '自定义图标confirm',
+                content: '这里是一段简要的描述性信息，尽量控制在三行以内，需要用户二次确认。',
+                icon: () => {
+                  return $createElement('a-icon', {
+                    props: {
+                      type: 'exclamation-circle',
+                      theme: 'filled',
+                    },
+                  });
+                },
+              })
+            '
+          >
+            自定义图标confirm
+          </y-button>
           <y-button type='primary' @click='$YConfirm({ title:'不移动confirm',move:false})'>不移动confirm</y-button>
         </div>
         `">

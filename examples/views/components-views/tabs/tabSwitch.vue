@@ -4,10 +4,14 @@
     <com-show>
       <y-tab-switch :options="options" @change="change" />
       <y-tab-switch v-model="type">
-        <y-tab-pane v-for="item in options" :key="item.value" :tab="item.text">
+        <y-tab-pane v-for="item in options" :key="item.value" :tab="item.text" :disabled="item.disabled">
           {{ item.value }}
           {{ item.text }}
         </y-tab-pane>
+      </y-tab-switch>
+      small
+      <y-tab-switch size="small" v-model="type">
+        <y-tab-pane v-for="item in options" :key="item.value" :tab="item.text"> small{{ item.value }} small{{ item.text }} </y-tab-pane>
       </y-tab-switch>
     </com-show>
     <!-- 代码展示 -->
@@ -48,18 +52,23 @@ export default {
         {
           text: '网络',
           value: '1',
+          disabled: true,
         },
         {
           text: '虚拟交换机',
           value: '2',
         },
       ],
-      html: `<y-tab-switch :options="options" />
+      html: `<y-tab-switch :options="options" @change="change" />
       <y-tab-switch v-model="type">
-        <y-tab-pane v-for="item in options" :key="item.value" :tab="item.text">
+        <y-tab-pane v-for="item in options" :key="item.value" :tab="item.text" :disabled="item.disabled">
           {{ item.value }}
           {{ item.text }}
         </y-tab-pane>
+      </y-tab-switch>
+      small
+      <y-tab-switch size="small" v-model="type">
+        <y-tab-pane v-for="item in options" :key="item.value" :tab="item.text"> small{{ item.value }} small{{ item.text }} </y-tab-pane>
       </y-tab-switch>`,
       type: '1',
       tableData: [
@@ -70,8 +79,14 @@ export default {
           default: '',
         },
         {
+          params: 'size',
+          explain: '设置按钮大小，可选值为 small default(或者不设)',
+          type: 'string',
+          default: 'default',
+        },
+        {
           params: 'options',
-          explain: '数据源 { value: "", text: "" }形式，如果自定义内容 则不生效',
+          explain: '数据源 { value: "", text: "", disabled: false }形式，如果自定义内容 则不生效',
           type: 'array',
           default: '',
         },

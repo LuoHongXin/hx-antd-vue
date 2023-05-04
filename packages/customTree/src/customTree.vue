@@ -2,7 +2,7 @@
   <div :class="`y-custom-tree ${nodeHeightSize} ${haveOperateIcon}`">
     <a-tree @select="treeSelect" @check="treeCheck" v-model="modelVal" show-icon v-bind="$attrs" :treeData="treeData2" v-on="$listeners">
       <!-- <slot :name="slot" :slot="slot" v-for="(val, slot) in $scopedSlots" /> -->
-      <a-icon style="color:#454852" slot="switcherIcon" type="caret-down" />
+      <a-icon style="color: #454852" slot="switcherIcon" type="caret-down" />
       <template v-for="(val, key) in $scopedSlots" :slot="key" slot-scope="bind">
         <slot :name="key" v-bind="bind"></slot>
       </template>
@@ -10,21 +10,36 @@
         <slot :name="key"></slot>
       </template>
       <template slot="dropdown" slot-scope="item">
-        <span class="y-custom-tree-node " :class="showOperaterIcon(item)">
-          <a-tooltip placement="topLeft" :title="item[getReplaceFieldFiled('title')]" v-if="showTooltip && !noIconOperate">
+        <span class="y-custom-tree-node" :class="showOperaterIcon(item)">
+          <y-tooltip
+            :mouseLeaveDelay="tooltipMouseLeaveDelay"
+            :mouseEnterDelay="tooltipMouseEnterDelay"
+            :placement="tooltipPlacement"
+            :title="item[getReplaceFieldFiled('title')]"
+            v-if="showTooltip && !noIconOperate"
+          >
             <span class="y-custom-tree-title">{{ item[getReplaceFieldFiled('title')] }}</span>
-          </a-tooltip>
-          <span class="y-custom-tree-title" v-if="!showTooltip && !noIconOperate">{{ item[getReplaceFieldFiled('title')] }}</span>
+          </y-tooltip>
+          <span class="y-custom-tree-title" :title="item[getReplaceFieldFiled('title')]" v-if="!showTooltip && !noIconOperate">{{
+            item[getReplaceFieldFiled('title')]
+          }}</span>
           <a-dropdown
             :trigger="operateTriggerMethod"
+            :overlayClassName="item.dropdownClassName"
             :placement="operatePlacement"
             v-if="getOperates(item).length > 0 && !item.operateHidden"
           >
-            <a-tooltip placement="topLeft" :title="item[getReplaceFieldFiled('title')]" v-if="showTooltip && noIconOperate">
+            <y-tooltip
+              :mouseLeaveDelay="tooltipMouseLeaveDelay"
+              :mouseEnterDelay="tooltipMouseEnterDelay"
+              :placement="tooltipPlacement"
+              :title="item[getReplaceFieldFiled('title')]"
+              v-if="showTooltip && noIconOperate"
+            >
               <span class="y-custom-tree-title">{{ item[getReplaceFieldFiled('title')] }}</span>
               <div class="tree-operate" v-if="noIconOperate"></div>
-            </a-tooltip>
-            <span class="y-custom-tree-title" v-if="!showTooltip && noIconOperate"
+            </y-tooltip>
+            <span class="y-custom-tree-title" :title="item[getReplaceFieldFiled('title')]" v-if="!showTooltip && noIconOperate"
               >{{ item[getReplaceFieldFiled('title')] }}
               <div class="tree-operate" v-if="!showTooltip && noIconOperate"></div
             ></span>
@@ -34,30 +49,32 @@
               icon-class="more-vertical"
               class="y-custom-tree-operate"
               :class="item.disabled ? 'disable-pointer-event' : ''"
-              @click.stop="e => e.preventDefault()"
+              @click.stop="(e) => e.preventDefault()"
             />
             <a-menu slot="overlay">
               <template v-for="(parentObj, index) in getOperates(item)">
                 <a-sub-menu
-                  :key="index"
+                  :key="parentObj.title + index"
                   :title="parentObj.title"
                   :disabled="parentObj.disabled"
                   v-if="parentObj.children && parentObj.children.length > 0"
                 >
                   <a-menu-item v-for="(sonObj, index) in parentObj.children" :key="index">
-                    <y-tips-button :tooltip="sonObj.disabled && sonObj.tips ? true : false" :title="sonObj.tips">
+                    <y-tips-button key="tips" v-if="sonObj.disabled" :tooltip="sonObj.tips ? true : false" :title="sonObj.tips">
                       <a @click="sonObj.click(item)" class="my-button">
-                        <y-button type="text" :disabled="sonObj.disabled">{{ sonObj.title }}</y-button>
+                        <y-button size="small" type="text" :disabled="sonObj.disabled">{{ sonObj.title }}</y-button>
                       </a>
                     </y-tips-button>
+                    <a v-else key="notips" href="javascript:;" @click="sonObj.click(item)">{{ sonObj.title }}</a>
                   </a-menu-item>
                 </a-sub-menu>
-                <a-menu-item v-else :key="index">
-                  <y-tips-button :tooltip="parentObj.disabled && parentObj.tips ? true : false" :title="parentObj.tips">
+                <a-menu-item v-else :key="parentObj.title + index">
+                  <y-tips-button key="tips" v-if="parentObj.disabled" :tooltip="parentObj.tips ? true : false" :title="parentObj.tips">
                     <a @click="parentObj.click(item)" class="my-button">
-                      <y-button type="text" :disabled="parentObj.disabled">{{ parentObj.title }}</y-button>
+                      <y-button size="small" type="text" :disabled="parentObj.disabled">{{ parentObj.title }}</y-button>
                     </a>
                   </y-tips-button>
+                  <a v-else key="notips" href="javascript:;" @click="parentObj.click(item)">{{ parentObj.title }}</a>
                 </a-menu-item>
                 <y-menu-divider v-if="parentObj.line" :key="index + 'line'" />
               </template>
@@ -70,7 +87,7 @@
 </template>
 
 <script>
-import { getTreeParentKeys } from '@src/utils/common';
+import { getTreeParentKeys } from '../../../src/utils/common';
 
 export default {
   name: 'YCustomTree',
@@ -94,9 +111,14 @@ export default {
     },
   },
   props: {
+    // 点击时选中
+    selectCheck: {
+      type: Boolean,
+      default: true,
+    },
     value: {
       type: [Object, Array],
-      default: function() {
+      default: function () {
         return [];
       },
     },
@@ -131,6 +153,18 @@ export default {
     showTooltip: {
       type: Boolean,
       default: true,
+    },
+    tooltipPlacement: {
+      type: String,
+      default: 'topLeft',
+    },
+    tooltipMouseEnterDelay: {
+      type: Number,
+      default: 0.5,
+    },
+    tooltipMouseLeaveDelay: {
+      type: Number,
+      default: 0.1,
     },
     nodeHeightSize: {
       type: String,
@@ -167,24 +201,25 @@ export default {
       if (e.checked) {
         this.checkParent(e.node.eventKey);
       }
-      this.$nextTick(function() {
+      this.$nextTick(function () {
         this.$emit('treeCheck', checkedKeys, e);
       });
     },
     treeSelect(selectedKeys, e) {
+      if (!this.selectCheck) return;
       let checkData = this.modelVal;
       if (Array.isArray(checkData)) {
         if (!checkData.includes(e.node.eventKey)) {
           checkData.push(e.node.eventKey);
         } else {
-          checkData = checkData.filter(i => i !== e.node.eventKey);
+          checkData = checkData.filter((i) => i !== e.node.eventKey);
         }
       } else {
         // checkStrictly 模式
         if (!checkData.checked.includes(e.node.eventKey)) {
           checkData.checked.push(e.node.eventKey);
         } else {
-          checkData.checked = checkData.checked.filter(i => i !== e.node.eventKey);
+          checkData.checked = checkData.checked.filter((i) => i !== e.node.eventKey);
         }
       }
       if (e.selected) {
@@ -198,14 +233,14 @@ export default {
       let checkData = this.modelVal;
       const parentKeys = getTreeParentKeys.get(this.treeData2, key);
       if (Array.isArray(checkData)) {
-        parentKeys.forEach(k => {
+        parentKeys.forEach((k) => {
           if (!checkData.includes(k)) {
             checkData.push(k);
           }
         });
       } else {
         // checkStrictly 模式
-        parentKeys.forEach(k => {
+        parentKeys.forEach((k) => {
           if (!checkData.checked.includes(k)) {
             checkData.checked.push(k);
           }
@@ -219,7 +254,7 @@ export default {
       return treeObj.operates && treeObj.operates.length > 0 ? treeObj.operates : this.operates;
     },
     recursiveData(arr, child) {
-      return arr.map(i => {
+      return arr.map((i) => {
         if (!i.scopedSlots) {
           i.scopedSlots = { title: 'dropdown' };
         } else if (!i.scopedSlots.title) {
@@ -234,3 +269,12 @@ export default {
   },
 };
 </script>
+<style lang="less" scoped>
+::v-deep .ant-dropdown-menu-item,
+.ant-dropdown-menu-submenu-title {
+  padding: 1px 12px !important;
+}
+::v-deep .ant-dropdown-menu-submenu-title {
+  padding: 1px 12px !important;
+}
+</style>

@@ -139,8 +139,13 @@ export default {
       const { judgeBoundry } = this;
       // 只有头部才可以拖拽
       if (ev.target.className === 'ant-modal-header' || ev.target.className === 'ant-modal-title') {
-        const offsetX = ev.offsetX;
-        const offsetY = ev.offsetY;
+        //获取间距
+        const getSpacing = (el, type = 'left') => {
+          let style = window.getComputedStyle(el, null);
+          return parseFloat(style.getPropertyValue(`padding-${type}`));
+        };
+        const offsetX = ev.target.className === 'ant-modal-title' ? ev.offsetX + getSpacing(ev.target.parentElement) : ev.offsetX;
+        const offsetY = ev.target.className === 'ant-modal-title' ? ev.offsetY + getSpacing(ev.target.parentElement, 'top') : ev.offsetY;
         const contentArr = document.getElementsByClassName('ant-modal');
         let content = null;
         const searchContent = (arr, index) => {
@@ -154,7 +159,7 @@ export default {
         searchContent(contentArr, contentArr.length - 1);
         content.style.position = 'fixed';
         content.style.padding = 0;
-        judgeBoundry(content, ev.clientX - parseInt(content.style.width) / 2, ev.clientY);
+        judgeBoundry(content, ev.clientX - offsetX, ev.clientY - offsetY);
         // 滑动事件添加到 body 上会更顺滑，避免滑动过快突然卡顿现象
         document.body.onmousemove = function(ev2) {
           let left = ev2.clientX - offsetX;

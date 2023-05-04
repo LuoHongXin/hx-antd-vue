@@ -14,6 +14,7 @@
 <script>
 export default {
   name: 'YFormModelItem',
+  inheritAttrs: false,
   provide() {
     return {
       yFormItem: this,
@@ -32,6 +33,18 @@ export default {
   computed: {
     y_props({ $refs }) {
       return $refs.YFormModelItem._props || {};
+    },
+    validateDisabled({ $refs }) {
+      return $refs.YFormModelItem.validateDisabled || false;
+    },
+    validateMessage({ $refs }) {
+      return $refs.YFormModelItem.validateMessage || '';
+    },
+    validateState({ $refs }) {
+      return $refs.YFormModelItem.validateState || '';
+    },
+    validator({ $refs }) {
+      return $refs.YFormModelItem.validator || {};
     },
   },
   methods: {

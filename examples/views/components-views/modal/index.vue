@@ -102,7 +102,7 @@ export default {
         { params: 'okText', explain: '确认按钮文字', type: 'string', default: '确定' },
         { params: 'okType', explain: '确认按钮类型', type: 'string', default: 'primary' },
         { params: 'title', explain: '标题', type: 'string|vNode |function(h)', default: '无' },
-        { params: 'width', explain: '宽度', type: 'string|number', default: '416' },
+        { params: 'width', explain: '宽度', type: 'string|number', default: '480' },
         { params: 'zIndex', explain: '设置 Modal 的 z-index', type: 'Number', default: '1000' },
         { params: 'onCancel', explain: '取消回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭', type: 'function', default: '' },
         { params: 'onOk', explain: '点击确定回调，参数为关闭函数，返回 promise 时 resolve 后自动关闭', type: 'function', default: '' },

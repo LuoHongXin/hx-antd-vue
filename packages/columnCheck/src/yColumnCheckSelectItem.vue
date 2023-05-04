@@ -4,9 +4,9 @@
       <span>{{ title }}</span>
     </template>
     <div :class="`y-column-check-select-item ${$attrs.disabled ? 'disabled' : 'y-column-check-select-item-drag'}`">
-      <y-svg-icon icon-class="dragLine" class-name="line" />
+      <y-button icon-class="dragLine" class="no-bg icon-line" :disabled="$attrs.disabled" />
       <span>{{ title }}</span>
-      <y-svg-icon @click="$emit('close', $attrs.value)" v-if="!$attrs.disabled" icon-class="close-icon" class-name="close" />
+      <y-button icon-class="close-icon" @click="$emit('close', $attrs.value)" v-if="!$attrs.disabled" class="no-bg icon-close"></y-button>
     </div>
   </y-tooltip>
 </template>

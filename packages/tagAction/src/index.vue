@@ -1,6 +1,8 @@
 <template>
   <div>
-    <y-tag v-for="(i, index) in tagData" :key="i" :closable="!noCloseData.includes(index)" @close="() => handleClose(i)"> {{ i }} </y-tag>
+    <y-tag v-for="(i, index) in tagData" :key="i" :closable="!noCloseData.includes(index)" @close="(event) => handleClose(i, event)">
+      {{ i }}
+    </y-tag>
     <y-input
       ref="input"
       v-if="inputVisible"
@@ -26,7 +28,7 @@ export default {
   props: {
     noCloseData: {
       type: Array,
-      default: function() {
+      default: function () {
         return [];
       },
     },
@@ -36,9 +38,13 @@ export default {
     },
     tagData: {
       type: Array,
-      default: function() {
+      default: function () {
         return [];
       },
+    },
+    confirmCallBack: {
+      type: Function,
+      default: null,
     },
   },
   data() {
@@ -48,13 +54,14 @@ export default {
     };
   },
   methods: {
-    handleClose(removedTag) {
-      const tagData = this.tagData.filter(tag => tag !== removedTag);
+    handleClose(removedTag, e) {
+      const tagData = this.tagData.filter((tag) => tag !== removedTag);
       this.$emit('update-tagData', tagData);
+      this.$emit('close', e, removedTag);
     },
     showInput() {
       this.inputVisible = true;
-      this.$nextTick(function() {
+      this.$nextTick(function () {
         this.$refs.input.$el.focus();
       });
     },
@@ -63,6 +70,17 @@ export default {
     },
     handleInputConfirm() {
       const inputValue = this.inputValue;
+      if (!this.confirmCallBack) {
+        this.updateTags(inputValue);
+      } else {
+        this.confirmCallBack(inputValue).then((newVal) => {
+          if (newVal) {
+            this.updateTags(newVal);
+          }
+        });
+      }
+    },
+    updateTags(inputValue) {
       let tags = this.tagData;
       if (inputValue && tags.indexOf(inputValue) === -1) {
         tags = [...tags, inputValue];

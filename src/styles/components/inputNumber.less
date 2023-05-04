@@ -18,19 +18,19 @@
 .y-input-number.ant-input-number {
   border-radius: @y-radius-default;
   &:focus {
-    border-color: @y-color-text-regular;
-    box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.1);
+    border-color:@y-color-border-dark-hover;
+    box-shadow:@y-shadow-active;
   }
   &:hover {
-    border-color: @y-color-text-regular;
+    border-color:@y-color-border-dark-hover;
   }
   .ant-input {
     &:focus {
-      border-color: @y-color-text-regular;
-      box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.1);
+      border-color:@y-color-border-dark-hover;
+      box-shadow:@y-shadow-active;
     }
     &:hover {
-      border-color: @y-color-text-regular;
+      border-color:@y-color-border-dark-hover;
     }
   }
   .ant-input-group-wrapper {
@@ -83,7 +83,7 @@
     border-color: #d9d9d9;
   }
   .y-input-number-btn {
-    border-radius: 0;
+    border-radius: @y-radius-default;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -96,9 +96,13 @@
   }
   .y-input-number-btn-left {
     border-right: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
   }
   .y-input-number-btn-right {
     border-left: 0 !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
   }
   .y-btn.ant-btn[disabled] {
     color: @y-color-text-placeholder;
@@ -106,10 +110,10 @@
 }
 .y-input-number.ant-input-number-disabled {
   &:focus {
-    border-color: #f5f5f5;
+    border-color: @y-color-fill-hover;
   }
   &:hover {
-    border-color: #f5f5f5;
+    border-color: @y-color-fill-hover;
     border: @y-border-width-default @y-border-style-default @y-color-border-dark;
   }
 }
@@ -117,6 +121,12 @@
   color: @y-color-text-regular;
 }
 .y-input-number.ant-input-number-focused {
-  border-color: @y-color-text-regular;
-  box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.1);
+  border-color:@y-color-border-dark-hover;
+  box-shadow:@y-shadow-active;
+}
+
+.y-input-number[notControl] {
+  .ant-input-number-handler-wrap {
+    display: none;
+  }
 }

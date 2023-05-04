@@ -1,38 +1,41 @@
 // 基于 confirm 的基础上再封装
 import confirm from 'ant-design-vue/es/modal/confirm';
-import colorVariables from '@src/styles/variables/index.less';
-import { dragClass, unLetter } from '@src/utils/common';
+import colorVariables from '../../src/styles/variables/index.less';
+import { dragClass, unLetter } from '../../src/utils/common';
 function YConfirm(config) {
   const unClassName = unLetter();
-  let newConfig = config;
-  const className = (config.class ? config.class + ' ' + unClassName : unClassName) + ' y-confirm';
+  let newConfig = Object.assign({ autoFocusButton: null }, config);
+  const className = (newConfig.class ? newConfig.class + ' ' + unClassName : unClassName) + ' y-confirm';
   const onOk = function() {
-    if (config.onOk) config.onOk();
-    if (config.move !== false) drag.relMove();
+    if (newConfig.onOk) newConfig.onOk();
+    if (newConfig.move !== false) drag.relMove();
   };
   const onCancel = function() {
-    if (config.onCancel) config.onCancel();
-    if (config.move !== false) drag.relMove();
+    if (newConfig.onCancel) newConfig.onCancel();
+    if (newConfig.move !== false) drag.relMove();
   };
-  config.centered = 'centered' in config ? config.centered : true;
+  newConfig.centered = 'centered' in newConfig ? newConfig.centered : true;
   newConfig.okText = newConfig.okText || this.$wci18n.t('wh.confirm.ok');
   newConfig.cancelText = newConfig.cancelText || this.$wci18n.t('wh.confirm.cancel');
+  if (!newConfig.width) newConfig.width = 480;
   delete newConfig.class;
   const h = this.$createElement;
   const confirmObj = confirm({
     ...newConfig,
     class: className,
     type: 'confirm',
-    icon: () =>
-      h('a-icon', {
-        style: {
-          color: colorVariables.yColorInfo,
-        },
-        props: {
-          type: 'question-circle',
-          theme: 'filled',
-        },
-      }),
+    icon: newConfig.icon
+      ? newConfig.icon
+      : () =>
+          h('a-icon', {
+            style: {
+              color: colorVariables.yColorInfo,
+            },
+            props: {
+              type: 'question-circle',
+              theme: 'filled',
+            },
+          }),
     onOk,
     onCancel,
   });
@@ -40,7 +43,7 @@ function YConfirm(config) {
     trigerArr: ['ant-modal-confirm-title', 'ant-modal-body'],
     drageBox: `.${unClassName} .ant-modal`,
   });
-  if (config.move !== false) {
+  if (newConfig.move !== false) {
     drag.setMove();
   }
   return {

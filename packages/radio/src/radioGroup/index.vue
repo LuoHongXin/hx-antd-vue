@@ -53,10 +53,10 @@ export default {
       },
     },
     classActive({ $attrs, bodered }) {
-      let disabled = Object.prototype.hasOwnProperty.call($attrs, 'disabled');
+      let isDisabled = Object.prototype.hasOwnProperty.call($attrs, 'disabled');
       let classActive = 'y-radio-group';
       if (bodered) classActive += ' y-radio-group-bodered';
-      if (disabled) classActive += ' y-radio-group-disabled';
+      if (isDisabled && $attrs.disabled) classActive += ' y-radio-group-disabled';
       return classActive;
     },
   },

@@ -1,15 +1,15 @@
 import { message } from 'ant-design-vue';
-import colorVariables from '@src/styles/variables/index.less';
+import colorVariables from '../../src/styles/variables/index.less';
 
 const YMessage = {
   config: function(options) {
-    message.config(options);
+    return message.config(options);
   },
   destroy: function() {
-    message.destroy();
+    return message.destroy();
   },
   error: function(content, duration, onClose) {
-    message.error(content, duration, onClose);
+    return message.error(content, duration, onClose);
   },
   info: function(content, duration, onClose) {
     let icon = function(h) {
@@ -22,31 +22,31 @@ const YMessage = {
           top: '1px',
         },
         props: {
-          iconClass: 'info',
+          iconClass: 'fill-info',
         },
       });
     };
     if (typeof content === 'string') {
-      message.info({ content, duration, onClose, icon });
+      return message.info({ content, duration, onClose, icon });
     } else {
       content.icon = content.icon ? content.icon : icon;
-      message.info(content);
+      return message.info(content);
     }
   },
   loading: function(content, duration, onClose) {
-    message.loading(content, duration, onClose);
+    return message.loading(content, duration, onClose);
   },
   open: function(args) {
-    message.open(args);
+    return message.open(args);
   },
   success: function(content, duration, onClose) {
-    message.success(content, duration, onClose);
+    return message.success(content, duration, onClose);
   },
   warning: function(content, duration, onClose) {
-    message.warning(content, duration, onClose);
+    return message.warning(content, duration, onClose);
   },
   warn: function(content, duration, onClose) {
-    message.warn(content, duration, onClose);
+    return message.warn(content, duration, onClose);
   },
 };
 export default YMessage;

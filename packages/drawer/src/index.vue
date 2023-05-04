@@ -3,6 +3,7 @@
     v-on="$listeners"
     v-bind="$attrs"
     :width="sizeWidth"
+    :maskClosable="maskClosable"
     :height="sizeHeight"
     :class="`y-drawer ${$slots.footer ? 'has-footer' : ''}`"
   >
@@ -23,6 +24,10 @@ export default {
     size: {
       type: String,
       default: 'm',
+    },
+    maskClosable: {
+      type: Boolean,
+      default: false,
     },
   },
   inheritAttrs: false,

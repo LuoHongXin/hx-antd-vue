@@ -1,12 +1,14 @@
 <template>
   <div>
-    <y-button-group reversed style="margin:8px 12px;" :buttonList="buttonList"></y-button-group>
+    <y-button-group reversed style="margin: 8px 12px" :buttonList="buttonList"></y-button-group>
     <fm-making-form
       ref="makingform"
       :global-config="globalConfig"
-      style="height: 700px;"
+      style="height: 700px"
       @ready="handleFormReady"
       preview
+      clearable
+      upload
       generate-code
       generate-json
     >

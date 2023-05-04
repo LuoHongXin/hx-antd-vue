@@ -1,25 +1,38 @@
 @import "../variables/index.less";
-.Fixedtable{
-  .ant-table-tbody ,.ant-table-placeholder {
+
+.Fixedtable {
+
+  .ant-table-tbody,
+  .ant-table-placeholder {
     display: none !important;
   }
-  ::-webkit-scrollbar {width: 0;height: 0;}
-  .ant-table-body{
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  .ant-table-body {
     &:hover::-webkit-scrollbar {
-      width: 0; /*高宽分别对应横竖滚动条的尺寸*/
+      width: 0;
+      /*高宽分别对应横竖滚动条的尺寸*/
       height: 0;
     }
-   }
+  }
 }
+
 .ant-dropdown {
+
   // 表格过滤弹窗中的最高高度
-  .ant-table-filter-dropdown .ant-dropdown-menu{
+  .ant-table-filter-dropdown .ant-dropdown-menu {
     max-height: 240px;
   }
+
   // 表格过滤弹窗中的按钮
-  .ant-table-filter-dropdown{
-  min-width: 164px;
-  .ant-table-filter-dropdown-link{
+  .ant-table-filter-dropdown {
+    min-width: 164px;
+
+    .ant-table-filter-dropdown-link {
       line-height: 1.9;
       position: relative;
       display: inline-block;
@@ -30,7 +43,7 @@
       border: @y-border-width-default @y-border-style-default transparent;
       // box-shadow: 0 2px 0 rgb(0 0 0 / 2%);
       cursor: pointer;
-      transition: all .3s cubic-bezier(.645,.045,.355,1);
+      transition: all .3s cubic-bezier(.645, .045, .355, 1);
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -40,163 +53,333 @@
       padding: 0 22px;
       font-size: @y-font-size-s;
       border-radius: @y-radius-default;
+
       // 表格过滤中的确定按钮
       &.confirm {
-          float: right;
-          color: @y-color-fill-bg-white;
-          background-color: @y-color-primary;
-          border-color: @y-color-primary;
-          &:hover{
-              background-color: @y-color-primary-hover;
-              border-color: @y-color-primary-hover;
-          }
-          &:active{
-              background-color: @y-color-primary-active;
-              border-color: @y-color-primary-active;
-          }
+        float: right;
+        color: @y-color-fill-bg-white;
+        background-color: @y-color-primary;
+        border-color: @y-color-primary;
+
+        &:hover {
+          background-color: @y-color-primary-hover;
+          border-color: @y-color-primary-hover;
+        }
+
+        &:active {
+          background-color: @y-color-primary-active;
+          border-color: @y-color-primary-active;
+        }
       }
+
       // 表格过滤中的重置按钮
       &.clear {
-          float: left;
-          border: @y-border-width-default @y-border-style-default @y-color-border-dark;
-          color: @y-color-text-regular;
-          background-color: @y-color-fill-normal-btn;
-          margin-right: @y-spacing-xs;
-          &:hover{
-              border-color:  @y-color-border-dark-hover;
-          }
-          &:active{
-              box-shadow: 0px 0px 0px 2px rgb(0 0 0 / 10%);
-          }
+        float: left;
+        border: @y-border-width-default @y-border-style-default @y-color-border-dark;
+        color: @y-color-text-regular;
+        background-color: @y-color-fill-normal-btn;
+        margin-right: @y-spacing-xs;
+
+        &:hover {
+          border-color: @y-color-border-dark-hover;
+        }
+
+        &:active {
+          box-shadow: 0px 0px 0px 2px rgb(0 0 0 / 10%);
+        }
       }
-  }
+    }
   }
 }
+
 .ant-table {
-.ant-table-bordered .ant-table-fixed-right table {
-  border-left: 0;
-}
-//设置最后一个拖拽元素的right:0解决留白问题 
-.ant-table-fixed .ant-table-thead > tr >th {
+  .ant-table-column-sorter:hover {
+    position: relative;
+
+    &::after {
+      content: "\6392\5e8f";
+      font-size: 14px;
+      position: absolute;
+      right: -50px;
+      z-index: 1;
+      top: -4px;
+      min-width: 30px;
+      line-height: 20px;
+      min-width: 30px;
+      min-height: 32px;
+      padding: 6px 8px;
+      color: #fff;
+      text-align: left;
+      text-decoration: none;
+      word-wrap: break-word;
+      background-color: rgba(0, 0, 0, 0.75);
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+    }
+
+    &::before {
+      position: absolute;
+      left: 20px;
+      top: 10px;
+      z-index: 1;
+      display: block;
+      width: 0;
+      height: 0;
+      border: 3px solid transparent;
+      border-right-color: rgba(0, 0, 0, 0.75);
+      margin: auto;
+      content: '';
+      box-shadow: 3px 3px 7px rgb(0 0 0 / 7%);
+      pointer-events: auto;
+    }
+  }
+
+  // 表头划过，过滤图标的背景
+  .anticon-filter:hover {
+    &::after {
+      content: "\7b5b\9009";
+      font-size: 14px;
+      position: absolute;
+      right: -50px;
+      z-index: 2;
+      min-width: 30px;
+      line-height: 20px;
+      min-width: 30px;
+      min-height: 32px;
+      padding: 6px 8px;
+      color: #fff;
+      text-align: left;
+      text-decoration: none;
+      word-wrap: break-word;
+      background-color: rgba(0, 0, 0, 0.75);
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 15%);
+    }
+
+    &::before {
+      position: absolute;
+      z-index: 2;
+      left: 32px;
+      top: 15px;
+      display: block;
+      width: 0;
+      height: 0;
+      border: 3px solid transparent;
+      border-right-color: rgba(0, 0, 0, 0.75);
+      margin: auto;
+      content: '';
+      box-shadow: 3px 3px 7px rgb(0 0 0 / 7%);
+      pointer-events: auto;
+    }
+  }
+
+  .ant-table-bordered .ant-table-fixed-right table {
+    border-left: 0;
+  }
+
+  //设置最后一个拖拽元素的right:0解决留白问题 
+  .ant-table-fixed .ant-table-thead>tr>th {
     &:last-child {
       .table-draggable-handle {
         right: 0;
       }
     }
-}
+  }
 
-// 带有排序的表头划过
-.ant-table-thead > tr > th.ant-table-column-has-actions.ant-table-column-has-sorters:hover {
+  // 带有排序的表头划过
+  .ant-table-thead>tr>th.ant-table-column-has-actions.ant-table-column-has-sorters:hover {
     background: @y-color-gray-3;
-    // 表头划过，过滤图标的背景
-    .anticon-filter:hover {
-      background: @y-color-gray-4;
+
+    .anticon-filter {
+      background-color: transparent;
+
     }
   }
+
   // 正在排序的表头
-  .ant-table-thead > tr > th.ant-table-column-sort {
+  .ant-table-thead>tr>th.ant-table-column-sort {
     background: @y-color-gray-2;
   }
-  .ant-table-thead > tr > th,
-  .ant-table-tbody > td.ant-table-column-sort {
+
+  .ant-table-thead>tr>th,
+  .ant-table-tbody>td.ant-table-column-sort {
     background: @y-color-table-header;
     color: @y-color-text-regular;
   }
-  .ant-table-tbody > tr.ant-table-row-selected td,
-  .ant-table-tbody > tr.ant-table-row-selected td.ant-table-column-sort {
+
+  .ant-table-tbody>tr.ant-table-row-selected td,
+  .ant-table-tbody>tr.ant-table-row-selected td.ant-table-column-sort {
     background-color: @y-color-primary-light;
   }
-  .ant-table-bordered .ant-table-tbody > tr > td {
+
+  .ant-table-bordered .ant-table-tbody>tr>td {
     border-right: 1px solid @y-color-border-light;
   }
-  .ant-table-tbody > tr > td {
+
+  .ant-table-tbody>tr>td {
     background-color: @y-color-fill-bg-white;
     border-bottom: 1px solid @y-color-border-light;
   }
+
   // 排序列背景
 
-  .ant-table-tbody > tr > td.ant-table-column-sort,
-  .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td.ant-table-column-sort {
+  .ant-table-tbody>tr>td.ant-table-column-sort,
+  .ant-table-tbody>tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected)>td.ant-table-column-sort {
     background-color: @y-color-table-header;
   }
+
   // 选中表格行划过
 
-  .ant-table-thead > tr:hover.ant-table-row-selected > td,
-  .ant-table-tbody > tr:hover.ant-table-row-selected > td,
-  .ant-table-tbody > tr:hover.ant-table-row-selected > td.ant-table-column-sort {
+  .ant-table-thead>tr:hover.ant-table-row-selected>td,
+  .ant-table-tbody>tr:hover.ant-table-row-selected>td,
+  .ant-table-tbody>tr:hover.ant-table-row-selected>td.ant-table-column-sort {
     background-color: @y-color-primary-light-hover;
   }
+
   // 表格行划过
-  .ant-table-thead > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td, 
-  .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
-  .ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
-  .ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td,
-  .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td {
+  .ant-table-thead>tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected)>td,
+  .ant-table-tbody>tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected)>td,
+  .ant-table-tbody>tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected)>td,
+  .ant-table-thead>tr.ant-table-row-hover:not(.ant-table-expanded-row):not(.ant-table-row-selected)>td,
+  .ant-table-tbody>tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected)>td {
     background-color: @y-color-fill-hover;
   }
-  .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+
+  .ant-table-thead>tr>th,
+  .ant-table-tbody>tr>td {
     padding: @y-spacing-s;
     font-size: @y-font-size-m;
     line-height: 22px;
     position: relative;
-    &>.y-svg-icon{
+
+    &>.y-svg-icon {
       margin-left: 10px;
       vertical-align: middle;
       cursor: pointer;
       color: @y-color-text-secondary;
-      &:focus{
+
+      &:focus {
         outline: none;
       }
-      &:hover{
+
+      &:hover {
         color: #3158CC;
       }
     }
   }
 }
-  .y-model-table-container {
-    // .ant-table-fixed-left, .ant-table-fixed-right{
-    //   overflow: unset;
-    // }
-    .text-ellipsis {
-      display: inline-block;
-      line-height: 19px;
-      vertical-align: middle;
+
+.y-model-table-container {
+
+  //数据为0时隐藏滚动条高度
+  &[empty] {
+    .ant-table-body::-webkit-scrollbar {
+      height: 0 !important
     }
-    .y-table-header {
-      margin-bottom: @y-spacing-m;
+  }
+
+  .ant-table-row-cell-ellipsis {
+
+    &.ant-table-column-has-sorters,
+    &.ant-table-column-has-filters {
+      // 有排序和过滤的就不要hidden，避免悬浮的排序和过滤提示超出被隐藏
+      overflow: unset;
+    }
+  }
+
+  &.loose-height {
+
+    // 宽松高度
+    .ant-table .ant-table-tbody>tr>td {
+      padding: 16px;
+    }
+  }
+
+  &.compact-height {
+
+    // 紧凑高度
+    .ant-table .ant-table-tbody>tr>td {
+      padding: 8px;
+    }
+  }
+
+  // .ant-table-fixed-left, .ant-table-fixed-right{
+  //   overflow: unset;
+  // }
+  .text-ellipsis {
+    display: inline-block;
+    line-height: 19px;
+    vertical-align: middle;
+  }
+
+  .y-table-header {
+    margin-bottom: @y-spacing-m;
+    display: flex;
+    justify-content: space-between;
+
+    .right {
       display: flex;
-      justify-content: space-between;
-      .right {
-        display: flex;
-        .y-input-search-group {
-          width: auto;
-          .y-input {
-            width: @y-form-width-s;
-          }
-        }
-        .icon-btn-group {
-          display: flex;
-          .ant-btn-icon-only {
-            margin-left: @y-spacing-xs;
-          }
+
+      .y-input-search-group {
+        width: auto;
+
+        .y-input {
+          width: @y-form-width-s;
         }
       }
-    }
-    .y-table-footer {
-      background-color: @y-color-fill-bg-white;
-      display: flex;
-      padding-bottom: @y-spacing-m;
-      justify-content: space-between;
-      .left {
+
+      .icon-btn-group {
+        display: flex;
+
+        .ant-btn-icon-only {
+          margin-left: @y-spacing-xs;
+        }
+      }
+
+      .y-model-table-auto-complete {
+        width: 212px;
         display: flex;
         align-items: center;
-        padding-top: @y-spacing-m;
-        .select-text {
-          margin-right: @y-spacing-m;
+
+        .y-input-search-select {
+          margin-right: -1px;
+          z-index: unset;
+
+          .ant-select-selection {
+            border-radius: @y-radius-left;
+          }
+
+          &:hover {
+            z-index: 2;
+          }
         }
-        .y-action-button-group {
-          margin-right: @y-spacing-m;
+
+        .y-auto-complete[isSelect] {
+          border-radius: @y-radius-right;
         }
+      }
+
+    }
+  }
+
+  .y-table-footer {
+    background-color: @y-color-fill-bg-white;
+    display: flex;
+    padding-bottom: @y-spacing-m;
+    justify-content: space-between;
+
+    .left {
+      display: flex;
+      align-items: center;
+      padding-top: @y-spacing-m;
+
+      .select-text {
+        margin-right: @y-spacing-m;
+      }
+
+      .y-action-button-group {
+        margin-right: @y-spacing-m;
       }
     }
   }
+}

@@ -5,8 +5,9 @@
     v-bind="$attrs"
     :disabled="disabled"
     v-model="inValue"
-    v-if="!calculator && value !== false"
+    v-if="!controls || (!calculator && value !== false)"
     :class="widthSizeClass"
+    :notControl="!controls"
   >
     <!-- <slot /> -->
     <slot :name="slot" :slot="slot" v-for="(val, slot) in $scopedSlots" />
@@ -17,7 +18,8 @@
     v-on="$listeners"
     v-bind="$attrs"
     :disabled="disabled"
-    v-else-if="!calculator"
+    v-else-if="!controls || !calculator"
+    :notControl="!controls"
   >
     <!-- <slot /> -->
     <slot :name="slot" :class="widthSizeClass" :slot="slot" v-for="(val, slot) in $scopedSlots" />
@@ -106,6 +108,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    controls: {
+      type: Boolean,
+      default: true,
+    },
   },
   model: {
     prop: 'value',
@@ -123,13 +129,13 @@ export default {
   },
   computed: {
     inValue: {
-      get: function({ value, val }) {
+      get: function ({ value, val }) {
         if (value !== undefined) {
           return value;
         }
         return val;
       },
-      set: function(newValue) {
+      set: function (newValue) {
         this.$emit('update-value', newValue);
         this.val = newValue;
       },
@@ -172,8 +178,8 @@ export default {
       let min = this.$attrs.min ?? undefined;
       if (min !== undefined && this.inValue <= min) {
         this.inValue = min;
-        return;
       }
+      this.$emit('minus', this.inValue);
     },
     plus() {
       if (!this.inValue) {
@@ -184,8 +190,8 @@ export default {
       let max = this.$attrs.max ?? undefined;
       if (max !== undefined && this.inValue >= max) {
         this.inValue = max;
-        return;
       }
+      this.$emit('plus', this.inValue);
     },
   },
 };

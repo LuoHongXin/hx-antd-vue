@@ -21,8 +21,8 @@
         </div>
         <div>
         <div style="margin-bottom:24px" />
-        <p >点击按钮切换可用状态。</p>
-        <y-input-number :min="1" :max="10" :disabled="disabled" :default-value="3" />
+        <p>点击按钮切换可用状态。 precision 数值精度</p>
+        <y-input-number :precision="2" :min="1" :max="10" :disabled="disabled" :default-value="3" />
         <div style="marginTop:20px">
             <y-button type="primary" @click="disabled = !disabled">
               Toggle disabled
@@ -31,19 +31,21 @@
         </div>
         <div style="margin-bottom:24px" />
         <p >和原生的数字输入框一样，value 的精度由 step 的小数位数决定。</p>
-        <y-input-number  v-model="value" :min="0" :max="10" :step="0.1" @change="onChange" />
+        <y-input-number v-model="value" :min="0" :max="10" :step="0.1" @change="onChange" />
         <div style="margin-bottom:24px" />
         <p>计算器</p>
         <y-input-number size="small" calculator :min="0" :max="10" @change="onChange" />
         <div style="margin-bottom:24px" />
         <p>step 小数位数。</p>
-        <y-input-number disabled calculator :min="0" :max="10" :step="0.1" @change="onChange" />
+        <y-input-number calculator :min="0" :max="10" :step="0.1" @change="onChange" />
         <p>通过 formatter 格式化数字，以展示具有具体含义的数据，往往需要配合 parser 一起使用</p>
         <y-input-number
           calculator
           :formatter="value => `${value}%`"
           :parser="value => value.replace('%', '')"
         />
+        <p>controls 是否有控制按钮</p>
+        <y-input-number :controls="false" />
       </div>
       <!-- 代码展示 -->
       <pre class="line-numbers">
@@ -61,8 +63,8 @@
           <y-input-number size="small" :min="1" :max="100000" :default-value="3" @change="onChange" />
         </div>
         <div style="margin-bottom:24px" />
-        <p >点击按钮切换可用状态。</p>
-        <y-input-number :min="1" :max="10" :disabled="disabled" :default-value="3" />
+        <p>点击按钮切换可用状态。 precision 数值精度</p>
+        <y-input-number :precision="2" :min="1" :max="10" :disabled="disabled" :default-value="3" />
         <div style="marginTop:20px">
             <y-button type="primary" @click="disabled = !disabled">
               Toggle disabled
@@ -70,8 +72,8 @@
           </div>
         </div>
         <div style="margin-bottom:24px" />
-        <p >和原生的数字输入框一样，value 的精度由 step 的小数位数决定。</p>
-        <y-input-number :min="0" :max="10" :step="0.1" @change="onChange" />
+         <p >和原生的数字输入框一样，value 的精度由 step 的小数位数决定。</p>
+        <y-input-number v-model="value" :min="0" :max="10" :step="0.1" @change="onChange" />
         <div style="margin-bottom:24px" />
         <p >计算器</p>
         <y-input-number calculator :min="0" :max="10" @change="onChange" />
@@ -83,7 +85,9 @@
           calculator
           :formatter="value => ${v}"
           :parser="value => value.replace("%", "")"
-        />`'>
+        />
+        <p>controls 无控制按钮 权重最大</p>
+        <y-input-number controls />`'>
         </code>
       </pre>
       <pre class="line-numbers">

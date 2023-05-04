@@ -1,19 +1,79 @@
 @import "../variables/index.less";
-.y-input .ant-input:not([disabled]), .y-input.ant-input:not([disabled]),.y-input.ant-input-affix-wrapper:not([disabled]),.y-input-password .ant-input:not([disabled]), .y-input-password.ant-input-password:not([disabled]), .y-textarea .ant-input:not([disabled]), .y-textarea.a-textarea:not([disabled]),.y-textarea .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled),.y-textarea .ant-input-affix-wrapper.ant-input-affix-wrapper-textarea-with-clear-btn .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled){
-  border-radius: @y-radius-default;
-  &:focus {
-    border-color: @y-color-text-regular;
-    box-shadow: @y-shadow-active;
+.y-input .ant-input-affix-wrapper {
+  .ant-input-suffix {
+    > .anticon.anticon-close-circle.ant-input-clear-icon {
+      display: none;
+    }
   }
   &:hover {
-    border-color: @y-color-text-regular;
+    .ant-input:not(.ant-input-disabled) {
+      border-color:@y-color-border-dark-hover;
+      box-shadow: @y-shadow-active;
+    }
+    .ant-input-suffix {
+      > .anticon.anticon-close-circle.ant-input-clear-icon {
+        display: unset;
+      }
+    }
+  }
+  &:focus-within {
+    .ant-input-suffix {
+      > .anticon.anticon-close-circle.ant-input-clear-icon {
+        display: unset;
+      }
+    }
   }
 }
-.y-input.ant-input-affix-wrapper,.y-input-password.ant-input-password {
-  &:hover .ant-input:not([disabled]) {
-    border-color: @y-color-text-regular;
+.y-input .ant-input:not([disabled]), .y-input.ant-input:not([disabled]),.y-input.ant-input-affix-wrapper:not([disabled]),.y-input-password .ant-input:not([disabled]), .y-input-password.ant-input-password:not([disabled]), .y-textarea .ant-input:not([disabled]), .y-textarea.a-textarea:not([disabled]),.y-textarea .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled),.y-textarea .ant-input-affix-wrapper.ant-input-affix-wrapper-textarea-with-clear-btn .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled){
+  border-radius: @y-radius-default;
+  .ant-input-suffix {
+    > .anticon.anticon-close-circle.ant-input-clear-icon {
+      display: none;
+    }
   }
+  &:focus {
+    border-color:@y-color-border-dark-hover;
+    box-shadow: @y-shadow-active;
+    .ant-input-suffix {
+      > .anticon.anticon-close-circle.ant-input-clear-icon {
+        display: unset;
+      }
+    }
+  }
+  &:focus-within {
+    .ant-input-suffix {
+      > .anticon.anticon-close-circle.ant-input-clear-icon {
+        display: unset;
+      }
+    }
+  }
+  &:hover {
+    border-color:@y-color-border-dark-hover;
+    .ant-input-suffix {
+      > .anticon.anticon-close-circle.ant-input-clear-icon {
+        display: unset;
+      }
+    }
+  }
+  
+}
+.y-input.ant-input-affix-wrapper,.y-input-password.ant-input-password {
+  
+  &:hover {
+    .ant-input:not([disabled]) {
+      border-color:@y-color-border-dark-hover;
+    }
+    
+  }
+ 
 }
 .y-input.ant-input, .y-input .ant-input, .y-input.ant-input-affix-wrapper {
   border-radius: @y-radius-default;
+}
+.y-transfer .ant-transfer-list-body-search-wrapper .ant-input {
+  &:focus,
+  &:hover {
+    border-color:@y-color-border-dark-hover;
+    box-shadow: @y-shadow-active;
+  }
 }

@@ -51,6 +51,37 @@ export default {
       ],
       tableData: [
         {
+          params: 'selectCheck',
+          explain: '选中节点不会自动选中checked',
+          type: 'Boolean',
+          default: 'true',
+        },
+        {
+          params: 'tooltipMouseEnterDelay',
+          explain: "tooltip鼠标移入延迟时间",
+          type: "Number",
+          default: '0.5',
+        },
+         {
+          params: 'tooltipMouseLeaveDelay',
+          explain: "tooltip鼠标移出延迟时间",
+          type: "Number",
+          default: '0.1',
+        },
+        {
+          params: 'tooltipPlacement',
+          explain: "tooltip弹出位置支持值可查看tooltip用法",
+          type: String,
+          default: 'topLeft',
+        },
+        
+        {
+          params: 'tooltipMouseEnterDelay',
+          explain: "tooltip鼠标移入延迟时间",
+          type: "Number",
+          default: '0.5',
+        },
+        {
           params: 'noIconOperate',
           explain: '当设置右键操作时,设置为false则有有操作图标，为true则没有操作图标可直接右键触发',
           type: 'Boolean',

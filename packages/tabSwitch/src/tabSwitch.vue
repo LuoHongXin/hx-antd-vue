@@ -1,18 +1,17 @@
 <template>
-  <div class="y-tab-switch">
-    <a-tabs v-model="inValue">
-      <template v-if="$slots.default">
-        <slot></slot>
-      </template>
-      <template v-else>
-        <a-tab-pane
-          v-for="(item, index) in options"
-          :key="item.value || itemn.text || item.key || index"
-          :tab="item.text || item.value || item.key || index"
-        />
-      </template>
-    </a-tabs>
-  </div>
+  <a-tabs v-model="inValue" class="y-tab-switch">
+    <template v-if="$slots.default">
+      <slot></slot>
+    </template>
+    <template v-else>
+      <a-tab-pane
+        v-for="(item, index) in options"
+        :key="item.value || itemn.text || item.key || index"
+        :tab="item.text || item.value || item.key || index"
+        :disabled="item.disabled"
+      />
+    </template>
+  </a-tabs>
 </template>
 
 <script>

@@ -46,7 +46,11 @@
             >{{ item.text }}</y-button
           >
         </y-tips-button>
-        <y-dropdown v-if="omitType === 'ellipsis' && index === 0" :trigger="moreBtnTrigger" :getPopupContainer="getPopupContainer">
+        <y-dropdown
+          v-if="omitType === 'ellipsis' && index === 0"
+          :trigger="moreBtnTrigger"
+          :getPopupContainer="getProps('getPopupContainer')"
+        >
           <y-button type="default">
             <a-icon type="more" />
           </y-button>
@@ -76,7 +80,7 @@
         </y-dropdown>
         <!-- <span v-if="index + 1 !== activeButtonList.length" class="spacing"></span> -->
       </div>
-      <y-dropdown v-if="omitType === 'default'" :trigger="moreBtnTrigger" :getPopupContainer="getPopupContainer">
+      <y-dropdown v-if="omitType === 'default'" :trigger="moreBtnTrigger" :getPopupContainer="getProps('getPopupContainer')">
         <y-button type="default">
           {{ moreText }}
           <a-icon type="down" />
@@ -95,12 +99,12 @@
             :disabled="item.disable"
             :key="item.text"
           >
-            <a-tooltip :placement="item.tips.placement || 'top'" v-if="item.tips">
+            <y-tooltip :placement="item.tips.placement || 'top'" v-if="item.tips">
               <template slot="title">
                 <span>{{ item.tips.text || item.tips }}</span>
               </template>
               <span>{{ item.text }}</span>
-            </a-tooltip>
+            </y-tooltip>
             <span v-else>{{ item.text }}</span>
           </y-menu-item>
         </y-menu>
@@ -110,8 +114,10 @@
 </template>
 
 <script>
+import injectConfigMixins from '../../../src/utils/injectConfigMixins.js';
 export default {
   name: 'YButtonGroup',
+  mixins: [injectConfigMixins],
   props: {
     // 更多按钮的省略类型
     omitType: {
@@ -120,20 +126,20 @@ export default {
     },
     moreText: {
       type: String,
-      default: function() {
+      default: function () {
         return '更多';
       },
     },
     reversed: {
       type: Boolean,
-      default: function() {
+      default: function () {
         return false;
       },
     },
     // 所有按钮
     buttonList: {
       type: Array,
-      default: function() {
+      default: function () {
         return [
           // {
           //     text:"", // 按钮文字
@@ -149,30 +155,31 @@ export default {
     // 显示几个就用更多
     moreBtnNum: {
       type: Number,
-      default: function() {
+      default: function () {
         return 4;
       },
     },
     // 更多按钮触发事件
     moreBtnTrigger: {
       type: Array,
-      default: function() {
+      default: function () {
         return ['hover'];
       },
     },
+    getPopupContainer: {
+      type: Function,
+      default: (triggerNode) => triggerNode || document.body,
+    },
   },
   computed: {
-    activeButtonList: function({ buttonList }) {
-      const arr = buttonList.filter(item => {
+    activeButtonList: function ({ buttonList }) {
+      const arr = buttonList.filter((item) => {
         return item.show || item.show === undefined;
       });
       return arr;
     },
   },
   methods: {
-    getPopupContainer: triggerNode => {
-      return triggerNode || document.body;
-    },
     boolean(str) {
       return Boolean(str);
     },

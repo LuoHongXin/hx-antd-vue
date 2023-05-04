@@ -6,9 +6,7 @@
     <com-show>
       <div>
         <y-date-picker @change="onChange" v-model="value1">
-          <template slot="suffixIcon">
-            222
-          </template>
+          <template slot="suffixIcon"> 222 </template>
         </y-date-picker>
         <br />
         <y-date-picker @change="onChange" v-model="value1" disabled />

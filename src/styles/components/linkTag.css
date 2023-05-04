@@ -40,11 +40,7 @@
   background-image: none;
 }
 
-.y-link-tag .y-ul-is-disabled {
-  color: #ccc !important;
-}
-
-.y-link-tag .y-ul-is-disabled li:hover {
+.y-link-tag .y-ul-is-disabled li {
   color: #c0c4cc;
   cursor: not-allowed;
   background-image: none;

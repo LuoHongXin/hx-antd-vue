@@ -4,7 +4,10 @@
       <a-icon type="left" />
       <span>{{ $wci18n.t('wh.breadcrumb.back') }}</span>
     </div>
-    <a-breadcrumb class="y-breadcrumb" :separator="separator">
+    <a-breadcrumb class="y-breadcrumb" v-bind="$slots.separator ? {} : { separator }">
+      <template slot="separator">
+        <slot name="separator"></slot>
+      </template>
       <a-breadcrumb-item v-for="(item, index) in levelList2" :key="item.path">
         <template v-if="item.isEllips">
           <span @click="ellips = false">...</span>
@@ -36,34 +39,34 @@ export default {
   props: {
     separator: {
       type: String,
-      default: function() {
+      default: function () {
         return '/';
       },
     },
     // 自定义面包屑数据
     data: {
       type: Array,
-      default: function() {
+      default: function () {
         return null;
       },
     },
     // 超出指定数量显示省略
     ellipsNum: {
       type: Number,
-      default: function() {
+      default: function () {
         return 5;
       },
     },
     // 是否显示返回按钮
     back: {
       type: Boolean,
-      default: function() {
+      default: function () {
         return false;
       },
     },
   },
   computed: {
-    levelList2: function({ levelList, ellips, ellipsNum }) {
+    levelList2: function ({ levelList, ellips, ellipsNum }) {
       if (ellips && levelList.length > ellipsNum - 1) {
         // 需省略时，只有前面两个和后面两个显示
         let showIndex = [0, levelList.length - 1, levelList.length - 2];
@@ -89,6 +92,7 @@ export default {
         this.handleLink(backObj);
       } else {
         this.$router.back();
+        this.$emit('goRoute', {});
       }
     },
     // 根据所在应用的国际化进行翻译
@@ -103,13 +107,13 @@ export default {
         this.levelList = this.data;
       } else {
         // only show routes with meta.title
-        let matched = this.$route.matched.filter(item => item.meta && item.meta.title);
+        let matched = this.$route.matched.filter((item) => item.meta && item.meta.title);
         // const first = matched[0];
         // if (!this.isDashboard(first)) {
         //   matched = [{ path: '/dashboard', meta: { title: 'Dashboard' } }].concat(matched);
         // }
 
-        this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false);
+        this.levelList = matched.filter((item) => item.meta && item.meta.title && item.meta.breadcrumb !== false);
       }
       if (this.levelList.length > this.ellipsNum - 1) {
         this.ellips = true;
@@ -130,15 +134,39 @@ export default {
     },
     handleLink(item) {
       const { redirect, path, meta } = item;
+      const hasGoroute = this.$listeners.goRoute;
       if (meta.redirect) {
-        this.$router.push(meta.redirect);
+        this.$emit('goRoute', meta.redirect, item);
+        if (!hasGoroute) {
+          this.$router.push(meta.redirect);
+        }
         return;
       }
-      if (redirect && redirect.slice(0, 1) === '/') {
-        this.$router.push(redirect);
-        return;
+      const isObject = (v) => Object.prototype.toString.call(v) === '[object Object]';
+
+      if (redirect) {
+        if (isObject(redirect)) {
+          if (redirect.name || (redirect.path && redirect.path.slice(0, 1) === '/')) {
+            this.$emit('goRoute', redirect, item);
+            if (!hasGoroute) {
+              this.$router.push(redirect);
+            }
+          }
+          return;
+        }
+        if (redirect.slice(0, 1) === '/') {
+          this.$emit('goRoute', redirect, item);
+          if (!hasGoroute) {
+            this.$router.push(redirect);
+          }
+          return;
+        }
       }
-      this.$router.push(this.pathCompile(path));
+      const newPath = this.pathCompile(path);
+      this.$emit('goRoute', newPath, item);
+      if (!hasGoroute) {
+        this.$router.push(newPath);
+      }
     },
   },
 };

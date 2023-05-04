@@ -5,6 +5,21 @@
     <!-- 组件展示 -->
     <com-show>
       <y-tabs type="card">
+        <template #tabBarExtraContent>自定义右侧内容</template>
+        <y-tab-pane key="1" tab="Tab 1">
+          Content of Tab Pane 1
+        </y-tab-pane>
+        <y-tab-pane key="2" tab="Tab 2">
+          Content of Tab Pane 2
+        </y-tab-pane>
+        <y-tab-pane key="3" tab="Tab 3">
+          Content of Tab Pane 3
+        </y-tab-pane>
+      </y-tabs>
+    </com-show>
+    <!-- 组件展示2 -->
+    <com-show>
+      <y-tabs type="card">
         <y-tab-pane key="1" tab="Tab 1">
           Content of Tab Pane 1
         </y-tab-pane>

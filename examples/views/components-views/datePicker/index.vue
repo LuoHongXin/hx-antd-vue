@@ -4,7 +4,7 @@
     <title-detail title="DatePicker 日期选择框" detail="输入或选择日期的控件。" />
     <title-detail title="何时使用" detail="当用户需要输入一个日期，可以点击标准输入框，弹出日期面板进行选择。" />
     <!-- 组件展示 -->
-    <a-tabs type="card">
+    <a-tabs type="card" v-model="type">
       <a-tab-pane key="1" tab="DatePicker">
         <MyDatePicker />
       </a-tab-pane>
@@ -17,10 +17,15 @@
       <a-tab-pane key="4" tab="WeekPicker">
         <MyWeekPicker />
       </a-tab-pane>
+      <a-tab-pane key="5" tab="季度选择器">
+        <MyQuarterPicker />
+      </a-tab-pane>
     </a-tabs>
-    <h2>以下 API 为 DatePicker、MonthPicker、RangePicker, WeekPicker 共享的 API。</h2>
-    <api-table :data="tableData" title="共同 API"></api-table>
-    <api-table :data="tableDataFn" title="共同 事件"></api-table>
+    <template v-if="type !== '5'">
+      <h2>以下 API 为 DatePicker、MonthPicker、RangePicker, WeekPicker 共享的 API。</h2>
+      <api-table :data="tableData" title="共同 API"></api-table>
+      <api-table :data="tableDataFn" title="共同 事件"></api-table>
+    </template>
   </div>
 </template>
 
@@ -29,6 +34,7 @@ import MyDatePicker from './myDatePicker';
 import MyMonthPicker from './myMonthPicker';
 import MyRangePicker from './myRangePicker';
 import MyWeekPicker from './myWeekPicker';
+import MyQuarterPicker from './myQuarterPicker';
 export default {
   name: 'picker',
   components: {
@@ -36,9 +42,11 @@ export default {
     MyMonthPicker,
     MyRangePicker,
     MyWeekPicker,
+    MyQuarterPicker,
   },
   data() {
     return {
+      type: '1',
       tableData: [
         {
           params: 'autoWidth',

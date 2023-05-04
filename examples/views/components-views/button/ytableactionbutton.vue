@@ -80,7 +80,6 @@
 </template>
 <script>
 export default {
-  name: 'Ytableactionbutton',
   data() {
     return {
       buttonList: [

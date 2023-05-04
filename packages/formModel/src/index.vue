@@ -6,6 +6,13 @@
 <script>
 export default {
   name: 'YFormModel',
+  inheritAttrs: false,
+  props: {
+    failedValidScroll: {
+      type: Boolean,
+      default: true,
+    },
+  },
   provide() {
     return {
       yForm: this,
@@ -18,7 +25,15 @@ export default {
   },
   methods: {
     validate(callback) {
-      this.$refs.ruleForm.validate(callback);
+      this.$refs.ruleForm.validate((valid, data) => {
+        if (!valid && this.failedValidScroll) {
+          this.$refs.ruleForm.$el.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+          });
+        }
+        callback && callback(valid, data);
+      });
     },
     validateField(callback) {
       this.$refs.ruleForm.validateField(callback);

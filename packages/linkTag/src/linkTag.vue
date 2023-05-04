@@ -4,7 +4,7 @@
       <li
         class="y-tag-item"
         v-for="(item, index) in options"
-        :key="item.value"
+        :key="item[optionsKey]"
         :class="{ activeClass: item.checked, 'y-tag-is-disabled': item.disabled }"
         @click="changeTags(index)"
       >
@@ -44,7 +44,7 @@
           </g>
         </svg>
         <!-- <y-svg-icon icon-class="mark" class="y-link-tag-mark" v-if="item.checked"/> -->
-        <!-- <img src="@src/images/mark.png" alt="" srcset="" class="y-link-tag-mark" v-if="item.checked" /> -->
+        <!-- <img src="../../../src/images/mark.png" alt="" srcset="" class="y-link-tag-mark" v-if="item.checked" /> -->
         <slot v-if="item.slot" :name="item.slot" />
         <span v-else>
           {{ item.label }}
@@ -55,17 +55,26 @@
 </template>
 
 <script>
-import { oneOf } from '../../../src/utils/assist';
 export default {
   name: 'YLinkTag',
   model: {
-    prop: 'value',
+    prop: 'valueData',
     event: 'update-value',
   },
   props: {
-    value: {
+    optionsKey: {
+      type: String,
+      default: 'value',
+    },
+    valueData: {
       type: String,
       default: '',
+    },
+    arrDataModel: {
+      type: Array,
+      default: function () {
+        return null;
+      },
     },
     data: {
       type: Array,
@@ -73,16 +82,6 @@ export default {
         return [];
       },
     },
-    type: {
-      validator(value) {
-        return oneOf(value, ['default', 'custom']);
-      },
-      default: 'default',
-    },
-    // closable: {
-    //   type: Boolean,
-    //   default: true,
-    // },
     selectType: {
       //1:多选 2:单选 默认为多选
       type: Number,
@@ -96,25 +95,48 @@ export default {
   },
   data() {
     return {
-      options: this.data,
+      options: this.handleOptionsData(this.data),
     };
   },
   watch: {
-    value() {
+    arrDataModel: {
+      handler(val) {
+        if (val) {
+          this.$emit('update-value', val.join());
+        }
+      },
+      immediate: true,
+    },
+    valueData() {
       this.selectDefaultChange();
+    },
+    data(val) {
+      this.options = this.handleOptionsData(val);
     },
   },
   computed: {
-    myValue({ value }) {
-      return value ? value.split(',') : [];
+    myValue({ valueData }) {
+      return valueData ? valueData.split(',') : [];
     },
   },
   created() {
     if (this.options.length > 0) {
-      this.selectDefaultChange(this.options);
+      this.selectDefaultChange();
     }
   },
   methods: {
+    handleOptionsData(arr) {
+      return arr.map((i) => {
+        // 没有label默认用value作为label
+        return i.label
+          ? { ...i, checked: !!this.myValue?.includes(i.value) }
+          : {
+              ...i,
+              label: i.value,
+              checked: !!this.myValue?.includes(i.value),
+            };
+      });
+    },
     selectDefaultChange() {
       // 拿到父组件传入的value值
       // this.myValue.forEach((v) => {
@@ -155,6 +177,7 @@ export default {
           this.myValue.push(this.options[index].value);
           valueString = this.myValue.join(',');
           this.$emit('update-value', valueString);
+          this.$emit('update:arrDataModel', valueString.split(','));
           return;
         }
         // 去掉选中
@@ -166,6 +189,7 @@ export default {
           valueString = '';
         }
         this.$emit('update-value', valueString);
+        this.$emit('update:arrDataModel', valueString.split(','));
       }
       if (type === 2) {
         // 单选
@@ -181,6 +205,7 @@ export default {
         this.$set(this.options, index, obj);
         const valueString = this.options[index].value;
         this.$emit('update-value', valueString);
+        this.$emit('update:arrDataModel', valueString.split(','));
       }
     },
   },

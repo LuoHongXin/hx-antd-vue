@@ -1,57 +1,79 @@
 @import "../variables/index.less";
+
 .y-custom-tree {
+  
   .no-style {
     &>.ant-tree-node-content-wrapper {
       background-color: unset !important;
       cursor: auto;
-      color: @y-color-text-regular !important;
+      color: @y-color-text-regular  !important;
     }
   }
-  
+
   &[checkable] {
-     .ant-tree li {
-      .ant-tree-checkbox +.ant-tree-node-content-wrapper {
+    .ant-tree li {
+      .ant-tree-checkbox+.ant-tree-node-content-wrapper {
         width: calc(100% - 38px);
       }
-    } 
+    }
+
     .ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected {
       background-color: unset;
       color: @y-color-text-regular;
     }
+
     .ant-tree li span.ant-tree-checkbox {
       z-index: 1;
     }
   }
+
   // width: @y-form-width-s;
   width: 100%;
   position: relative;
+
   .ant-tree {
     .anticon-file {
       display: none;
     }
-    li{
+
+    li {
       .ant-tree-node-content-wrapper {
         width: calc(100% - 16px);
         padding: 0;
         overflow: hidden;
-        text-overflow: ellipsis; 
+        text-overflow: ellipsis;
         white-space: nowrap;
         vertical-align: middle
+      }
     }
+
+    .ant-tree-child-tree-open>li {
+      &:not(.ant-tree-treenode-switcher-open):before {
+        display: none;
+      }
     }
-    &.ant-tree-show-line li:not(:last-child) .ant-tree-switcher-noop::before {
-      position: absolute;
-      left: 12px;
-      width: 1px;
-      height: calc(200% - 22px);
-      margin: 22px 0 0;
-      border-left: 1px solid #fff;
-      content: ' ';
+
+    &.ant-tree-show-line li:not(:last-child) {
+      &::before {
+        height: 100%;
+      }
+
+      .ant-tree-switcher-noop::before {
+        position: absolute;
+        left: 12px;
+        width: 1px;
+        // height: calc(200% - 22px);
+        margin: 22px 0 0;
+        border-left: 1px solid #fff;
+        content: ' ';
+      }
     }
+
     // &.ant-tree-show-line li.ant-tree-treenode-switcher-close:not(:last-child)::before {
     //   content: none;
     // }
   }
+
   &.m {
     .ant-tree {
       .y-custom-tree-operate {
@@ -65,7 +87,8 @@
         transform: translateY(-50%);
         outline: none;
       }
-      li{
+
+      li {
         .ant-tree-node-content-wrapper {
           height: 32px;
           line-height: 32px;
@@ -74,6 +97,7 @@
       }
     }
   }
+
   &.s {
     .ant-tree {
       .y-custom-tree-operate {
@@ -87,7 +111,8 @@
         transform: translateY(-50%);
         outline: none;
       }
-      li{
+
+      li {
         .ant-tree-node-content-wrapper {
           height: 40px;
           line-height: 40px;
@@ -96,98 +121,127 @@
       }
     }
   }
-  
+
   .y-custom-tree-title {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow-wrap: break-word;
-  
+
   }
- 
-  .ant-tree-child-tree li{
+
+  .ant-tree-child-tree li {
     position: relative;
   }
- 
-  
+
+
 }
 
 .ant-tree li {
   padding: 2px 0 !important;
 }
+
 .operate-icon .ant-tree li .ant-tree-node-content-wrapper {
   padding-right: 32px;
 }
+
 .noIcon .ant-tree li .ant-tree-node-content-wrapper {
   padding-right: 0 !important;
 }
+
 .y-custom-tree {
   &:not([checkable]) .ant-tree .ant-tree-node-content-wrapper .ant-tree-node-selected {
-    background-color: @y-color-primary-light !important;
+    background-color: @y-color-primary-light  !important;
     color: @y-color-primary;
   }
-  .ant-tree .ant-tree-checkbox-checked + .ant-tree-node-content-wrapper {
-    color: @y-color-primary !important;
-    background-color: @y-color-primary-light !important;
+
+  .ant-tree .ant-tree-checkbox-checked+.ant-tree-node-content-wrapper {
+    color: @y-color-primary  !important;
+    background-color: @y-color-primary-light  !important;
   }
+
   .ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected {
     background-color: @y-color-primary-light;
   }
+
   .ant-tree .ant-tree-node-content-wrapper:not(.ant-tree-node-selected):hover {
     background-color: @y-color-fill-hover;
   }
+
   &[checkable] .ant-tree .ant-tree-node-content-wrapper:hover {
     background-color: @y-color-fill-hover;
   }
+
+  &[draggable] {
+    &.m .ant-tree li .ant-tree-node-content-wrapper[draggable] {
+      line-height: 30px;
+    }
+
+    &.s .ant-tree li .ant-tree-node-content-wrapper[draggable] {
+      line-height: 38px;
+    }
+  }
+
   .ant-dropdown-trigger {
     text-align: center;
     margin-right: 10px;
     border-radius: @y-radius-default;
   }
+
   .ant-tree .ant-tree-node-selected,
   .ant-tree .ant-tree-treenode-checkbox-checked {
     .y-custom-tree-operate:hover {
       background-color: @y-color-primary-border;
     }
+
     .y-svg-icon:hover {
       color: @y-color-primary;
     }
   }
+
   .ant-tree .y-custom-tree-operate:hover {
     background-color: @y-color-fill-hover-darker;
   }
+
   .ant-tree li span.ant-tree-switcher,
   .ant-tree li span .ant-tree-iconEle {
     width: 16px;
     height: 16px;
     line-height: 16px;
   }
+
   .ant-tree li.ant-tree-treenode-loading span.ant-tree-switcher.ant-tree-switcher_open .ant-tree-switcher-loading-icon,
   .ant-tree li.ant-tree-treenode-loading span.ant-tree-switcher.ant-tree-switcher_close .ant-tree-switcher-loading-icon {
     width: 16px;
     height: 16px;
   }
+
   .ant-tree li span.ant-tree-switcher,
   .ant-tree li span .ant-tree-iconEle {
     vertical-align: middle !important;
   }
+
   .ant-tree li span .ant-tree-iconEle .anticon,
   .ant-tree li span .ant-tree-iconEle .y-svg-icon,
   .ant-tree li span .ant-tree-iconEle img {
     vertical-align: unset !important;
   }
+
   .ant-tree li span .ant-tree-iconEle {
     margin-left: 4px;
   }
+
   .ant-tree-title {
     margin-left: 4px;
   }
-  .ant-tree li span[draggable],
-  .ant-tree li span[draggable='true'] {
-    border-top: none;
-    border-bottom: none;
-  }
+
+  // .ant-tree li span[draggable],
+  // .ant-tree li span[draggable='true'] {
+  //   border-top: none;
+  //   border-bottom: none;
+  // }
 }
+
 .tree-operate {
   box-sizing: content-box;
   width: 100%;
@@ -198,6 +252,7 @@
   transform: translateY(-50%);
   outline: none;
 }
+
 .disable-pointer-event {
   pointer-events: none;
 }
@@ -207,3 +262,4 @@
     padding: 0 !important;
   }
 }
+

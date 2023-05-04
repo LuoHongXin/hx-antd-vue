@@ -3,6 +3,24 @@ export default {
     return {
       tableData: [
         {
+          params: 'bottomClear',
+          explain: '是否显示底部的清空',
+          type: 'Boolean',
+          default: 'false',
+        },
+        {
+          params: 'searchType',
+          explain: '右上角搜索框类型',
+          type: 'string',
+          default: 'default, 可选择default | autoComplete',
+        },
+        {
+          params: 'bordered',
+          explain: '边框',
+          type: 'Boolean',
+          default: 'true',
+        },
+        {
           params: 'selectData(v-model)',
           explain: '选中的 row 数据',
           type: 'Array',
@@ -13,6 +31,24 @@ export default {
           type: 'Array',
         },
         {
+          params: 'columnDrag',
+          explain: '表格列是否支持拖拽，若是复杂表头，例如表头分组的情况，最好设置为false，避免表头undefined',
+          type: 'Boolean',
+          default: 'true',
+        },
+        {
+          params: 'paginationType',
+          explain: '分页类型，有默认的 normal、中等的 middle 迷你的 mini',
+          type: 'String',
+          default: 'normal',
+        },
+        {
+          params: 'paginationShow',
+          explain: '是否显示分页',
+          type: 'Boolean',
+          default: 'true',
+        },
+        {
           params: 'tableKey',
           explain: '现用于表格列设置保存时的标识，不写则默认用路由名作为表格标识',
           type: 'string',
@@ -21,6 +57,11 @@ export default {
           params: 'freshCallback',
           explain: '重置按钮的点击回调，若有传，表格不会主动请求，而需要在该回调里面开发自己调用请求',
           type: 'function',
+        },
+        {
+          params: 'columnSetCallback',
+          explain: '列设置回调，columnKeys为columns列的dataIndex值数组',
+          type: 'function(columnKeys)',
         },
         {
           params: 'rowSelection',
@@ -119,10 +160,23 @@ export default {
         },
         {
           params: 'extraParams',
-          explain: `额外的请求参数，在默认请求参数中添加其它额外的参数（参数值在传入时确定）`,
+          explain: `额外的请求参数，在默认请求参数中添加其它额外的参数（参数值在传入时确定）注意前端分页情况下该参数则为过滤条件`,
           type: 'Object',
           default: `null`,
         },
+        {
+          params: 'filterExtraParams',
+          explain: `前端分页情况下 额外的请求参数（extraParams）的过滤，例如extraParams= {name: '1'} 则filterExtraParams = {name: {onFilter: (text, record)=> record.name === text}}`,
+          type: 'Object',
+          default: `{}`,
+        },
+        {
+          params: 'checkFilterAll',
+          explain: `前端分页情况下过滤全选中是否展示全部数据（filters）`,
+          type: 'Boolean',
+          default: `false`,
+        },
+
         {
           params: 'fresh',
           explain: `是否需要表头右侧的刷新功能`,
@@ -172,10 +226,22 @@ export default {
           default: `null`,
         },
         {
+          params: 'downloadShow',
+          explain: `点击导出操作的按钮显示隐藏`,
+          type: 'Boolean',
+          default: `true`,
+        },
+        {
           params: 'filter',
           explain: `点击高级搜索按钮的回调`,
           type: 'Function',
           default: `null`,
+        },
+        {
+          params: 'filterShow',
+          explain: `点击高级搜索按钮显示隐藏`,
+          type: 'Boolean',
+          default: `true`,
         },
         {
           params: 'check',
@@ -249,6 +315,12 @@ export default {
         },
       ],
       tableData4: [
+        {
+          params: 'tips',
+          explain: `表头提示，注意别和自定义表头冲突`,
+          type: `string`,
+          default: ``,
+        },
         {
           params: 'columnSetTitle',
           explain: `自定义表头右上角列设置显示的名称`,
@@ -412,7 +484,7 @@ export default {
           default: ``,
         },
         {
-          params: 'disabled',
+          params: 'disable',
           explain: `按钮是否禁用，按钮默认选择数据才可点击，不选数据则被禁用`,
           type: 'Boolean',
           default: `false`,

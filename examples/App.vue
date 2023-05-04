@@ -1,8 +1,8 @@
 <template>
   <div id="app" style="height: 100%">
-    <a-config-provider :locale="locale">
+    <y-config-provider :locale="locale">
       <a-layout style="height: 100%">
-        <a-layout-sider style="height: 100%;overflow: auto;">
+        <a-layout-sider v-if="!$route.meta.hideMenu" style="height: 100%; overflow: auto">
           <h3 class="versionTitle">{{ packageInfo.version }}</h3>
           <a-menu :defaultOpenKeys="openKeys" v-model="selectdRoute" mode="inline">
             <template v-for="item in routes">
@@ -27,14 +27,14 @@
           @mouseleave.native="lottieMoveOut"
           v-if="lottieShow"
           class="myLottie"
-          style="position:absolute;bottom:0;right:0;"
+          style="position: absolute; bottom: 0; right: 0"
           :options="defaultOptions"
           :height="200"
           :width="200"
           @animCreated="handleAnimation"
         />
       </a-layout>
-    </a-config-provider>
+    </y-config-provider>
   </div>
 </template>
 
@@ -57,6 +57,7 @@ export default {
       animationSpeed: 1,
       lottieShow: true,
       anim: {},
+      drag: null,
     };
   },
   watch: {
@@ -80,17 +81,20 @@ export default {
   mounted() {
     this.initLottieMove();
   },
+  beforeDestroy() {
+    this.drag.relMove();
+  },
   methods: {
     routerLink(route) {
       this.$router.push({ name: route.name });
     },
     // 使Lottie可以移动
     initLottieMove() {
-      const drag = new dragClass({
+      this.drag = new dragClass({
         eventTarget: document.querySelector('.myLottie'),
         drageBox: `.myLottie`,
       });
-      drag.setMove();
+      this.drag.setMove();
     },
     handleAnimation: function(anim) {
       this.anim = anim;

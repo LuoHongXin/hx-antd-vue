@@ -71,7 +71,7 @@ export default {
         {
           params: 'placement',
           explain: '菜单弹出位置',
-          type: 'bottomLeft | bottom | bottomRight | topLeft | top | topRight',
+          type: 'bottomLeft | bottomCenter | bottomRight | topLeft | topCenter | topRight',
           default: 'bottomLeft',
         },
         {

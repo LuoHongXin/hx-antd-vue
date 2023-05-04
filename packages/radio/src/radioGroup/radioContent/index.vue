@@ -1,7 +1,14 @@
 <template>
   <span :class="classActive" :style="{ marginRight: radius }" @mouseenter="classHover = true" @mouseleave="classHover = false">
-    <a-radio :value="value" v-if="radio" :disabled="disabled" />
-    <a-radio-button class="y-radio-content" :value="value" :disabled="disabled" :style="radio ? '' : `padding: 5px 16px`">
+    <a-radio v-on="$listeners" v-bind="$attrs" :value="value" v-if="radio" :disabled="disabled" />
+    <a-radio-button
+      v-on="$listeners"
+      v-bind="$attrs"
+      class="y-radio-content"
+      :value="value"
+      :disabled="disabled"
+      :style="radio ? '' : `padding: 5px 16px`"
+    >
       <span class="y-radio-title">
         <slot />
       </span>

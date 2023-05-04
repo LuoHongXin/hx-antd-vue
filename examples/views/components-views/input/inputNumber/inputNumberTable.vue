@@ -9,6 +9,11 @@ export default {
   data() {
     return {
       tableDataInput: [
+        { params: 'precision', explain: '数值精度', type: 'number', default: '' },
+        { params: 'minus', explain: 'calculator 计数器的点击减回调', type: 'function', default: '' },
+        { params: 'plus', explain: 'calculator 计数器的点击加回调', type: 'function', default: '' },
+        { params: 'precision', explain: '数值精度', type: 'number', default: '' },
+        { params: 'controls', explain: '是否使用控制按钮', type: 'boolean', default: 'true' },
         { params: 'calculator', explain: '计算器模式', type: 'boolean', default: 'false' },
         {
           params: 'autoWidth',

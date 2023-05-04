@@ -1,6 +1,7 @@
 <template>
   <a-empty class="y-empty" v-on="$listeners" v-bind="$attrs">
-    <component v-if="noImage" :is="componentId" slot="image"></component>
+    <y-svg-icon style="width: 100%" v-if="noImage" :icon-class="componentId" slot="image"></y-svg-icon>
+    <!-- <component v-if="noImage" :is="componentId" slot="image"></component> -->
     <span slot="description" v-if="text && !this.$slots.description">{{ text }}</span>
     <slot slot="image" name="image" />
     <slot slot="description" name="description" />
@@ -8,34 +9,19 @@
   </a-empty>
 </template>
 <script>
-import networkError from './img/networkError.vue';
-import noAccess from './img/noAccess.vue';
-import noData from './img/noData.vue';
-import noMessage from './img/noMessage.vue';
-import noService from './img/noService.vue';
-import systemError from './img/systemError.vue';
 export default {
   name: 'YEmpty',
-  components: {
-    networkError,
-    noAccess,
-    noData,
-    noMessage,
-    noService,
-    systemError,
-  },
   props: {
     scene: {
       type: String,
-      default: function() {
+      default: function () {
         return null;
       },
     },
   },
   watch: {
     scene: {
-      handler: function(val) {
-        // console.log(this.$options.components, 8888);
+      handler: function (val) {
         if (val) {
           this.componentId = val;
           this.text = this.sceneMapText[val];
@@ -60,6 +46,8 @@ export default {
         noMessage: this.$wci18n.t('wh.empty.noMessage'),
         noService: this.$wci18n.t('wh.empty.noService'),
         systemError: this.$wci18n.t('wh.empty.systemError'),
+        dataLoading: this.$wci18n.t('wh.empty.dataLoading'),
+        canNotGet: this.$wci18n.t('wh.empty.canNotGet'),
       },
     };
   },

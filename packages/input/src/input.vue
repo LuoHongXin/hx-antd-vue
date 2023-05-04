@@ -1,5 +1,13 @@
 <template>
-  <a-input v-on="$listeners" v-bind="{ ...$attrs, ...params }" v-model="inValue" ref="input" class="y-input" :class="widthSizeClass">
+  <a-input
+    v-on="$listeners"
+    v-bind="{ ...$attrs, ...params }"
+    v-model="inValue"
+    :allowClear="allowClear"
+    ref="input"
+    class="y-input"
+    :class="widthSizeClass"
+  >
     <!-- <slot /> -->
     <slot :name="slot" :slot="slot" v-for="(val, slot) in $scopedSlots" />
     <template slot="prefix" v-if="passwordMode && !$scopedSlots.prefix">
@@ -7,9 +15,9 @@
         aria-label="icon: eye-invisible"
         tabindex="-1"
         class="anticon anticon-eye-invisible ant-input-password-icon"
-        style="cursor:default;"
+        style="cursor: default"
       >
-        <y-svg-icon icon-class="password" className="ant-input-prefix" style="width:14px;height:14px;" />
+        <y-svg-icon icon-class="password" className="ant-input-prefix" style="width: 14px; height: 14px" />
       </i>
     </template>
     <template slot="suffix" v-if="passwordMode && !$scopedSlots.suffix">
@@ -22,15 +30,17 @@
         <y-svg-icon
           :icon-class="params.type ? 'close_eyes' : 'eyes_visible'"
           className="ant-input-suffix"
-          style="width:14px;height:14px;fill: #C4C6CC;"
+          style="width: 14px; height: 14px; fill: #c4c6cc"
         />
       </i>
     </template>
   </a-input>
 </template>
 <script>
+import injectConfigMixins from '../../../src/utils/injectConfigMixins.js';
 export default {
   name: 'YInput',
+  mixins: [injectConfigMixins],
   inheritAttrs: false,
   props: {
     value: {
@@ -51,6 +61,14 @@ export default {
     autoWidth: {
       type: Boolean,
       default: false,
+    },
+    allowClear: {
+      type: Boolean,
+      default: true,
+    },
+    trim: {
+      type: Boolean,
+      default: true,
     },
   },
   model: {
@@ -75,15 +93,16 @@ export default {
   },
   computed: {
     inValue: {
-      get: function({ value, val }) {
+      get: function ({ value, val }) {
         if (value !== undefined) {
           return value;
         }
         return val;
       },
-      set: function(newValue) {
-        this.$emit('update-value', newValue);
-        this.val = newValue;
+      set: function (newValue) {
+        let val = this.getProps('trim') && !this.passwordMode ? newValue.trim() : newValue;
+        this.$emit('update-value', val);
+        this.val = val;
       },
     },
     widthSizeClass({ autoWidth, widthSize }) {

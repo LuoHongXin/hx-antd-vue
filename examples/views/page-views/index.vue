@@ -34,7 +34,7 @@
 import mixins from './mixins';
 import Prism from 'prismjs';
 export default {
-  name: 'PageViews',
+  name: 'YPageViews',
   mixins: [mixins],
   computed: {
     html: {

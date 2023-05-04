@@ -4,7 +4,7 @@ const theme = {
   warning: '#E69A29', // 功能主色
   success: '#55B825',
   error: '#D82F3A',
-  mode: 'dark', // 主题模式
+  mode: 'light', // 主题模式
   modeTheme: {
     dark: {
       'layout-body-background': '#f0f2f5',
@@ -91,7 +91,7 @@ function getFunctionalColors(mode) {
   };
 }
 
-function modifyVars(color) {
+function modifyVars(color, obj = {}) {
   const _color = color || theme.color;
   const palettes = getAntdColors(_color, theme.mode);
   const { success, warning, error } = getFunctionalColors(theme.mode);
@@ -134,6 +134,7 @@ function modifyVars(color) {
     'btn-danger-border': error[4],
     'btn-default-bg': '#FAFBFC',
     ...theme.modeTheme[theme.mode],
+    ...obj,
   };
 }
 

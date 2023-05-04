@@ -6,7 +6,7 @@
     v-on="$listeners"
     v-bind="$attrs"
     v-model="inValue"
-    :getPopupContainer="getPopupContainer"
+    :getPopupContainer="getProps('getPopupContainer')"
   >
     <template v-for="(val, key) in $slots" :slot="key">
       <slot :name="key"></slot>
@@ -17,13 +17,15 @@
   </a-time-picker>
 </template>
 <script>
+import injectConfigMixins from '../../../src/utils/injectConfigMixins.js';
 export default {
   name: 'YTimePicker',
+  mixins: [injectConfigMixins],
   props: {
     value: null,
     getPopupContainer: {
       type: Function,
-      default: trigger => trigger.parentNode || document.body,
+      default: (trigger) => trigger.parentNode || document.body,
     },
     widthSize: {
       type: String,

@@ -1,6 +1,8 @@
 <template>
   <a-tabs class="y-tabs" v-on="$listeners" v-model="activeKey2" v-bind="$attrs">
-    <slot></slot>
+    <template v-for="(val, key) in $slots" :slot="key">
+      <slot :name="key"></slot>
+    </template>
   </a-tabs>
 </template>
 <script>
@@ -30,7 +32,10 @@ export default {
   },
   computed: {
     activeKey2: {
-      get({ activeKey3 }) {
+      get({ activeKey3, activeKey }) {
+        if (activeKey) {
+          return activeKey;
+        }
         return activeKey3;
       },
       set(val) {

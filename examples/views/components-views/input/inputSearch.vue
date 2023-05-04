@@ -102,6 +102,7 @@ export default {
           default: 'm',
         },
         { params: 'allowClear', explain: '可以点击清除图标删除内容', type: 'boolean', default: 'false' },
+        { params: 'tooltipTitle', explain: '搜索按钮提示', type: 'string', default: 'undefined' },
         { params: 'placeholder', explain: '输入框默认文字', type: 'string' },
         { params: 'selectClassName', explain: 'select class类名' },
         { params: 'selectStyle', explain: 'select Style样式' },

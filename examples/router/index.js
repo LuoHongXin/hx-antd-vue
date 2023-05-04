@@ -41,6 +41,14 @@ const routes = [
     },
   },
   {
+    path: '/previewFile',
+    name: 'previewFile',
+    component: () => import(/*webpackChunkName:"previewFile"*/ '../views/previewFile/index.vue'),
+    meta: {
+      title: '文件预览',
+    },
+  },
+  {
     path: '/general',
     name: 'general',
     component: () => import(/*webpackChunkName:"general"*/ '../views/components-views'),
@@ -48,6 +56,14 @@ const routes = [
       title: '通用组件',
     },
     children: [
+      {
+        path: 'icon',
+        name: 'icon',
+        component: () => import(/*webpackChunkName:"icon"*/ '../views/components-views/icon/index'),
+        meta: {
+          title: 'icon 图标',
+        },
+      },
       {
         path: 'button',
         name: 'button',
@@ -133,6 +149,14 @@ const routes = [
         },
       },
       {
+        path: 'cascader',
+        name: 'cascader',
+        component: () => import(/*webpackChunkName:"cascader"*/ '../views/components-views/cascader'),
+        meta: {
+          title: 'Cascader 级联选择',
+        },
+      },
+      {
         path: 'form',
         name: 'form',
         component: () => import(/*webpackChunkName:"form"*/ '../views/components-views/form'),
@@ -170,6 +194,14 @@ const routes = [
         component: () => import(/*webpackChunkName:"checkbox"*/ '../views/components-views/checkbox'),
         meta: {
           title: 'Checkbox 多选框',
+        },
+      },
+      {
+        path: 'checkboxTag',
+        name: 'checkboxTag',
+        component: () => import(/*webpackChunkName:"checkboxTag"*/ '../views/components-views/checkboxTag'),
+        meta: {
+          title: 'checkboxTag(link-tag效果一致)',
         },
       },
       {
@@ -614,12 +646,20 @@ const routes = [
           title: 'ConfigProvider 全局配置',
         },
       },
+      // {
+      //   path: 'formMaking',
+      //   name: 'formMaking',
+      //   component: () => import(/*webpackChunkName:"formMaking "*/ '../views/formMaking'),
+      //   meta: {
+      //     title: '低代码表单设计器',
+      //   },
+      // },
       {
-        path: 'formMaking',
-        name: 'formMaking',
-        component: () => import(/*webpackChunkName:"formMaking "*/ '../views/formMaking'),
+        path: 'dragClassExample',
+        name: 'dragClassExample',
+        component: () => import(/*webpackChunkName:"dragClassExample "*/ '../views/dragClassExample/index.vue'),
         meta: {
-          title: '低代码表单设计器',
+          title: '拖拽类',
         },
       },
     ],
@@ -651,6 +691,9 @@ const routes = [
     path: '/MakingForm',
     name: 'MakingForm',
     component: () => import('../views/MakingForm'),
+    meta: {
+      hideMenu: true,
+    },
   },
   {
     path: '/Home',

@@ -27,17 +27,25 @@
       <y-text-link @click="openNew" type="light">文字链接</y-text-link>
       <y-text-link @click="openNew" icon type="light">文字链接</y-text-link>
     </com-show>
+    <!-- 代码展示 -->
+    <pre class="line-numbers">
+        <code class="language-html" v-text="`<y-text-link @click='openNew' type='light'>文字链接</y-text-link>
+        <y-text-link @click='openNew' icon type='light'>文字链接</y-text-link>`">
+        </code>
+    </pre>
     <funTitleDetail title="无下划线 link" detail="自定义使用矢量图标。type 为 link 不会有下划线"></funTitleDetail>
     <com-show>
       <y-text-link @click="openNew" icon="copy" type="link">文字链接</y-text-link>
       <br />
       <y-text-link @click="openNew" icon="copy" type="link"></y-text-link>
+      <y-text-link @click="openNew" antdIcon="edit" type="link"></y-text-link>
     </com-show>
     <!-- 代码展示 -->
     <pre class="line-numbers">
         <code class="language-html" v-text="`<y-text-link @click='openNew' icon='copy' type='link'>文字链接</y-text-link>
           <br />
-        <y-text-link @click='openNew' icon='copy' type='link'></y-text-link>`">
+        <y-text-link @click='openNew' icon='copy' type='link'></y-text-link>
+        <y-text-link @click='openNew' antdIcon='edit' type='link'></y-text-link>`">
         </code>
     </pre>
     <api-table :data="tableData"></api-table>
@@ -64,6 +72,12 @@ export default {
           explain: '是否显示固定图标（支持自定义图标）',
           type: 'Boolean | string',
           default: 'false',
+        },
+        {
+          params: 'antdIcon',
+          explain: '使用antd图标',
+          type: 'string',
+          default: '',
         },
       ],
     };

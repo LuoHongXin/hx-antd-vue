@@ -1,49 +1,77 @@
 @import "../variables/index.less";
+
 .y-select-ellipsis {
-  overflow: hidden;/*超出部分隐藏*/
-  text-overflow:ellipsis;/* 超出部分显示省略号 */
-  white-space: nowrap;/*规定段落中的文本不进行换行 */
+  overflow: hidden;
+  /*超出部分隐藏*/
+  text-overflow: ellipsis;
+  /* 超出部分显示省略号 */
+  white-space: nowrap;
+  /*规定段落中的文本不进行换行 */
 }
+
 .y-select.ant-select {
   .ant-select-selection {
     border-radius: @y-radius-default;
-    &:focus, &:active, &:hover {
-      border-color: @y-color-text-regular;
+
+    &:focus,
+    &:active,
+    &:hover {
+      border-color: @y-color-border-dark-hover;
       box-shadow: @y-shadow-active;
+    }
+
+    .ant-select-arrow {
+      pointer-events: none;
     }
   }
 }
-.y-select.ant-select-disabled .ant-select-selection:active, .y-select.ant-select-disabled .ant-select-selection:focus, .y-select.ant-select-disabled .ant-select-selection:hover {
+
+.y-select.ant-select-disabled .ant-select-selection:active,
+.y-select.ant-select-disabled .ant-select-selection:focus,
+.y-select.ant-select-disabled .ant-select-selection:hover {
   border-color: #d9d9d9;
   box-shadow: none;
 }
-.y-select.ant-select-open .ant-select-selection, .y-select.ant-select-focused .ant-select-selection {
-  border-color: @y-color-text-regular;
+
+.y-select.ant-select-open .ant-select-selection,
+.y-select.ant-select-focused .ant-select-selection {
+  border-color: @y-color-border-dark-hover;
   box-shadow: @y-shadow-active;
 }
+
 .y-select {
   .ant-select-dropdown-content .ant-select-dropdown-menu .ant-select-dropdown-menu-item-selected:not(.ant-select-dropdown-menu-item-disabled) {
     background-color: @y-color-error-light;
   }
+
+  .ant-select-dropdown-menu-item {
+    text-align: left;
+  }
+
   .ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled) {
     background-color: @y-color-fill-hover;
   }
 }
+
 .y-select-checkbox {
   .ant-select-tree {
     padding: 0;
   }
+
   .ant-select-tree li {
     display: flex;
     align-items: center;
     padding: 2px 13px 2px 16px;
     margin: 0;
+
     &:hover {
       background-color: @y-color-fill-hover;
     }
-    .ant-select-tree-switcher{
+
+    .ant-select-tree-switcher {
       display: none;
     }
+
     .ant-select-tree-node-content-wrapper:hover {
       background-color: transparent;
     }

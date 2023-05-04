@@ -1,13 +1,13 @@
 <template>
-  <a-config-provider>
+  <y-config-provider>
     <template #renderEmpty>
       <slot v-if="$slots.emptyScene" name="emptyScene"></slot>
       <y-empty :scene="emptyScene" v-else></y-empty>
     </template>
     <div
-      style="display:flex"
+      style="display: flex"
       @click="
-        e => {
+        (e) => {
           e.preventDefault();
           this.selectOpen = !this.selectOpen;
         }
@@ -27,10 +27,10 @@
         :open="selectOpen"
         @select="selectOpen = false"
         @blur="blurEvent"
-        :getPopupContainer="getPopupContainer"
+        :getPopupContainer="getProps('getPopupContainer')"
       >
         <div slot="dropdownRender" slot-scope="menu">
-          <div style="width:100%;padding:12px;">
+          <div style="width: 100%; padding: 12px">
             <y-input
               autoWidth
               ref="inputSearch"
@@ -44,11 +44,11 @@
             </y-input>
           </div>
           <v-nodes :vnodes="menu" />
-          <a-divider v-if="footer" style="margin: 4px 0;" />
-          <div style="padding: 4px 12px 12px;" @click="e => e.preventDefault()">
+          <a-divider v-if="footer" style="margin: 4px 0" />
+          <div style="padding: 4px 12px 12px" @click="(e) => e.preventDefault()">
             <template v-if="footer">
               <slot name="footer" v-if="$slots.footer"></slot>
-              <y-button style="width:100%;cursor:pointer" v-else @click="$emit('ok')">
+              <y-button style="width: 100%; cursor: pointer" v-else @click="$emit('ok')">
                 {{ okText }}
               </y-button>
             </template>
@@ -57,16 +57,18 @@
         <slot></slot>
       </a-select>
     </div>
-  </a-config-provider>
+  </y-config-provider>
 </template>
 
 <script>
+import injectConfigMixins from '../../../src/utils/injectConfigMixins.js';
 export default {
   name: 'YSearchSelect',
+  mixins: [injectConfigMixins],
   props: {
     getPopupContainer: {
       type: Function,
-      default: triggerNode => triggerNode.parentNode.parentNode || document.body,
+      default: (triggerNode) => triggerNode.parentNode.parentNode || document.body,
     },
     value: {
       type: [String, Number],

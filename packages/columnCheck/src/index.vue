@@ -24,7 +24,7 @@
           </div>
         </div>
         <div class="y-column-check-content-list right">
-          <dir class="title">{{ $wci18n.t('wh.columnCheck.allColumn') }} （{{ checkList.length }}）</dir>
+          <div class="title">{{ $wci18n.t('wh.columnCheck.allColumn') }} （{{ checkList.length }}）</div>
           <div class="list">
             <y-checkbox
               v-for="item in checkList"
@@ -38,7 +38,7 @@
           </div>
         </div>
       </div>
-      <div slot="footer" style="text-align:right">
+      <div slot="footer" style="text-align: right">
         <y-button @click="cancel"> {{ $wci18n.t('wh.columnCheck.cancel') }} </y-button>
         <y-button @click="reset"> {{ $wci18n.t('wh.columnCheck.reset') }} </y-button>
         <y-button type="primary" @click="confirm">
@@ -64,7 +64,7 @@ export default {
         const arr = [];
         const leftArr = []; // 左固定
         const rightArr = []; // 右固定
-        checkval.forEach(str => {
+        checkval.forEach((str) => {
           for (let index = 0; index < checkList.length; index++) {
             const item = checkList[index];
             if (item.value === str) {
@@ -82,7 +82,7 @@ export default {
         return [...leftArr, ...arr, ...rightArr];
       },
       set(val) {
-        this.checkval = val.map(i => i.value);
+        this.checkval = val.map((i) => i.value);
       },
     },
   },
@@ -96,21 +96,21 @@ export default {
     // 选中的值及其顺序
     checkvalue: {
       type: Array,
-      default: function() {
+      default: function () {
         return [];
       },
     },
     // 按钮图标
     icon: {
       type: String,
-      default: function() {
+      default: function () {
         return 'setting';
       },
     },
     // 全部可选数据，基本不变
     checkList: {
       type: Array,
-      default: function() {
+      default: function () {
         return [
           // {
           //   text: '', // 选项名
@@ -119,6 +119,11 @@ export default {
           // },
         ];
       },
+    },
+    // 保留多少数据不可取消勾选
+    keepCount: {
+      type: Number,
+      default: 1,
     },
   },
   watch: {
@@ -129,7 +134,7 @@ export default {
   created() {
     this.leftArr = []; // 左固定
     this.rightArr = []; // 右固定
-    this.checkList.forEach(item => {
+    this.checkList.forEach((item) => {
       if (item.fixed === 'left' || item.fixed === true) {
         this.leftArr.push(item);
       } else if (item.fixed === 'right') {
@@ -140,7 +145,8 @@ export default {
   methods: {
     // 删除已选列中的数据，取消已选
     cancelSelect(val) {
-      this.checkval = this.checkval.filter(i => i !== val);
+      if (this.checkval.length === this.keepCount) return;
+      this.checkval = this.checkval.filter((i) => i !== val);
     },
     // 判断是否选中
     isCheck(val) {

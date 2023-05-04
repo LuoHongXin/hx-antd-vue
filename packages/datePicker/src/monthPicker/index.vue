@@ -1,19 +1,28 @@
 <template>
-  <a-month-picker :class="widthSizeClass" class="y-month-picker" v-model="modelVal" v-on="$listeners" v-bind="$attrs">
+  <a-month-picker
+    :class="widthSizeClass"
+    class="y-month-picker"
+    v-model="modelVal"
+    v-on="$listeners"
+    v-bind="$attrs"
+    :allowClear="allowClear"
+  >
     <template v-for="(val, key) in $scopedSlots" :slot="key" slot-scope="bind">
       <slot :name="key" v-bind="bind"></slot>
     </template>
   </a-month-picker>
 </template>
 <script>
+import injectConfigMixins from '../../../../src/utils/injectConfigMixins.js';
 export default {
   name: 'YMonthPicker',
+  mixins: [injectConfigMixins],
   props: {
     defaultValue: {
-      type: [Object, Array],
+      type: null,
     },
     value: {
-      type: [Object, Array],
+      type: null,
       default: undefined,
     },
     widthSize: {
@@ -23,6 +32,10 @@ export default {
     autoWidth: {
       type: Boolean,
       default: false,
+    },
+    allowClear: {
+      type: Boolean,
+      default: true,
     },
   },
   model: {

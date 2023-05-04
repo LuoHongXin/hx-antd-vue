@@ -1,6 +1,6 @@
 // 基于 notification 的基础上再封装
 import { notification } from 'ant-design-vue';
-import colorVariables from '@src/styles/variables/index.less';
+import colorVariables from '../../src/styles/variables/index.less';
 const YNotification = {
   close: function(config) {
     notification.close(config);

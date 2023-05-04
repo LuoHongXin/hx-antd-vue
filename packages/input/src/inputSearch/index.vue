@@ -4,6 +4,7 @@
       class="y-input-search-select"
       v-if="selectOption"
       :disabled="disabled"
+      :allowClear="false"
       autoWidth
       v-model="selectValue1"
       @change="selectValueChange"
@@ -23,7 +24,20 @@
       :allowClear="allowClear"
     >
     </y-input>
+    <a-tooltip placement="top" v-if="tooltipTitle">
+      <template slot="title">
+        <span>{{ tooltipTitle }}</span>
+      </template>
+      <y-button
+        :size="size"
+        :disabled="disabled"
+        @click="callback('callbackInput')"
+        :icon="loading ? 'loading' : 'search'"
+        class="y-input-search-select-button"
+      />
+    </a-tooltip>
     <y-button
+      v-else
       :size="size"
       :disabled="disabled"
       @click="callback('callbackInput')"
@@ -40,6 +54,10 @@ export default {
     event: 'update-value',
   },
   props: {
+    tooltipTitle: {
+      type: String,
+      default: undefined,
+    },
     value: {
       type: [String, Number],
       default: undefined,
@@ -82,7 +100,7 @@ export default {
     },
     allowClear: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   methods: {
@@ -110,19 +128,19 @@ export default {
   },
   computed: {
     inValue: {
-      get: function({ value, inValue2 }) {
+      get: function ({ value, inValue2 }) {
         return value === undefined ? inValue2 : value;
       },
-      set: function(newValue) {
+      set: function (newValue) {
         this.$emit('update-value', newValue);
         this.inValue2 = newValue;
       },
     },
     selectValue1: {
-      get: function({ selectValue }) {
+      get: function ({ selectValue }) {
         return selectValue;
       },
-      set: function(newValue) {
+      set: function (newValue) {
         this.$emit('update:selectValue', newValue);
       },
     },

@@ -63,7 +63,7 @@
         <span slot="label">
           Nickname&nbsp;
           <y-tooltip title="What do you want others to call you?" :getPopupContainer="getPopupContainer">
-            <a-icon type="question-circle-o" />
+            <y-svg-icon icon-class="formTipsIcon" style="width:16px;height:16px" />
           </y-tooltip>
         </span>
         <y-input
@@ -281,7 +281,7 @@ export default {
           <span slot="label">
             Nickname&nbsp;
             <y-tooltip title="What do you want others to call you?" :getPopupContainer="getPopupContainer">
-              <a-icon type="question-circle-o" />
+             <y-svg-icon icon-class="formTipsIcon" style="width:16px;height:16px" />
             </y-tooltip>
           </span>
           <y-input

@@ -118,6 +118,11 @@ export default {
           explain: '新增标签回调函数',
           type: 'Function',
         },
+        {
+          params: 'close',
+          explain: '删除标签的回调函数',
+          type: 'Function(删除标签对象)',
+        },
       ],
     };
   },

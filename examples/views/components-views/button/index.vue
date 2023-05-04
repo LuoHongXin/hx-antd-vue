@@ -2,42 +2,42 @@
   <div>
     <a-tabs type="card">
       <a-tab-pane key="1" tab="按钮">
-        <Ybutton />
+        <YButtonView />
       </a-tab-pane>
       <a-tab-pane key="2" tab="表格列操作按钮">
-        <Ytableactionbutton />
+        <YtableactionbuttonView />
       </a-tab-pane>
       <a-tab-pane key="5" tab="操作按钮组">
-        <Ybuttongroup />
+        <YbuttongroupView />
       </a-tab-pane>
       <a-tab-pane key="3" tab="提示按钮">
-        <Ytipsbutton />
+        <YtipsbuttonView />
       </a-tab-pane>
       <a-tab-pane key="4" tab="下拉选择按钮">
-        <Ydropdownbutton />
+        <YdropdownbuttonView />
       </a-tab-pane>
       <a-tab-pane key="6" tab="表格列设置按钮">
-        <YcolumnCheck />
+        <YcolumnCheckView />
       </a-tab-pane>
     </a-tabs>
   </div>
 </template>
 <script>
-import Ybutton from './ybutton.vue';
-import Ytableactionbutton from './ytableactionbutton.vue';
-import Ytipsbutton from './Ytipsbutton.vue';
-import Ydropdownbutton from './ydropdownbutton.vue';
-import Ybuttongroup from './ybuttongroup.vue';
-import YcolumnCheck from './ycolumnCheck.vue';
+import YButtonView from './YButtonView.vue';
+import YtableactionbuttonView from './ytableactionbutton.vue';
+import YtipsbuttonView from './YtipsbuttonView.vue';
+import YdropdownbuttonView from './YdropdownbuttonView.vue';
+import YbuttongroupView from './YbuttongroupView.vue';
+import YcolumnCheckView from './YcolumnCheckView.vue';
 export default {
   name: 'mybutton',
   components: {
-    Ybutton,
-    Ytableactionbutton,
-    Ytipsbutton,
-    Ydropdownbutton,
-    Ybuttongroup,
-    YcolumnCheck,
+    YButtonView,
+    YtableactionbuttonView,
+    YtipsbuttonView,
+    YdropdownbuttonView,
+    YbuttongroupView,
+    YcolumnCheckView,
   },
 };
 </script>

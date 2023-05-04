@@ -1,5 +1,23 @@
 @import "../variables/index.less";
 .y-textarea {
+  .ant-input-affix-wrapper {
+    > .anticon.anticon-close-circle.ant-input-textarea-clear-icon {
+      display: none;
+    }
+    &:hover {
+      .ant-input:not(.ant-input-disabled) {
+        border-color:@y-color-border-dark-hover;
+       }
+      > .anticon.anticon-close-circle.ant-input-textarea-clear-icon {
+        display: unset;
+      }
+    }
+    &:focus-within {
+      > .anticon.anticon-close-circle.ant-input-textarea-clear-icon {
+        display: unset;
+      }
+    }
+  }
   position:relative;
   .text-num {
     position: absolute;

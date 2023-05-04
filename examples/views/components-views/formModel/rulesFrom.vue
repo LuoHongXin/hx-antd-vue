@@ -1,7 +1,16 @@
 <template>
   <com-show>
     <y-form-model ref="ruleForm" :model="form" :rules="rules" :label-col="labelCol" :wrapper-col="wrapperCol">
-      <y-form-model-item ref="name" label="Activity name" prop="name">
+      <y-form-model-item ref="name" prop="name">
+        <span slot="label">
+          Activity name&nbsp;
+          <y-tooltip>
+            <template slot="title">
+              What do you want others to call you?
+            </template>
+            <y-svg-icon icon-class="formTipsIcon" style="width:16px;height:16px" />
+          </y-tooltip>
+        </span>
         <y-input
           v-model="form.name"
           @blur="
@@ -12,10 +21,20 @@
         />
       </y-form-model-item>
       <y-form-model-item label="Activity zone" prop="region">
-        <y-select v-model="form.region" placeholder="please select your zone">
-          <y-select-option value="shanghai">Zone one</y-select-option>
-          <y-select-option value="beijing">Zone two</y-select-option>
-        </y-select>
+        <div style="display:flex">
+          <y-form-model-item prop="region">
+            <y-select v-model="form.region" placeholder="please select your zone">
+              <y-select-option value="shanghai">Zone one</y-select-option>
+              <y-select-option value="beijing">Zone two</y-select-option>
+            </y-select>
+          </y-form-model-item>
+          <y-form-model-item prop="region">
+            <y-select v-model="form.region" placeholder="please select your zone">
+              <y-select-option value="shanghai">Zone one</y-select-option>
+              <y-select-option value="beijing">Zone two</y-select-option>
+            </y-select>
+          </y-form-model-item>
+        </div>
       </y-form-model-item>
       <y-form-model-item label="Activity time" required prop="date1">
         <y-date-picker v-model="form.date1" show-time type="date" placeholder="Pick a date" style="width: 100%;" />
@@ -129,16 +148,25 @@ export default {
   data() {
     return {
       html: `<y-form-model ref="ruleForm" :model="form" :rules="rules" :label-col="labelCol" :wrapper-col="wrapperCol">
-        <y-form-model-item ref="name" label="Activity name" prop="name">
-          <y-input
-            v-model="form.name"
-            @blur="
-              () => {
-                $refs.name.onFieldBlur();
-              }
-            "
-          />
-        </y-form-model-item>
+           <y-form-model-item ref="name" prop="name">
+        <span slot="label">
+          Activity name&nbsp;
+          <y-tooltip>
+            <template slot="title">
+              What do you want others to call you?
+            </template>
+            <y-svg-icon icon-class="formTipsIcon" style="width:16px;height:16px" />
+          </y-tooltip>
+        </span>
+        <y-input
+          v-model="form.name"
+          @blur="
+            () => {
+              $refs.name.onFieldBlur();
+            }
+          "
+        />
+      </y-form-model-item>
         <y-form-model-item label="Activity zone" prop="region">
           <y-select v-model="form.region" placeholder="please select your zone">
             <y-select-option value="shanghai">Zone one</y-select-option>

@@ -34,7 +34,7 @@ export default {
   },
   created() {
     const _this = this;
-    setTimeout(function() {
+    setTimeout(function () {
       _this.editHtml = '<p>明天你是否会想起</p>';
     }, 3000);
   },

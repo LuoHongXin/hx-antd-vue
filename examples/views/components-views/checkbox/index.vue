@@ -142,6 +142,11 @@ export default {
           explain: '变化时回调函数',
           type: 'Function(checkedValue)',
         },
+        {
+          params: 'select',
+          explain: '变化时回调函数',
+          type: 'Function(event)',
+        },
       ],
       tableData5: [
         {

@@ -4,7 +4,7 @@
   </a-progress>
 </template>
 <script>
-import colorVariables from '@src/styles/variables/index.less';
+import colorVariables from '../../../src/styles/variables/index.less';
 export default {
   name: 'YProgress',
   props: {
